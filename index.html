@@ -13,16 +13,32 @@
     }
     h1 {
       font-size: 3em;
-      color: #00ffcc;
+      color: yellow;
     }
     .btn-container {
       margin: 30px auto;
       display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 15px;
+      flex-direction: column;
+      align-items: center;
+      gap: 25px;
     }
-    button {
+    .bewerbung-option {
+      background: #222;
+      padding: 20px;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 600px;
+    }
+    .bewerbung-option h2 {
+      color: #00ffcc;
+      margin-bottom: 10px;
+    }
+    .bewerbung-option p {
+      font-size: 14px;
+      color: #ccc;
+      margin-bottom: 15px;
+    }
+    .bewerbung-option button {
       padding: 10px 20px;
       font-size: 16px;
       background-color: #00ffcc;
@@ -61,11 +77,43 @@
   <p>Wähle deinen Bereich und sende eine Bewerbung ab!</p>
 
   <div class="btn-container">
-    <button onclick="showForm('Polizei')">Polizei</button>
-    <button onclick="showForm('Feuerwehr')">Feuerwehr</button>
-    <button onclick="showForm('Medizin')">Medizin</button>
-    <button onclick="showForm('Justiz')">Justiz</button>
-    <button onclick="showForm('Mechaniker')">Mechaniker</button>
+
+    <div class="bewerbung-option">
+      <h2>Head-Admin</h2>
+      <p>Ein Head-Admin steht direkt unter dem Gründer des Servers und sorgt für die Zusammenarbeit innerhalb des Teams. Außerdem ist er der Ansprechpartner bei Problemen für die Admin Ebene.</p>
+      <button onclick="showForm('Head-Admin')">Jetzt bewerben</button>
+    </div>
+
+    <div class="bewerbung-option">
+      <h2>Admin</h2>
+      <p>Ein Admin sorgt für die Sicherheit auf dem Server. Beispielsweise bei Hackern schreitet diese Person ein und bannt unerwünschte Spieler, welche sich nicht an Regeln halten oder den Spielspaß anderer gefährden.</p>
+      <button onclick="showForm('Admin')">Jetzt bewerben</button>
+    </div>
+
+    <div class="bewerbung-option">
+      <h2>Builder</h2>
+      <p>Ein Builder ist zum Bauen neuer Maps zuständig. Er legt viel Wert auf Optik, Design und Details.</p>
+      <button onclick="showForm('Builder')">Jetzt bewerben</button>
+    </div>
+
+    <div class="bewerbung-option">
+      <h2>Discord Supportleitung</h2>
+      <p>Eine Supportleitung ist über Discord aktiv, falls es Probleme oder Fragen zum Server gibt. Die Hauptaufgabe ist jedoch das Verwalten von Supportern innerhalb des Teams und ist somit deren Ansprechpartner.</p>
+      <button onclick="showForm('Discord Supportleitung')">Jetzt bewerben</button>
+    </div>
+
+    <div class="bewerbung-option">
+      <h2>Discord Supporter</h2>
+      <p>Ein Supporter ist über Discord aktiv und kümmert sich rund um Fragen oder sonstiges, was den Server betrifft. Er ist die engste Kontaktperson gegenüber anderen Spielern innerhalb des Teams.</p>
+      <button onclick="showForm('Discord Supporter')">Jetzt bewerben</button>
+    </div>
+
+    <div class="bewerbung-option">
+      <h2>Server-Tester</h2>
+      <p>Ein Tester prüft neue Minigames und Maps und bewertet diese gemeinsam mit anderen Testern auf Design, Fairness und Spielspaß.</p>
+      <button onclick="showForm('Server-Tester')">Jetzt bewerben</button>
+    </div>
+
   </div>
 
   <form id="bewerbungsForm" onsubmit="submitForm(event)">
@@ -89,6 +137,7 @@
       document.getElementById("formTitle").innerText = "Bewerbung für " + bereich;
       document.getElementById("bewerbungsForm").style.display = "flex";
       document.getElementById("submittedBox").style.display = "none";
+      document.getElementById("bewerbungsForm").scrollIntoView({ behavior: 'smooth' });
     }
 
     function submitForm(event) {
@@ -96,7 +145,7 @@
       const name = document.getElementById("name").value;
       const message = document.getElementById("message").value;
 
-      // Hier könntest du z. B. eine Discord-Webhook-Funktion einbauen
+      // Beispiel: Hier könntest du später eine Discord-Webhook-Integration einbauen
 
       document.getElementById("submittedBox").style.display = "block";
       document.getElementById("submittedInfo").innerText =
