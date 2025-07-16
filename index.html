@@ -74,6 +74,23 @@
       padding: 20px;
       border-radius: 10px;
     }
+
+    footer {
+      margin-top: 40px;
+      padding: 10px;
+      background-color: #111;
+      border-top: 1px solid #333;
+      font-size: 14px;
+    }
+
+    footer a {
+      color: #7289da;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
@@ -108,6 +125,14 @@
     <p><strong>Wir melden uns bei dir per Discord DM!</strong></p>
   </div>
 
+  <footer>
+    <p>
+      <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" alt="Discord Icon" width="20" style="vertical-align: middle; margin-right: 8px;">
+      Du hast Fragen oder brauchst Hilfe? 
+      <a href="https://discord.gg/44dJ3DHy4x" target="_blank">Tritt unserem Discord-Server bei</a>
+    </p>
+  </footer>
+
   <script>
     let selectedBereich = "";
 
@@ -129,7 +154,6 @@
 
       const fullMessage = `${name} hat sich für ${selectedBereich} beworben:\n\nAlter: ${age}\nErfahrung: ${experience}\nDiscord Name: ${discord}\n\n"${message}"`;
 
-      // EmailJS senden
       emailjs.send("service_kq26xjf", "template_j023kum", {
         bereich: selectedBereich,
         name: name,
