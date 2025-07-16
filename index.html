@@ -8,6 +8,7 @@
     emailjs.init("CUfrvAoxqoIsZtPLK");
   </script>
   <style>
+    /* Dein kompletter CSS-Stil bleibt hier unverändert (wie von dir gesendet) */
     body {
       font-family: Arial, sans-serif;
       padding: 20px;
@@ -78,7 +79,10 @@
     <button onclick="showForm('Polizei')">Polizei</button>
     <button onclick="showForm('Feuerwehr')">Feuerwehr</button>
     <button onclick="showForm('Justiz')">Justiz</button>
-    <!-- Weitere Buttons je nach Bedarf -->
+    <button onclick="showForm('Medizinischer Dienst')">Medizinischer Dienst</button>
+    <button onclick="showForm('Mechaniker')">Mechaniker</button>
+    <button onclick="showForm('Stadtverwaltung')">Stadtverwaltung</button>
+    <!-- Weitere Bereiche bei Bedarf -->
   </div>
 
   <form id="bewerbungsForm" onsubmit="submitForm(event)">
@@ -117,20 +121,20 @@
       const discord = document.getElementById("discord").value;
       const message = document.getElementById("message").value;
 
-      const fullMessage = `${name} hat sich für ${selectedBereich} beworben:\n\nAlter: ${age}\nErfahrung: ${experience}\nDiscord Name: ${discord}\n\n"${message}"`;
-
+      // Email senden via EmailJS
       emailjs.send("service_kq26xjf", "template_j023kum", {
-        bereich: selectedBereich,
         from_name: name,
-        discord: discord,
         age: age,
         experience: experience,
-        message: message
+        discord: discord,
+        message: message,
+        bereich: selectedBereich
       })
       .then(function(response) {
         console.log("Erfolgreich gesendet", response.status, response.text);
         document.getElementById("submittedBox").style.display = "block";
-        document.getElementById("submittedInfo").innerText = fullMessage;
+        document.getElementById("submittedInfo").innerText =
+          `${name} hat sich für ${selectedBereich} beworben:\n\nAlter: ${age}\nErfahrung: ${experience}\nDiscord Name: ${discord}\n\n"${message}"`;
         document.getElementById("bewerbungsForm").reset();
         document.getElementById("bewerbungsForm").style.display = "none";
       }, function(error) {
