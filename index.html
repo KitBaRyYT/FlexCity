@@ -3,87 +3,93 @@
 <head>
   <meta charset="UTF-8" />
   <title>Flex City Bewerbungen</title>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script>
+    emailjs.init("CUfrvAoxqoIsZtPLK");
+  </script>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #111;
-      color: #fff;
+      background-color: #1e1e1e;
+      color: white;
       text-align: center;
-      padding: 30px;
-    }
-    /* Flex-Container für Überschrift + Bild */
-    .header-container {
-      display: flex;
-      align-items: center; /* vertikal zentriert */
-      justify-content: center; /* horizontal zentriert */
-      gap: 15px;
-      margin-bottom: 10px;
-    }
-    h1 {
-      font-size: 3em;
-      color: yellow;
+      padding: 20px;
       margin: 0;
     }
-    .header-container img {
-      height: 60px;
-      width: auto;
-      user-select: none;
-    }
-    .btn-container {
-      margin: 30px auto;
+
+    .header-container {
       display: flex;
-      flex-direction: column;
       align-items: center;
-      gap: 25px;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 20px;
     }
-    .bewerbung-option {
-      background: #222;
-      padding: 20px;
-      border-radius: 12px;
-      width: 100%;
-      max-width: 600px;
+
+    .header-container img {
+      height: 80px;
     }
-    .bewerbung-option h2 {
-      color: #00ffcc;
-      margin-bottom: 10px;
+
+    .btn-container {
+      margin: 30px 0;
     }
-    .bewerbung-option p {
-      font-size: 14px;
-      color: #ccc;
-      margin-bottom: 15px;
-    }
-    .bewerbung-option button {
+
+    .btn-container button {
+      margin: 5px;
       padding: 10px 20px;
-      font-size: 16px;
-      background-color: #00ffcc;
-      color: #000;
+      background-color: #444;
+      color: white;
       border: none;
-      border-radius: 10px;
+      border-radius: 5px;
       cursor: pointer;
     }
-    form {
-      margin-top: 20px;
+
+    #bewerbungsForm {
       display: none;
       flex-direction: column;
       gap: 10px;
-      max-width: 400px;
-      margin-left: auto;
-      margin-right: auto;
+      max-width: 500px;
+      margin: 0 auto;
     }
-    input,
-    textarea {
+
+    input, textarea {
       padding: 10px;
-      border-radius: 8px;
       border: none;
-      font-size: 16px;
+      border-radius: 5px;
       width: 100%;
     }
+
+    button[type="submit"] {
+      background-color: #28a745;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
     .submitted {
       margin-top: 20px;
-      background: #222;
-      padding: 10px;
+      background-color: #222;
+      padding: 20px;
       border-radius: 10px;
-      white-space: pre-line;
+    }
+
+    footer {
+      margin-top: 40px;
+      padding: 10px;
+      background-color: #111;
+      border-top: 1px solid #333;
+      font-size: 14px;
+    }
+
+    footer a {
+      color: #7289da;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -92,90 +98,24 @@
     <h1>Flex City</h1>
     <img src="FlexCityTrans.png" alt="Flex City Logo" />
   </div>
+
   <p>Wähle deinen Bereich und sende eine Bewerbung ab!</p>
 
   <div class="btn-container">
-    <div class="bewerbung-option">
-      <h2>Head-Admin</h2>
-      <p>
-        Ein Head-Admin steht direkt unter dem Gründer des Servers und sorgt
-        für die Zusammenarbeit innerhalb des Teams. Außerdem ist er der
-        Ansprechpartner bei Problemen für die Admin Ebene.
-      </p>
-      <button onclick="showForm('Head-Admin')">Jetzt bewerben</button>
-    </div>
-
-    <div class="bewerbung-option">
-      <h2>Admin</h2>
-      <p>
-        Ein Admin sorgt für die Sicherheit auf dem Server. Beispielsweise bei
-        Hackern schreitet diese Person ein und bannt unerwünschte Spieler,
-        welche sich nicht an Regeln halten oder den Spielspaß anderer
-        gefährden.
-      </p>
-      <button onclick="showForm('Admin')">Jetzt bewerben</button>
-    </div>
-
-    <div class="bewerbung-option">
-      <h2>Builder</h2>
-      <p>
-        Ein Builder ist zum Bauen neuer Maps zuständig. Er legt viel Wert auf
-        Optik, Design und Details.
-      </p>
-      <button onclick="showForm('Builder')">Jetzt bewerben</button>
-    </div>
-
-    <div class="bewerbung-option">
-      <h2>Discord Supportleitung</h2>
-      <p>
-        Eine Supportleitung ist über Discord aktiv, falls es Probleme oder
-        Fragen zum Server gibt. Die Hauptaufgabe ist jedoch das Verwalten von
-        Supportern innerhalb des Teams und ist somit deren Ansprechpartner.
-      </p>
-      <button onclick="showForm('Discord Supportleitung')">
-        Jetzt bewerben
-      </button>
-    </div>
-
-    <div class="bewerbung-option">
-      <h2>Discord Supporter</h2>
-      <p>
-        Ein Supporter ist über Discord aktiv und kümmert sich rund um Fragen
-        oder sonstiges, was den Server betrifft. Er ist die engste Kontaktperson
-        gegenüber anderen Spielern innerhalb des Teams.
-      </p>
-      <button onclick="showForm('Discord Supporter')">Jetzt bewerben</button>
-    </div>
-
-    <div class="bewerbung-option">
-      <h2>Server-Tester</h2>
-      <p>
-        Ein Tester prüft neue Minigames und Maps und bewertet diese gemeinsam
-        mit anderen Testern auf Design, Fairness und Spielspaß.
-      </p>
-      <button onclick="showForm('Server-Tester')">Jetzt bewerben</button>
-    </div>
+    <button onclick="showForm('Polizei')">Polizei</button>
+    <button onclick="showForm('Medizin')">Medizin</button>
+    <button onclick="showForm('Mechaniker')">Mechaniker</button>
+    <button onclick="showForm('Justiz')">Justiz</button>
+    <button onclick="showForm('Sonstiges')">Sonstiges</button>
   </div>
 
   <form id="bewerbungsForm" onsubmit="submitForm(event)">
     <h2 id="formTitle">Bewerbung</h2>
     <input type="text" id="name" placeholder="Dein Name" required />
-    <input
-      type="number"
-      id="age"
-      placeholder="Dein Alter"
-      required
-      min="10"
-      max="100"
-    />
+    <input type="number" id="age" placeholder="Dein Alter" required min="10" max="100" />
     <input type="text" id="experience" placeholder="Deine Erfahrung" required />
     <input type="text" id="discord" placeholder="Dein Discord Name" required />
-    <textarea
-      id="message"
-      rows="5"
-      placeholder="Warum möchtest du in diesem Bereich arbeiten?"
-      required
-    ></textarea>
+    <textarea id="message" rows="5" placeholder="Warum möchtest du in diesem Bereich arbeiten?" required></textarea>
     <button type="submit">Absenden</button>
   </form>
 
@@ -184,6 +124,14 @@
     <p id="submittedInfo"></p>
     <p><strong>Wir melden uns bei dir per Discord DM!</strong></p>
   </div>
+
+  <footer>
+    <p>
+      <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" alt="Discord Icon" width="20" style="vertical-align: middle; margin-right: 8px;">
+      Du hast Fragen oder brauchst Hilfe? 
+      <a href="https://discord.gg/44dJ3DHy4x" target="_blank">Tritt unserem Discord-Server bei</a>
+    </p>
+  </footer>
 
   <script>
     let selectedBereich = "";
@@ -206,11 +154,25 @@
 
       const fullMessage = `${name} hat sich für ${selectedBereich} beworben:\n\nAlter: ${age}\nErfahrung: ${experience}\nDiscord Name: ${discord}\n\n"${message}"`;
 
-      document.getElementById("submittedBox").style.display = "block";
-      document.getElementById("submittedInfo").innerText = fullMessage;
-
-      document.getElementById("bewerbungsForm").reset();
-      document.getElementById("bewerbungsForm").style.display = "none";
+      emailjs.send("service_kq26xjf", "template_j023kum", {
+        bereich: selectedBereich,
+        name: name,
+        alter: age,
+        erfahrung: experience,
+        discord: discord,
+        nachricht: message,
+        gesamt: fullMessage
+      })
+      .then(function(response) {
+        console.log("Erfolgreich gesendet", response.status, response.text);
+        document.getElementById("submittedBox").style.display = "block";
+        document.getElementById("submittedInfo").innerText = fullMessage;
+        document.getElementById("bewerbungsForm").reset();
+        document.getElementById("bewerbungsForm").style.display = "none";
+      }, function(error) {
+        console.error("Fehler beim Senden", error);
+        alert("Fehler beim Senden der Bewerbung. Bitte versuche es erneut.");
+      });
     }
   </script>
 </body>
