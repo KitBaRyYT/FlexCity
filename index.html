@@ -59,20 +59,22 @@
       const discord = document.getElementById("discord").value;
       const message = document.getElementById("message").value;
 
-      // EmailJS senden – angepasst auf Template mit from_name, age, experience, discord, message, bereich
+      const fullMessage = ${name} hat sich für ${selectedBereich} beworben:\n\nAlter: ${age}\nErfahrung: ${experience}\nDiscord Name: ${discord}\n\n"${message}";
+
+      // EmailJS senden
       emailjs.send("service_kq26xjf", "template_j023kum", {
-        from_name: name,
-        age: age,
-        experience: experience,
+        bereich: selectedBereich,
+        name: name,
+        alter: age,
+        erfahrung: experience,
         discord: discord,
-        message: message,
-        bereich: selectedBereich
+        nachricht: message,
+        gesamt: fullMessage
       })
       .then(function(response) {
         console.log("Erfolgreich gesendet", response.status, response.text);
         document.getElementById("submittedBox").style.display = "block";
-        document.getElementById("submittedInfo").innerText =
-          `${name} hat sich für ${selectedBereich} beworben:\n\nAlter: ${age}\nErfahrung: ${experience}\nDiscord Name: ${discord}\n\n"${message}"`;
+        document.getElementById("submittedInfo").innerText = fullMessage;
         document.getElementById("bewerbungsForm").reset();
         document.getElementById("bewerbungsForm").style.display = "none";
       }, function(error) {
