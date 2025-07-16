@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Flex City Bewerbungen</title>
   <style>
     body {
@@ -70,7 +70,8 @@
       margin-left: auto;
       margin-right: auto;
     }
-    input, textarea {
+    input,
+    textarea {
       padding: 10px;
       border-radius: 8px;
       border: none;
@@ -82,68 +83,106 @@
       background: #222;
       padding: 10px;
       border-radius: 10px;
+      white-space: pre-line;
     }
   </style>
 </head>
 <body>
-
   <div class="header-container">
     <h1>Flex City</h1>
-    <img src="FlexCityTrans.png" alt="Flex City Logo">
+    <img src="FlexCityTrans.png" alt="Flex City Logo" />
   </div>
   <p>Wähle deinen Bereich und sende eine Bewerbung ab!</p>
 
   <div class="btn-container">
-
     <div class="bewerbung-option">
       <h2>Head-Admin</h2>
-      <p>Ein Head-Admin steht direkt unter dem Gründer des Servers und sorgt für die Zusammenarbeit innerhalb des Teams. Außerdem ist er der Ansprechpartner bei Problemen für die Admin Ebene.</p>
+      <p>
+        Ein Head-Admin steht direkt unter dem Gründer des Servers und sorgt
+        für die Zusammenarbeit innerhalb des Teams. Außerdem ist er der
+        Ansprechpartner bei Problemen für die Admin Ebene.
+      </p>
       <button onclick="showForm('Head-Admin')">Jetzt bewerben</button>
     </div>
 
     <div class="bewerbung-option">
       <h2>Admin</h2>
-      <p>Ein Admin sorgt für die Sicherheit auf dem Server. Beispielsweise bei Hackern schreitet diese Person ein und bannt unerwünschte Spieler, welche sich nicht an Regeln halten oder den Spielspaß anderer gefährden.</p>
+      <p>
+        Ein Admin sorgt für die Sicherheit auf dem Server. Beispielsweise bei
+        Hackern schreitet diese Person ein und bannt unerwünschte Spieler,
+        welche sich nicht an Regeln halten oder den Spielspaß anderer
+        gefährden.
+      </p>
       <button onclick="showForm('Admin')">Jetzt bewerben</button>
     </div>
 
     <div class="bewerbung-option">
       <h2>Builder</h2>
-      <p>Ein Builder ist zum Bauen neuer Maps zuständig. Er legt viel Wert auf Optik, Design und Details.</p>
+      <p>
+        Ein Builder ist zum Bauen neuer Maps zuständig. Er legt viel Wert auf
+        Optik, Design und Details.
+      </p>
       <button onclick="showForm('Builder')">Jetzt bewerben</button>
     </div>
 
     <div class="bewerbung-option">
       <h2>Discord Supportleitung</h2>
-      <p>Eine Supportleitung ist über Discord aktiv, falls es Probleme oder Fragen zum Server gibt. Die Hauptaufgabe ist jedoch das Verwalten von Supportern innerhalb des Teams und ist somit deren Ansprechpartner.</p>
-      <button onclick="showForm('Discord Supportleitung')">Jetzt bewerben</button>
+      <p>
+        Eine Supportleitung ist über Discord aktiv, falls es Probleme oder
+        Fragen zum Server gibt. Die Hauptaufgabe ist jedoch das Verwalten von
+        Supportern innerhalb des Teams und ist somit deren Ansprechpartner.
+      </p>
+      <button onclick="showForm('Discord Supportleitung')">
+        Jetzt bewerben
+      </button>
     </div>
 
     <div class="bewerbung-option">
       <h2>Discord Supporter</h2>
-      <p>Ein Supporter ist über Discord aktiv und kümmert sich rund um Fragen oder sonstiges, was den Server betrifft. Er ist die engste Kontaktperson gegenüber anderen Spielern innerhalb des Teams.</p>
+      <p>
+        Ein Supporter ist über Discord aktiv und kümmert sich rund um Fragen
+        oder sonstiges, was den Server betrifft. Er ist die engste Kontaktperson
+        gegenüber anderen Spielern innerhalb des Teams.
+      </p>
       <button onclick="showForm('Discord Supporter')">Jetzt bewerben</button>
     </div>
 
     <div class="bewerbung-option">
       <h2>Server-Tester</h2>
-      <p>Ein Tester prüft neue Minigames und Maps und bewertet diese gemeinsam mit anderen Testern auf Design, Fairness und Spielspaß.</p>
+      <p>
+        Ein Tester prüft neue Minigames und Maps und bewertet diese gemeinsam
+        mit anderen Testern auf Design, Fairness und Spielspaß.
+      </p>
       <button onclick="showForm('Server-Tester')">Jetzt bewerben</button>
     </div>
-
   </div>
 
   <form id="bewerbungsForm" onsubmit="submitForm(event)">
     <h2 id="formTitle">Bewerbung</h2>
-    <input type="text" id="name" placeholder="Dein Name" required>
-    <textarea id="message" rows="5" placeholder="Warum möchtest du in diesem Bereich arbeiten?" required></textarea>
+    <input type="text" id="name" placeholder="Dein Name" required />
+    <input
+      type="number"
+      id="age"
+      placeholder="Dein Alter"
+      required
+      min="10"
+      max="100"
+    />
+    <input type="text" id="experience" placeholder="Deine Erfahrung" required />
+    <input type="text" id="discord" placeholder="Dein Discord Name" required />
+    <textarea
+      id="message"
+      rows="5"
+      placeholder="Warum möchtest du in diesem Bereich arbeiten?"
+      required
+    ></textarea>
     <button type="submit">Absenden</button>
   </form>
 
   <div class="submitted" id="submittedBox" style="display: none;">
     <h3>Vielen Dank für deine Bewerbung!</h3>
     <p id="submittedInfo"></p>
-    <p><strong>Wir melden uns bei dir!</strong></p>
+    <p><strong>Wir melden uns bei dir per Discord DM!</strong></p>
   </div>
 
   <script>
@@ -154,24 +193,25 @@
       document.getElementById("formTitle").innerText = "Bewerbung für " + bereich;
       document.getElementById("bewerbungsForm").style.display = "flex";
       document.getElementById("submittedBox").style.display = "none";
-      document.getElementById("bewerbungsForm").scrollIntoView({ behavior: 'smooth' });
+      document.getElementById("bewerbungsForm").scrollIntoView({ behavior: "smooth" });
     }
 
     function submitForm(event) {
       event.preventDefault();
       const name = document.getElementById("name").value;
+      const age = document.getElementById("age").value;
+      const experience = document.getElementById("experience").value;
+      const discord = document.getElementById("discord").value;
       const message = document.getElementById("message").value;
 
-      // Beispiel: Hier könntest du später eine Discord-Webhook-Integration einbauen
+      const fullMessage = `${name} hat sich für ${selectedBereich} beworben:\n\nAlter: ${age}\nErfahrung: ${experience}\nDiscord Name: ${discord}\n\n"${message}"`;
 
       document.getElementById("submittedBox").style.display = "block";
-      document.getElementById("submittedInfo").innerText =
-        `${name} hat sich für ${selectedBereich} beworben:\n"${message}"`;
+      document.getElementById("submittedInfo").innerText = fullMessage;
 
       document.getElementById("bewerbungsForm").reset();
       document.getElementById("bewerbungsForm").style.display = "none";
     }
   </script>
-
 </body>
 </html>
