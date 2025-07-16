@@ -11,9 +11,23 @@
       text-align: center;
       padding: 30px;
     }
+    /* Flex-Container für Überschrift + Bild */
+    .header-container {
+      display: flex;
+      align-items: center; /* vertikal zentriert */
+      justify-content: center; /* horizontal zentriert */
+      gap: 15px;
+      margin-bottom: 10px;
+    }
     h1 {
       font-size: 3em;
       color: yellow;
+      margin: 0;
+    }
+    .header-container img {
+      height: 60px;
+      width: auto;
+      user-select: none;
     }
     .btn-container {
       margin: 30px auto;
@@ -73,7 +87,10 @@
 </head>
 <body>
 
-  <h1>Flex City</h1>
+  <div class="header-container">
+    <h1>Flex City</h1>
+    <img src="FlexCityTrans.png" alt="Flex City Logo">
+  </div>
   <p>Wähle deinen Bereich und sende eine Bewerbung ab!</p>
 
   <div class="btn-container">
