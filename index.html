@@ -8,22 +8,107 @@
     emailjs.init("CUfrvAoxqoIsZtPLK");
   </script>
   <style>
-    /* Dein kompletter CSS-Stil bleibt hier unverändert (wie von dir gesendet) */
-    /* ... */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #1e1e1e;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin: 0;
+    }
+
+    .header-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .header-container img {
+      height: 100px;
+      margin-top: 10px;
+    }
+
+    .intro-text {
+      font-size: 24px;
+      margin-top: 20px;
+    }
+
+    .intro-text a {
+      color: #3498db;
+      text-decoration: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .intro-text a:hover {
+      text-decoration: underline;
+    }
+
+    #bewerbungsForm {
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 500px;
+      margin: 40px auto;
+    }
+
+    input, textarea {
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      width: 100%;
+    }
+
+    button[type="submit"] {
+      background-color: #28a745;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .submitted {
+      margin-top: 20px;
+      background-color: #222;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    footer {
+      margin-top: 40px;
+      padding: 10px;
+      background-color: #111;
+      border-top: 1px solid #333;
+      font-size: 14px;
+    }
+
+    footer a {
+      color: #7289da;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
+
+  <!-- Header -->
   <div class="header-container">
     <h1>Flex City</h1>
     <img src="FlexCityTrans.png" alt="Flex City Logo" />
   </div>
-  <p>Wähle deinen Bereich und sende eine Bewerbung ab!</p>
 
-  <div class="btn-container">
-    <!-- Alle Bewerbungsmöglichkeiten bleiben unverändert -->
-    <!-- ... -->
-  </div>
+  <!-- Intro -->
+  <p class="intro-text">
+    <a onclick="openForm()">Bewirb</a> dich jetzt!
+  </p>
 
+  <!-- Bewerbungsformular -->
   <form id="bewerbungsForm" onsubmit="submitForm(event)">
     <h2 id="formTitle">Bewerbung</h2>
     <input type="text" id="name" placeholder="Dein Name" required />
@@ -34,20 +119,28 @@
     <button type="submit">Absenden</button>
   </form>
 
+  <!-- Bestätigung -->
   <div class="submitted" id="submittedBox" style="display: none;">
     <h3>Vielen Dank für deine Bewerbung!</h3>
     <p id="submittedInfo"></p>
     <p><strong>Wir melden uns bei dir per Discord DM!</strong></p>
   </div>
 
-  <script>
-    let selectedBereich = "";
+  <!-- Footer -->
+  <footer>
+    <p>
+      <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" alt="Discord Icon" width="20" style="vertical-align: middle; margin-right: 8px;">
+      Du hast Fragen oder brauchst Hilfe? 
+      <a href="https://discord.gg/44dJ3DHy4x" target="_blank">Tritt unserem Discord-Server bei</a>
+    </p>
+  </footer>
 
-    function showForm(bereich) {
-      selectedBereich = bereich;
-      document.getElementById("formTitle").innerText = "Bewerbung für " + bereich;
+  <script>
+    let selectedBereich = "Admin"; // oder setz das dynamisch, wenn nötig
+
+    function openForm() {
+      document.getElementById("formTitle").innerText = "Bewerbung für " + selectedBereich;
       document.getElementById("bewerbungsForm").style.display = "flex";
-      document.getElementById("submittedBox").style.display = "none";
       document.getElementById("bewerbungsForm").scrollIntoView({ behavior: "smooth" });
     }
 
@@ -61,7 +154,6 @@
 
       const fullMessage = `${name} hat sich für ${selectedBereich} beworben:\n\nAlter: ${age}\nErfahrung: ${experience}\nDiscord Name: ${discord}\n\n"${message}"`;
 
-      // EmailJS senden
       emailjs.send("service_kq26xjf", "template_j023kum", {
         bereich: selectedBereich,
         name: name,
