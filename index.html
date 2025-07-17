@@ -8,8 +8,92 @@
     emailjs.init("CUfrvAoxqoIsZtPLK");
   </script>
   <style>
-    /* Dein kompletter CSS-Stil bleibt hier unverändert (wie von dir gesendet) */
-    /* ... */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fafafa;
+      margin: 20px;
+      color: #222;
+    }
+    .header-container {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .header-container img {
+      max-width: 200px;
+      margin-top: 10px;
+    }
+    .btn-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      max-width: 600px;
+      margin: 0 auto 40px auto;
+    }
+    .btn-container button {
+      padding: 10px 20px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      border-radius: 6px;
+      border: 2px solid #333;
+      background-color: #f0f0f0;
+      transition: background-color 0.3s;
+      text-align: left;
+    }
+    .btn-container button:hover {
+      background-color: #ddd;
+    }
+    .btn-container p {
+      margin: 5px 0 15px 10px;
+      font-style: italic;
+      color: #444;
+      max-width: 580px;
+    }
+    form#bewerbungsForm {
+      max-width: 600px;
+      margin: 0 auto;
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    form#bewerbungsForm input,
+    form#bewerbungsForm textarea {
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: 100%;
+      box-sizing: border-box;
+      resize: vertical;
+    }
+    form#bewerbungsForm button[type="submit"] {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      font-size: 1.1rem;
+      padding: 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    form#bewerbungsForm button[type="submit"]:hover {
+      background-color: #218838;
+    }
+    .submitted {
+      max-width: 600px;
+      margin: 30px auto;
+      padding: 20px;
+      background-color: #e2f0d9;
+      border: 1px solid #28a745;
+      border-radius: 8px;
+      color: #155724;
+    }
+    h1, h2, h3 {
+      text-align: center;
+    }
   </style>
 </head>
 <body>
@@ -17,11 +101,26 @@
     <h1>Flex City</h1>
     <img src="FlexCityTrans.png" alt="Flex City Logo" />
   </div>
-  <p>Wähle deinen Bereich und sende eine Bewerbung ab!</p>
+  <p style="text-align:center;">Wähle deinen Bereich und sende eine Bewerbung ab!</p>
 
   <div class="btn-container">
-    <!-- Alle Bewerbungsmöglichkeiten bleiben unverändert -->
-    <!-- ... -->
+    <button onclick="showForm('Head-Admin')">Head-Admin</button>
+    <p>Ein Head-Admin leitet das Team und kommuniziert zwischen Gründer und dem restlichen Team. Er sorgt dafür, dass jeder seiner Arbeit nachgeht.</p>
+
+    <button onclick="showForm('Admin')">Admin</button>
+    <p>Ein Admin kümmert sich rund um die Serversicherheit und bannt Hacker oder Spieler, die gegen Regeln verstoßen.</p>
+
+    <button onclick="showForm('Builder')">Builder</button>
+    <p>Ein Builder baut neue Maps und legt viel Wert auf Design und Details.</p>
+
+    <button onclick="showForm('Supportleitung')">Supportleitung</button>
+    <p>Supportleitung ist Ansprechpartner der Supporter und unterstützt diese bei ihrer Arbeit.</p>
+
+    <button onclick="showForm('Supporter')">Supporter</button>
+    <p>Ein Supporter ist aktiv auf Discord und kümmert sich um die Community und Fragen.</p>
+
+    <button onclick="showForm('Tester')">Tester</button>
+    <p>Tester spielen neue Maps und Minigames zuerst und bewerten Design, Fairness und Spielspaß.</p>
   </div>
 
   <form id="bewerbungsForm" onsubmit="submitForm(event)">
@@ -53,15 +152,19 @@
 
     function submitForm(event) {
       event.preventDefault();
-      const name = document.getElementById("name").value;
-      const age = document.getElementById("age").value;
-      const experience = document.getElementById("experience").value;
-      const discord = document.getElementById("discord").value;
-      const message = document.getElementById("message").value;
+      const name = document.getElementById("name").value.trim();
+      const age = document.getElementById("age").value.trim();
+      const experience = document.getElementById("experience").value.trim();
+      const discord = document.getElementById("discord").value.trim();
+      const message = document.getElementById("message").value.trim();
+
+      if (!selectedBereich) {
+        alert("Bitte wähle zuerst einen Bereich aus.");
+        return;
+      }
 
       const fullMessage = `${name} hat sich für ${selectedBereich} beworben:\n\nAlter: ${age}\nErfahrung: ${experience}\nDiscord Name: ${discord}\n\n"${message}"`;
 
-      // EmailJS senden
       emailjs.send("service_kq26xjf", "template_j023kum", {
         bereich: selectedBereich,
         name: name,
@@ -77,6 +180,7 @@
         document.getElementById("submittedInfo").innerText = fullMessage;
         document.getElementById("bewerbungsForm").reset();
         document.getElementById("bewerbungsForm").style.display = "none";
+        selectedBereich = "";
       }, function(error) {
         console.error("Fehler beim Senden", error);
         alert("Fehler beim Senden der Bewerbung. Bitte versuche es erneut.");
