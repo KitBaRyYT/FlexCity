@@ -8,8 +8,136 @@
     emailjs.init("CUfrvAoxqoIsZtPLK");
   </script>
   <style>
-    /* Dein kompletter CSS-Stil bleibt hier unverändert (wie von dir gesendet) */
-    /* ... */
+    /* Dunkelmodus Hintergrund + Schrift */
+    body {
+      background-color: #121212;
+      color: #ddd;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+    /* Überschrift Flex City gelb, zentriert, neben Bild rechts */
+    .header-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 10px;
+    }
+    .header-container h1 {
+      color: #ffd500;
+      font-size: 3rem;
+      margin: 0;
+    }
+    .header-container img {
+      height: 60px;
+    }
+    /* Kleinere Überschrift unter Header */
+    .subtitle {
+      font-size: 1.5rem;
+      margin-bottom: 5px;
+      color: #bbb;
+    }
+    /* Der Satz mit klickbarem "Bewirb" */
+    .apply-text {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      user-select: none;
+    }
+    .apply-text .clickable {
+      color: #3b82f6; /* blau */
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    /* Container für Bewerbungskategorien Buttons */
+    .btn-container {
+      display: none;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .btn-container button {
+      background-color: #1f2937; /* dunkles grau */
+      color: #ddd;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      min-width: 220px;
+      text-align: left;
+    }
+    .btn-container button:hover {
+      background-color: #3b82f6; /* blau beim Hover */
+      color: white;
+    }
+    .btn-container button .role-name {
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+    .btn-container button .role-desc {
+      font-size: 0.85rem;
+      margin-top: 4px;
+      color: #aaa;
+    }
+    /* Formular Styling */
+    #bewerbungsForm {
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+      width: 320px;
+      background-color: #1f2937;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px #3b82f6aa;
+      color: #ddd;
+    }
+    #bewerbungsForm h2 {
+      margin-top: 0;
+      color: #ffd500;
+    }
+    #bewerbungsForm input,
+    #bewerbungsForm textarea {
+      background-color: #374151;
+      border: none;
+      border-radius: 5px;
+      color: #ddd;
+      padding: 8px;
+      font-size: 1rem;
+      resize: vertical;
+    }
+    #bewerbungsForm input::placeholder,
+    #bewerbungsForm textarea::placeholder {
+      color: #aaa;
+    }
+    #bewerbungsForm button[type="submit"] {
+      background-color: #3b82f6;
+      border: none;
+      color: white;
+      padding: 10px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    #bewerbungsForm button[type="submit"]:hover {
+      background-color: #2563eb;
+    }
+    /* Danke Box */
+    .submitted {
+      display: none;
+      background-color: #1f2937;
+      padding: 20px;
+      border-radius: 8px;
+      color: #a5f3fc;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 0 10px #3b82f6aa;
+    }
   </style>
 </head>
 <body>
@@ -17,11 +145,38 @@
     <h1>Flex City</h1>
     <img src="FlexCityTrans.png" alt="Flex City Logo" />
   </div>
-  <p>Wähle deinen Bereich und sende eine Bewerbung ab!</p>
 
-  <div class="btn-container">
-    <!-- Alle Bewerbungsmöglichkeiten bleiben unverändert -->
-    <!-- ... -->
+  <h3 class="subtitle">Über uns</h3>
+
+  <p class="apply-text">
+    <span class="clickable" onclick="showButtons()">Bewirb</span> dich jetzt!
+  </p>
+
+  <div class="btn-container" id="btnContainer">
+    <button onclick="showForm('Head-Admin')">
+      <div class="role-name">Head-Admin</div>
+      <div class="role-desc">Ein Head-Admin leitet das Team und kommuniziert zwischen Gründer und dem restlichen Team. Er sorgt dafür dass jeder seiner Arbeit nachgeht.</div>
+    </button>
+    <button onclick="showForm('Admin')">
+      <div class="role-name">Admin</div>
+      <div class="role-desc">Ein Admin kümmert sich rund um die Server Sicherheit und bannt beispielsweise Hacker oder sonstige Spieler welche gegen Regeln verstoßen oder nicht erwünscht sind.</div>
+    </button>
+    <button onclick="showForm('Builder')">
+      <div class="role-name">Builder</div>
+      <div class="role-desc">Ein Builder ist dafür zuständig neue Maps zu bauen und legt viel Wert auf Design und Details.</div>
+    </button>
+    <button onclick="showForm('Supportleitung')">
+      <div class="role-name">Supportleitung</div>
+      <div class="role-desc">Eine Supportleitung ist der Ansprechpartner der Supporter und unterstützt diese bei ihrer Arbeit im Support.</div>
+    </button>
+    <button onclick="showForm('Supporter')">
+      <div class="role-name">Supporter</div>
+      <div class="role-desc">Ein Supporter ist über Discord aktiv und kümmert sich rund um die Community und fragen über den Server.</div>
+    </button>
+    <button onclick="showForm('Tester')">
+      <div class="role-name">Tester</div>
+      <div class="role-desc">Ein Tester ist die erste Person welche neue Maps und Minigames spielen darf. Sie bewerten nach Design, Fairness und Spielspaß.</div>
+    </button>
   </div>
 
   <form id="bewerbungsForm" onsubmit="submitForm(event)">
@@ -34,7 +189,7 @@
     <button type="submit">Absenden</button>
   </form>
 
-  <div class="submitted" id="submittedBox" style="display: none;">
+  <div class="submitted" id="submittedBox">
     <h3>Vielen Dank für deine Bewerbung!</h3>
     <p id="submittedInfo"></p>
     <p><strong>Wir melden uns bei dir per Discord DM!</strong></p>
@@ -43,11 +198,20 @@
   <script>
     let selectedBereich = "";
 
+    function showButtons() {
+      document.getElementById("btnContainer").style.display = "flex";
+      document.getElementById("bewerbungsForm").style.display = "none";
+      document.getElementById("submittedBox").style.display = "none";
+      // Scroll zur Button-Section
+      document.getElementById("btnContainer").scrollIntoView({behavior: "smooth"});
+    }
+
     function showForm(bereich) {
       selectedBereich = bereich;
       document.getElementById("formTitle").innerText = "Bewerbung für " + bereich;
       document.getElementById("bewerbungsForm").style.display = "flex";
       document.getElementById("submittedBox").style.display = "none";
+      // Scroll zum Formular
       document.getElementById("bewerbungsForm").scrollIntoView({ behavior: "smooth" });
     }
 
@@ -77,6 +241,7 @@
         document.getElementById("submittedInfo").innerText = fullMessage;
         document.getElementById("bewerbungsForm").reset();
         document.getElementById("bewerbungsForm").style.display = "none";
+        document.getElementById("btnContainer").style.display = "none";
       }, function(error) {
         console.error("Fehler beim Senden", error);
         alert("Fehler beim Senden der Bewerbung. Bitte versuche es erneut.");
