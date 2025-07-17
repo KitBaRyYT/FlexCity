@@ -23,13 +23,17 @@
       margin-top: 10px;
     }
     .btn-container {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
       max-width: 600px;
       margin: 0 auto 40px auto;
+      display: flex;
+      flex-direction: column;
+      /* Kein gap hier, wir nutzen margin in .bereich-block */
     }
-    .btn-container button {
+    .bereich-block {
+      margin-bottom: 25px; /* Abstand zwischen jedem Bereich */
+    }
+    .bereich-block button {
+      width: 100%;
       padding: 10px 20px;
       font-size: 1.1rem;
       cursor: pointer;
@@ -39,10 +43,10 @@
       transition: background-color 0.3s;
       text-align: left;
     }
-    .btn-container button:hover {
+    .bereich-block button:hover {
       background-color: #ddd;
     }
-    .btn-container p {
+    .bereich-block p {
       margin: 5px 0 15px 10px;
       font-style: italic;
       color: #444;
@@ -104,23 +108,35 @@
   <p style="text-align:center;">Wähle deinen Bereich und sende eine Bewerbung ab!</p>
 
   <div class="btn-container">
-    <button onclick="showForm('Head-Admin')">Head-Admin</button>
-    <p>Ein Head-Admin leitet das Team und kommuniziert zwischen Gründer und dem restlichen Team. Er sorgt dafür, dass jeder seiner Arbeit nachgeht.</p>
+    <div class="bereich-block">
+      <button onclick="showForm('Head-Admin')">Head-Admin</button>
+      <p>Ein Head-Admin leitet das Team und kommuniziert zwischen Gründer und dem restlichen Team. Er sorgt dafür, dass jeder seiner Arbeit nachgeht.</p>
+    </div>
 
-    <button onclick="showForm('Admin')">Admin</button>
-    <p>Ein Admin kümmert sich rund um die Serversicherheit und bannt Hacker oder Spieler, die gegen Regeln verstoßen.</p>
+    <div class="bereich-block">
+      <button onclick="showForm('Admin')">Admin</button>
+      <p>Ein Admin kümmert sich rund um die Serversicherheit und bannt Hacker oder Spieler, die gegen Regeln verstoßen.</p>
+    </div>
 
-    <button onclick="showForm('Builder')">Builder</button>
-    <p>Ein Builder baut neue Maps und legt viel Wert auf Design und Details.</p>
+    <div class="bereich-block">
+      <button onclick="showForm('Builder')">Builder</button>
+      <p>Ein Builder baut neue Maps und legt viel Wert auf Design und Details.</p>
+    </div>
 
-    <button onclick="showForm('Supportleitung')">Supportleitung</button>
-    <p>Supportleitung ist Ansprechpartner der Supporter und unterstützt diese bei ihrer Arbeit.</p>
+    <div class="bereich-block">
+      <button onclick="showForm('Supportleitung')">Supportleitung</button>
+      <p>Supportleitung ist Ansprechpartner der Supporter und unterstützt diese bei ihrer Arbeit.</p>
+    </div>
 
-    <button onclick="showForm('Supporter')">Supporter</button>
-    <p>Ein Supporter ist aktiv auf Discord und kümmert sich um die Community und Fragen.</p>
+    <div class="bereich-block">
+      <button onclick="showForm('Supporter')">Supporter</button>
+      <p>Ein Supporter ist aktiv auf Discord und kümmert sich um die Community und Fragen.</p>
+    </div>
 
-    <button onclick="showForm('Tester')">Tester</button>
-    <p>Tester spielen neue Maps und Minigames zuerst und bewerten Design, Fairness und Spielspaß.</p>
+    <div class="bereich-block">
+      <button onclick="showForm('Tester')">Tester</button>
+      <p>Tester spielen neue Maps und Minigames zuerst und bewerten Design, Fairness und Spielspaß.</p>
+    </div>
   </div>
 
   <form id="bewerbungsForm" onsubmit="submitForm(event)">
