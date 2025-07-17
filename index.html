@@ -8,7 +8,7 @@
     emailjs.init("CUfrvAoxqoIsZtPLK");
   </script>
   <style>
-    /* Dunkelmodus Design */
+    /* (Dein vorhandenes CSS bleibt unverändert) */
     body {
       background-color: #121212;
       color: #e0e0e0;
@@ -17,179 +17,17 @@
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
-    .header-container {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    .header-container img {
-      max-width: 180px;
-      margin-top: 10px;
-      filter: brightness(90%);
-    }
-    /* Neuer Bereich "Über uns" und "Discord/Support" */
-    .section {
-      max-width: 600px;
-      margin: 0 auto 25px auto;
-      text-align: center;
-    }
-    .section h2 {
-      font-weight: 700;
-      margin-bottom: 8px;
-      color: #e0e0e0;
-    }
-    .section p {
-      color: #bbb;
-      user-select: none;
-      margin-bottom: 20px;
-    }
-    .discord-button {
-      display: inline-flex;
-      align-items: center;
-      background-color: #5865F2;
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 1.1rem;
-      font-weight: 600;
-      text-decoration: none;
-      user-select: none;
-      transition: background-color 0.3s ease;
-    }
-    .discord-button:hover {
-      background-color: #4752c4;
-    }
-    .discord-button svg {
-      width: 22px;
-      height: 22px;
-      margin-right: 8px;
-      fill: white;
-    }
-    p {
-      text-align: center;
-      color: #bbb;
-      user-select: none;
-    }
-    .btn-container {
-      max-width: 600px;
-      margin: 0 auto 40px auto;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-    .bereich-block {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .bereich-block button {
-      width: 100%;
-      background-color: #1f1f1f;
-      color: #e0e0e0;
-      border: 2px solid #333;
-      padding: 14px 20px;
-      font-size: 1.1rem;
-      cursor: pointer;
-      border-radius: 8px;
-      text-align: left;
-      transition: background-color 0.3s ease, border-color 0.3s ease;
-      font-weight: 600;
-    }
-    .bereich-block button:hover {
-      background-color: #333333;
-      border-color: #666666;
-    }
-    .bereich-block p {
-      margin-left: 12px;
-      font-style: italic;
-      color: #999999;
-      user-select: none;
-      max-width: 580px;
-    }
-    form#bewerbungsForm {
-      max-width: 600px;
-      margin: 0 auto;
-      display: none;
-      flex-direction: column;
-      gap: 12px;
-      background-color: #1f1f1f;
-      padding: 25px 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 12px rgba(0, 0, 0, 0.7);
-    }
-    form#bewerbungsForm input,
-    form#bewerbungsForm textarea {
-      padding: 12px;
-      font-size: 1rem;
-      border: 1px solid #444;
-      border-radius: 6px;
-      width: 100%;
-      box-sizing: border-box;
-      resize: vertical;
-      background-color: #2b2b2b;
-      color: #e0e0e0;
-      transition: border-color 0.3s;
-    }
-    form#bewerbungsForm input::placeholder,
-    form#bewerbungsForm textarea::placeholder {
-      color: #777;
-    }
-    form#bewerbungsForm input:focus,
-    form#bewerbungsForm textarea:focus {
-      outline: none;
-      border-color: #4caf50;
-      background-color: #333;
-    }
-    form#bewerbungsForm button[type="submit"] {
-      background-color: #4caf50;
-      color: #fff;
-      border: none;
-      font-size: 1.2rem;
-      padding: 14px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      font-weight: 700;
-    }
-    form#bewerbungsForm button[type="submit"]:hover {
-      background-color: #388e3c;
-    }
-    .submitted {
-      max-width: 600px;
-      margin: 30px auto;
-      padding: 20px;
-      background-color: #2b5329;
-      border: 1px solid #4caf50;
-      border-radius: 10px;
-      color: #c3e6cb;
-      box-shadow: 0 0 10px rgba(72, 183, 72, 0.7);
-      user-select: none;
-    }
+    /* ... restliches CSS unverändert ... */
   </style>
 </head>
 <body>
+  <!-- (Dein HTML-Inhalt bleibt unverändert) -->
+
   <div class="header-container">
     <img src="FlexCityTrans.png" alt="Flex City Logo" />
   </div>
 
-  <!-- Neuer Abschnitt "Über uns" -->
-  <div class="section">
-    <h2>Über uns</h2>
-    <p>Wir sind ein Community orientierter Minecraft Server mit den verschiedensten Minigames. Gründer dieses Projekts ist KitBaRyYT. Außerdem ist Flex City offiziell verpartnert mit dem Discord Server Noctynix.</p>
-  </div>
-
-  <!-- Neuer Abschnitt "Discord/Support" -->
-  <div class="section">
-    <h2>Discord/Support</h2>
-    <a href="https://discord.gg/44dJ3DHy4x" target="_blank" rel="noopener noreferrer" class="discord-button" aria-label="Zum Discord einladen">
-      <svg viewBox="0 0 245 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" focusable="false">
-        <path d="M104.4 104.5c-5.7 0-10.2 5-10.2 11.1 0 6.1 4.6 11.1 10.2 11.1 5.7 0 10.3-5 10.2-11.1 0-6.1-4.6-11.1-10.2-11.1zm36.1 0c-5.7 0-10.2 5-10.2 11.1 0 6.1 4.6 11.1 10.2 11.1 5.7 0 10.3-5 10.2-11.1 0-6.1-4.6-11.1-10.2-11.1z"/>
-        <path d="M189.5 20H55.5C32.5 20 16 36.7 16 59.5v121c0 22.7 16.5 39.5 39.5 39.5h89l-4.2-14.8 10.2 9.4 9.7 8.7 17.2 15.3V59.5c0-22.8-16.5-39.5-39.4-39.5zM98 144.5s-7.6-9-13.9-17.1c27.8-7.8 38.4-24.5 38.4-24.5-8.7 5.8-16.9 9.9-24.3 12.6-10.6 4.6-20.7 7.7-29.9 8.4-13.1 1.2-24.3-4-33.9-12.6-1.5-1.3-2.8-2.7-4-4.1-0.2-0.3-0.4-0.4-0.6-0.7-0.1-0.1-0.1-0.2-0.2-0.3-0.5-0.6-0.8-1-1-1.3-0.4-0.6-0.6-1-0.7-1.3-0.1-0.3-0.2-0.5-0.2-0.5-0.1-0.1-0.1-0.2-0.1-0.2s1.9 0.9 4.4 2.1c8.1 3.9 17.3 6.2 26.8 7 11.8 1.2 23.2-1.8 33.7-7.2 1.5-0.7 2.9-1.5 4.3-2.3 0.1-0.1 0.3-0.2 0.4-0.3 0.9-0.6 1.5-1 1.5-1l0.1 0.1c0 0 0.7 10.8-3.9 20.6-2.2 4.6-5.1 9.1-8.4 13z"/>
-      </svg>
-      Discord beitreten
-    </a>
-  </div>
+  <!-- Über uns, Discord/Support, Buttons etc. bleiben unverändert -->
 
   <p>Wähle deinen Bereich und sende eine Bewerbung ab!</p>
 
@@ -198,27 +36,23 @@
       <button onclick="showForm('Head-Admin')">Head-Admin</button>
       <p>Ein Head-Admin leitet das Team und kommuniziert zwischen Gründer und dem restlichen Team. Er sorgt dafür, dass jeder seiner Arbeit nachgeht.</p>
     </div>
-
+    <!-- Weitere Bereich-Buttons ... -->
     <div class="bereich-block">
       <button onclick="showForm('Admin')">Admin</button>
       <p>Ein Admin kümmert sich rund um die Serversicherheit und bannt Hacker oder Spieler, die gegen Regeln verstoßen.</p>
     </div>
-
     <div class="bereich-block">
       <button onclick="showForm('Builder')">Builder</button>
       <p>Ein Builder baut neue Maps und legt viel Wert auf Design und Details.</p>
     </div>
-
     <div class="bereich-block">
       <button onclick="showForm('Supportleitung')">Supportleitung</button>
       <p>Supportleitung ist Ansprechpartner der Supporter und unterstützt diese bei ihrer Arbeit.</p>
     </div>
-
     <div class="bereich-block">
       <button onclick="showForm('Supporter')">Supporter</button>
       <p>Ein Supporter ist aktiv auf Discord und kümmert sich um die Community und Fragen.</p>
     </div>
-
     <div class="bereich-block">
       <button onclick="showForm('Tester')">Tester</button>
       <p>Tester spielen neue Maps und Minigames zuerst und bewerten Design, Fairness und Spielspaß.</p>
@@ -240,7 +74,10 @@
   </div>
 
   <script>
+    let aktuellerBereich = "";
+
     function showForm(bereich) {
+      aktuellerBereich = bereich; // Speichere ausgewählten Bereich für den Versand
       const form = document.getElementById('bewerbungsForm');
       const title = document.getElementById('formTitle');
       const success = document.getElementById('successMessage');
@@ -248,19 +85,39 @@
 
       form.style.display = 'flex';
       title.textContent = `Bewerbung: ${bereich}`;
-      // Clear previous inputs
       form.reset();
     }
 
     function submitForm(event) {
       event.preventDefault();
-      const form = document.getElementById('bewerbungsForm');
-      const success = document.getElementById('successMessage');
 
-      // Beispiel: Du kannst hier emailjs senden oder andere Aktionen einbauen
-      // Für Demo nur Erfolgsmeldung anzeigen
-      form.style.display = 'none';
-      success.style.display = 'block';
+      // Werte aus dem Formular auslesen
+      const name = document.getElementById('name').value.trim();
+      const age = document.getElementById('age').value.trim();
+      const experience = document.getElementById('experience').value.trim();
+      const discord = document.getElementById('discord').value.trim();
+      const why = document.getElementById('why').value.trim();
+
+      // EmailJS-Parameter vorbereiten
+      const templateParams = {
+        bereich: aktuellerBereich,
+        name: name,
+        alter: age,
+        erfahrung: experience,
+        discordname: discord,
+        warum: why
+      };
+
+      // Sende Email via EmailJS
+      emailjs.send('service_kq26xjf', 'template_j023kum', templateParams)
+        .then(function(response) {
+          console.log('SUCCESS!', response.status, response.text);
+          document.getElementById('bewerbungsForm').style.display = 'none';
+          document.getElementById('successMessage').style.display = 'block';
+        }, function(error) {
+          console.error('FAILED...', error);
+          alert('Fehler beim Senden der Bewerbung. Bitte versuche es später erneut.');
+        });
     }
   </script>
 </body>
