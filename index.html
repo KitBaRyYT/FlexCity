@@ -9,17 +9,17 @@
   </script>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #fafafa;
+      background-color: #121212;
+      color: #e0e0e0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 20px;
-      color: #222;
     }
     .header-container {
       text-align: center;
       margin-bottom: 30px;
     }
     .header-container img {
-      max-width: 200px;
+      max-width: 180px;
       margin-top: 10px;
     }
     .btn-container {
@@ -27,30 +27,32 @@
       margin: 0 auto 40px auto;
       display: flex;
       flex-direction: column;
-      /* Kein gap hier, wir nutzen margin in .bereich-block */
     }
     .bereich-block {
-      margin-bottom: 25px; /* Abstand zwischen jedem Bereich */
+      margin-bottom: 24px;
     }
     .bereich-block button {
       width: 100%;
-      padding: 10px 20px;
+      background-color: #1e1e1e;
+      color: #e0e0e0;
+      border: 2px solid #444;
+      padding: 12px 20px;
       font-size: 1.1rem;
       cursor: pointer;
-      border-radius: 6px;
-      border: 2px solid #333;
-      background-color: #f0f0f0;
-      transition: background-color 0.3s;
+      border-radius: 8px;
       text-align: left;
+      transition: background-color 0.3s, border-color 0.3s;
     }
     .bereich-block button:hover {
-      background-color: #ddd;
+      background-color: #333333;
+      border-color: #666666;
     }
     .bereich-block p {
-      margin: 5px 0 15px 10px;
+      margin: 6px 0 0 12px;
       font-style: italic;
-      color: #444;
+      color: #bbbbbb;
       max-width: 580px;
+      user-select: none;
     }
     form#bewerbungsForm {
       max-width: 600px;
@@ -58,20 +60,26 @@
       display: none;
       flex-direction: column;
       gap: 10px;
-      background-color: #fff;
+      background-color: #1e1e1e;
       padding: 20px;
       border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
     }
     form#bewerbungsForm input,
     form#bewerbungsForm textarea {
       padding: 10px;
       font-size: 1rem;
-      border: 1px solid #ccc;
+      border: 1px solid #444;
       border-radius: 5px;
       width: 100%;
       box-sizing: border-box;
       resize: vertical;
+      background-color: #2b2b2b;
+      color: #e0e0e0;
+    }
+    form#bewerbungsForm input::placeholder,
+    form#bewerbungsForm textarea::placeholder {
+      color: #888;
     }
     form#bewerbungsForm button[type="submit"] {
       background-color: #28a745;
@@ -90,13 +98,14 @@
       max-width: 600px;
       margin: 30px auto;
       padding: 20px;
-      background-color: #e2f0d9;
+      background-color: #2b5329;
       border: 1px solid #28a745;
       border-radius: 8px;
-      color: #155724;
+      color: #c3e6cb;
     }
     h1, h2, h3 {
       text-align: center;
+      user-select: none;
     }
   </style>
 </head>
