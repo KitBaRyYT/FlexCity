@@ -8,11 +8,19 @@
     emailjs.init("CUfrvAoxqoIsZtPLK");
   </script>
   <style>
+    /* Dunkelmodus Design */
     body {
-      background-color: #121212;
-      color: #e0e0e0;
+      background-color: #121212; /* sehr dunkles Grau */
+      color: #e0e0e0; /* helles Grau für Text */
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 20px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    h1, h2, h3 {
+      text-align: center;
+      user-select: none;
+      color: #eee;
     }
     .header-container {
       text-align: center;
@@ -21,90 +29,106 @@
     .header-container img {
       max-width: 180px;
       margin-top: 10px;
+      filter: brightness(90%);
+    }
+    p {
+      text-align: center;
+      color: #bbb;
+      user-select: none;
     }
     .btn-container {
       max-width: 600px;
       margin: 0 auto 40px auto;
       display: flex;
       flex-direction: column;
+      gap: 20px;
     }
     .bereich-block {
-      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
     }
     .bereich-block button {
       width: 100%;
-      background-color: #1e1e1e;
+      background-color: #1f1f1f;
       color: #e0e0e0;
-      border: 2px solid #444;
-      padding: 12px 20px;
+      border: 2px solid #333;
+      padding: 14px 20px;
       font-size: 1.1rem;
       cursor: pointer;
       border-radius: 8px;
       text-align: left;
-      transition: background-color 0.3s, border-color 0.3s;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+      font-weight: 600;
     }
     .bereich-block button:hover {
       background-color: #333333;
       border-color: #666666;
     }
     .bereich-block p {
-      margin: 6px 0 0 12px;
+      margin-left: 12px;
       font-style: italic;
-      color: #bbbbbb;
-      max-width: 580px;
+      color: #999999;
       user-select: none;
+      max-width: 580px;
     }
     form#bewerbungsForm {
       max-width: 600px;
       margin: 0 auto;
       display: none;
       flex-direction: column;
-      gap: 10px;
-      background-color: #1e1e1e;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      gap: 12px;
+      background-color: #1f1f1f;
+      padding: 25px 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.7);
     }
     form#bewerbungsForm input,
     form#bewerbungsForm textarea {
-      padding: 10px;
+      padding: 12px;
       font-size: 1rem;
       border: 1px solid #444;
-      border-radius: 5px;
+      border-radius: 6px;
       width: 100%;
       box-sizing: border-box;
       resize: vertical;
       background-color: #2b2b2b;
       color: #e0e0e0;
+      transition: border-color 0.3s;
     }
     form#bewerbungsForm input::placeholder,
     form#bewerbungsForm textarea::placeholder {
-      color: #888;
+      color: #777;
+    }
+    form#bewerbungsForm input:focus,
+    form#bewerbungsForm textarea:focus {
+      outline: none;
+      border-color: #4caf50;
+      background-color: #333;
     }
     form#bewerbungsForm button[type="submit"] {
-      background-color: #28a745;
-      color: white;
+      background-color: #4caf50;
+      color: #fff;
       border: none;
-      font-size: 1.1rem;
-      padding: 12px;
-      border-radius: 6px;
+      font-size: 1.2rem;
+      padding: 14px;
+      border-radius: 8px;
       cursor: pointer;
-      transition: background-color 0.3s;
+      transition: background-color 0.3s ease;
+      font-weight: 700;
     }
     form#bewerbungsForm button[type="submit"]:hover {
-      background-color: #218838;
+      background-color: #388e3c;
     }
     .submitted {
       max-width: 600px;
       margin: 30px auto;
       padding: 20px;
       background-color: #2b5329;
-      border: 1px solid #28a745;
-      border-radius: 8px;
+      border: 1px solid #4caf50;
+      border-radius: 10px;
       color: #c3e6cb;
-    }
-    h1, h2, h3 {
-      text-align: center;
+      box-shadow: 0 0 10px rgba(72, 183, 72, 0.7);
       user-select: none;
     }
   </style>
@@ -114,7 +138,7 @@
     <h1>Flex City</h1>
     <img src="FlexCityTrans.png" alt="Flex City Logo" />
   </div>
-  <p style="text-align:center;">Wähle deinen Bereich und sende eine Bewerbung ab!</p>
+  <p>Wähle deinen Bereich und sende eine Bewerbung ab!</p>
 
   <div class="btn-container">
     <div class="bereich-block">
