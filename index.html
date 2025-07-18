@@ -256,9 +256,9 @@
 
     function submitForm(event) {
       event.preventDefault();
-    
-      const serviceID = 'dein_service_id';      // z.B. 'service_xxx'
-      const templateID = 'dein_template_id';    // z.B. 'template_xxx'
+
+      const serviceID = 'service_kq26xjf';      // z.B. 'service_xxx'
+      const templateID = 'template_j023kum';    // z.B. 'template_xxx'
 
       const name = document.getElementById('name').value;
       const age = document.getElementById('age').value;
@@ -276,7 +276,7 @@
         position: title
       };
 
-      emailjs.send(serviceID, templateID, templateParams)
+      emailjs.send(service_ID, template_ID, templateParams)
         .then(() => {
           document.getElementById('bewerbungsForm').style.display = 'none';
           document.getElementById('successMessage').style.display = 'block';
