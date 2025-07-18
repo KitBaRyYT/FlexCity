@@ -252,23 +252,15 @@
       form.reset();
     }
 
+    function submitForm(event) {
+      event.preventDefault();
+      const form = document.getElementById('bewerbungsForm');
+      const success = document.getElementById('successMessage');
 
-   function submitForm(event) {
-  event.preventDefault();
-  const form = document.getElementById('bewerbungsForm');
-  const success = document.getElementById('successMessage');
-
-  // EmailJS senden
-  emailjs.sendForm('service_kq26xjf', 'template_j023kum', form, 'DEIN_USER_ID')
-    .then(() => {
-      // Bei Erfolg Formular ausblenden und Erfolgsmeldung zeigen
+      // Beispiel: Du kannst hier emailjs senden oder andere Aktionen einbauen
+      // Für Demo nur Erfolgsmeldung anzeigen
       form.style.display = 'none';
       success.style.display = 'block';
-    }, (error) => {
-      // Optional: Fehlerbehandlung, z.B. alert
-      alert('Beim Absenden der Bewerbung ist ein Fehler aufgetreten. Bitte versuche es erneut.');
-      console.error('EmailJS Fehler:', error);
-    });
     }
   </script>
 </body>
