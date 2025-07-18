@@ -5,7 +5,9 @@
   <title>Flex City Bewerbungen</title>
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
   <script>
+    (funktion() {
     emailjs.init("CUfrvAoxqoIsZtPLK");
+  })(); 
   </script>
   <style>
     /* Dunkelmodus Design */
@@ -253,7 +255,7 @@
     }
 
     function submitForm(event) {
-      event.preventDefault();
+      event.preventDefault(); 
       const form = document.getElementById('bewerbungsForm');
       const success = document.getElementById('successMessage');
 
