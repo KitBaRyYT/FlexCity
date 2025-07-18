@@ -5,9 +5,9 @@
   <title>Flex City Bewerbungen</title>
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
   <script>
-    (funktion() {
+    (function() {
     emailjs.init("CUfrvAoxqoIsZtPLK");
-  })(); 
+  })();
   </script>
   <style>
     /* Dunkelmodus Design */
@@ -255,29 +255,36 @@
     }
 
     function submitForm(event) {
-      event.preventDefault(); 
-      const form = document.getElementById('bewerbungsForm');
-      const success = document.getElementById('successMessage');
+      event.preventDefault();
+    
+      const serviceID = 'dein_service_id';      // z.B. 'service_xxx'
+      const templateID = 'dein_template_id';    // z.B. 'template_xxx'
 
-      // Beispiel: Du kannst hier emailjs senden oder andere Aktionen einbauen
-      // Für Demo nur Erfolgsmeldung anzeigen
-    emailjs.send("service_kq26xjf", "template_j023kum", {
-        name: form.name.value,
-        age: form.age.value,
-        experience: form.experience.value,
-        discord: form.discord.value,
-        message: form.message.value,
-        bereich: selectedBereich
-      }, "CUfrvAoxqoIsZtPLK")
-      .then(() => {
-        form.style.display = 'none';
-        success.style.display = 'block';
-        form.reset();
-      }, (error) => {
-        alert('Beim Absenden der Bewerbung ist ein Fehler aufgetreten. Bitte versuche es erneut.');
-        console.error('EmailJS Fehler:', error);
-      });
+      const name = document.getElementById('name').value;
+      const age = document.getElementById('age').value;
+      const experience = document.getElementById('experience').value;
+      const discord = document.getElementById('discord').value;
+      const why = document.getElementById('why').value;
+      const title = document.getElementById('formTitle').textContent;
+
+      const templateParams = {
+        name: name,
+        age: age,
+        experience: experience,
+        discord: discord,
+        why: why,
+        position: title
+      };
+
+      emailjs.send(serviceID, templateID, templateParams)
+        .then(() => {
+          document.getElementById('bewerbungsForm').style.display = 'none';
+          document.getElementById('successMessage').style.display = 'block';
+        }, (error) => {
+          alert('Fehler beim Absenden der Bewerbung: ' + error.text);
+        });
     }
+
   </script>
 </body>
 </html>
