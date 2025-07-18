@@ -255,35 +255,40 @@
     }
 
     function submitForm(event) {
-      event.preventDefault();
+     event.preventDefault();
 
-      const serviceID = 'service_kq26xjf';      // z.B. 'service_xxx'
-      const templateID = 'template_j023kum';    // z.B. 'template_xxx'
+     const serviceID = 'service_kq26xjf';   // Dein EmailJS Service ID
+     const templateID = 'template_j023kum';  // Deine Template ID
 
-      const name = document.getElementById('name').value;
-      const age = document.getElementById('age').value;
-      const experience = document.getElementById('experience').value;
-      const discord = document.getElementById('discord').value;
-      const why = document.getElementById('why').value;
-      const title = document.getElementById('formTitle').textContent;
+     const form = document.getElementById('bewerbungsForm');
 
-      const templateParams = {
-        name: name,
-        age: age,
-        experience: experience,
-        discord: discord,
-        why: why,
-        position: title
-      };
+     // Hole die Werte aus dem Formular
+     const bereich = document.getElementById('formTitle').textContent.replace('Bewerbung: ', '');
+     const name = document.getElementById('name').value;
+     const age = document.getElementById('age').value;
+     const experience = document.getElementById('experience').value;
+     const discord = document.getElementById('discord').value;
+     const why = document.getElementById('why').value;
 
-      emailjs.send(service_ID, template_ID, templateParams)
-        .then(() => {
-          document.getElementById('bewerbungsForm').style.display = 'none';
-          document.getElementById('successMessage').style.display = 'block';
-        }, (error) => {
-          alert('Fehler beim Absenden der Bewerbung: ' + error.text);
-        });
-    }
+     const templateParams = {
+       bereich: bereich,
+       name: name,
+       age: age,
+       experience: experience,
+       discord: discord,
+       why: why
+     };
+
+     emailjs.send(serviceID, templateID, templateParams)
+       .then(() => {
+         // Erfolgreich gesendet
+         form.style.display = 'none';
+         document.getElementById('successMessage').style.display = 'block';
+       }, (err) => {
+         alert('Beim Senden der Bewerbung ist ein Fehler aufgetreten. Bitte versuche es später noch einmal.');
+         console.error('EmailJS Fehler:', err);
+       });
+   }
 
   </script>
 </body>
