@@ -252,6 +252,9 @@
       title.textContent = `Bewerbung: ${bereich}`;
       // Clear previous inputs
       form.reset();
+      
+      // Hier scrollen wir zum Formular
+      form.scrollIntoView({ behavior: 'smooth' });
     }
 
     function submitForm(event) {
