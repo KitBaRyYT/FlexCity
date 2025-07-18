@@ -1,164 +1,150 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Flex City Bewerbung</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <title>Flex City Bewerbungen</title>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script>
+    (function () {
+      emailjs.init('CUfrvAoxqoIsZtPLK');
+    })();
+  </script>
   <style>
     body {
-      margin: 0;
-      font-family: 'Roboto', sans-serif;
       background-color: #121212;
-      color: white;
+      color: #f0f0f0;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
     }
 
-    header {
-      background-color: #1e1e1e;
-      padding: 1rem;
+    .header-container {
       text-align: center;
+      padding: 20px;
     }
 
-    header img {
-      max-width: 100px;
-      border-radius: 50%;
+    .header-container img {
+      max-width: 250px;
     }
 
-    .container {
+    .section {
+      padding: 20px;
       max-width: 700px;
-      margin: 2rem auto;
-      padding: 1rem;
-      background-color: #1e1e1e;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-    }
-
-    .centered {
-      text-align: center;
-    }
-
-    h1 {
-      color: #FFD700;
-      margin-bottom: 0;
+      margin: auto;
     }
 
     h2 {
-      margin-top: 2rem;
-      border-bottom: 2px solid #333;
-      padding-bottom: 0.5rem;
+      color: #4fc3f7;
     }
 
-    p {
-      margin-bottom: 1rem;
-    }
-
-    button {
-      background-color: #2196F3;
-      color: white;
-      border: none;
-      padding: 0.7rem 1.2rem;
-      border-radius: 5px;
-      font-size: 1rem;
+    .btn-container button {
+      background-color: #1e1e1e;
+      color: #fff;
+      border: 1px solid #4fc3f7;
+      padding: 10px 20px;
+      margin: 5px;
       cursor: pointer;
-      margin-top: 1rem;
     }
 
-    button:hover {
-      background-color: #1976D2;
-    }
-
-    form {
-      display: flex;
+    #bewerbungsForm {
+      display: none;
       flex-direction: column;
-      gap: 0.8rem;
-      margin-top: 1rem;
+      gap: 10px;
+      margin-top: 20px;
     }
 
     input, textarea {
-      padding: 0.5rem;
+      padding: 10px;
       border: none;
-      border-radius: 4px;
-      font-size: 1rem;
+      background: #1e1e1e;
+      color: #fff;
+      border-bottom: 2px solid #4fc3f7;
+    }
+
+    button[type="submit"] {
+      background-color: #4fc3f7;
+      color: #000;
+      padding: 10px;
+      border: none;
+      cursor: pointer;
     }
 
     #successMessage {
       display: none;
       color: lightgreen;
-      font-weight: bold;
-      margin-top: 1rem;
       text-align: center;
+      margin-top: 30px;
+    }
+
+    a.bewirb-link {
+      color: #4fc3f7;
+      text-decoration: none;
+    }
+
+    .discord-button {
+      display: inline-block;
+      background-color: #5865F2;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .discord-button:hover {
+      background-color: #4752c4;
     }
   </style>
-
-  <!-- EmailJS SDK -->
-  <script src="https://cdn.emailjs.com/sdk/3.2.0/email.min.js"></script>
-  <script>
-    (function(){
-      emailjs.init('CUfrvAoxqoIsZtPLK'); // Dein Public Key
-    })();
-  </script>
 </head>
-
 <body>
-  <header>
-    <h1>Flex City</h1>
-    <img src="https://i.imgur.com/nlVJg3Y.png" alt="Logo">
-  </header>
+  <div class="header-container">
+    <img src="FlexCityTrans.png" alt="Flex City Logo">
+  </div>
 
-  <div class="container centered">
+  <div class="section">
     <h2>Über uns</h2>
     <p>TestTest</p>
 
     <h2>Discord/Support</h2>
-    <a href="https://discord.gg/44dJ3DHy4x" target="_blank">
-      <button>📨 Discord beitreten</button>
-    </a>
+    <a class="discord-button" href="https://discord.gg/44dJ3DHy4x" target="_blank">💬 Discord beitreten</a>
 
-    <p>Bewirb dich jetzt!</p>
-    <button onclick="showForm('Head-Admin')">Head-Admin</button>
-    <button onclick="showForm('Admin')">Admin</button>
-    <button onclick="showForm('Builder')">Builder</button>
-    <button onclick="showForm('Supportleitung')">Supportleitung</button>
-    <button onclick="showForm('Supporter')">Supporter</button>
-    <button onclick="showForm('Tester')">Tester</button>
+    <p style="margin-top: 30px;">Wähle deinen Bereich und <a class="bewirb-link" href="#" onclick="showForm('Allgemein')">Bewirb</a> dich jetzt!</p>
 
-    <form id="bewerbungsForm" onsubmit="submitForm(event)" style="display:none;">
-      <h3 id="formTitle">Bewerbung:</h3>
-      <input type="hidden" id="position" name="position" />
-      <input type="text" id="name" name="name" placeholder="Dein Name" required />
-      <input type="text" id="age" name="age" placeholder="Dein Alter" required />
-      <input type="text" id="experience" name="experience" placeholder="Deine Erfahrung" required />
-      <input type="text" id="discord" name="discord" placeholder="Dein Discord-Tag" required />
-      <textarea id="why" name="why" placeholder="Warum möchtest du diese Position?" required></textarea>
+    <div class="btn-container">
+      <button onclick="showForm('Polizei')">Polizei</button>
+      <button onclick="showForm('Medizin')">Medizin</button>
+      <button onclick="showForm('Mechaniker')">Mechaniker</button>
+      <button onclick="showForm('Justiz')">Justiz</button>
+    </div>
+
+    <form id="bewerbungsForm" onsubmit="submitForm(event)">
+      <h2 id="formTitle">Bewerbung</h2>
+      <input type="text" name="name" placeholder="Dein Name" required />
+      <input type="number" name="age" placeholder="Dein Alter" required min="10" max="100" />
+      <input type="text" name="experience" placeholder="Deine Erfahrung" required />
+      <input type="text" name="discord" placeholder="Dein Discord Name" required />
+      <textarea name="message" rows="5" placeholder="Warum möchtest du in diesem Bereich arbeiten?" required></textarea>
+      <input type="hidden" name="bereich" id="bereichFeld" />
       <button type="submit">Absenden</button>
     </form>
 
-    <div id="successMessage">Deine Bewerbung wurde erfolgreich gesendet!</div>
+    <div id="successMessage">
+      <h3>Vielen Dank für deine Bewerbung!</h3>
+      <p>Wir haben deine Bewerbung erhalten und melden uns bei dir per Discord DM!</p>
+    </div>
   </div>
 
   <script>
-    const descriptions = {
-      "Head-Admin": "Ein Head-Admin leitet das Team und kommuniziert zwischen Gründer und dem restlichen Team. Er sorgt dafür, dass jeder seiner Arbeit nachgeht.",
-      "Admin": "Ein Admin kümmert sich um die Serversicherheit und bannt z.B. Hacker oder Regelbrecher.",
-      "Builder": "Ein Builder baut neue Maps und achtet dabei auf Design und Details.",
-      "Supportleitung": "Ansprechpartner der Supporter und unterstützt sie bei ihrer Arbeit.",
-      "Supporter": "Kümmert sich auf Discord um die Community und Fragen zum Server.",
-      "Tester": "Testet neue Maps und Minigames und bewertet Design, Fairness & Spielspaß."
-    };
+    let selectedBereich = '';
 
-    function showForm(position) {
-      document.getElementById('bewerbungsForm').style.display = 'block';
+    function showForm(bereich) {
+      selectedBereich = bereich;
+      document.getElementById('formTitle').innerText = 'Bewerbung für ' + bereich;
+      document.getElementById('bereichFeld').value = bereich;
+      document.getElementById('bewerbungsForm').style.display = 'flex';
       document.getElementById('successMessage').style.display = 'none';
-      const formTitle = document.getElementById('formTitle');
-      formTitle.textContent = `Bewerbung: ${position}`;
-      document.getElementById('position').value = position;
-      const beschreibung = descriptions[position] || '';
-      if (!document.getElementById('desc')) {
-        const desc = document.createElement('p');
-        desc.id = 'desc';
-        formTitle.insertAdjacentElement('afterend', desc);
-      }
-      document.getElementById('desc').textContent = beschreibung;
+      document.getElementById('bewerbungsForm').scrollIntoView({ behavior: "smooth" });
     }
 
     function submitForm(event) {
@@ -166,17 +152,13 @@
       const form = document.getElementById('bewerbungsForm');
       const success = document.getElementById('successMessage');
 
-      // Stelle sicher, dass das versteckte Feld gesetzt ist
-      const position = document.getElementById('formTitle').textContent.replace("Bewerbung: ", "");
-      document.getElementById("position").value = position;
-
-      // Email senden
-      emailjs.sendForm('service_kq26xjf', 'template_j023kum', form)
+      emailjs.sendForm('service_kq26xjf', 'template_j023kum', form, 'CUfrvAoxqoIsZtPLK')
         .then(() => {
+          form.reset();
           form.style.display = 'none';
           success.style.display = 'block';
         }, (error) => {
-          alert('Fehler beim Absenden der Bewerbung. Bitte versuche es erneut.');
+          alert('Fehler beim Absenden. Bitte versuche es erneut.');
           console.error('EmailJS Fehler:', error);
         });
     }
