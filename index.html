@@ -249,52 +249,57 @@
   }
 
   async function submitForm(event) {
-    event.preventDefault();
+  event.preventDefault();
 
-    const bereich = event.target.dataset.bereich || "Unbekannt";
+  const bereich = event.target.dataset.bereich || "...";
 
-    const name = document.getElementById('name').value.trim();
-    const age = document.getElementById('age').value.trim();
-    const experience = document.getElementById('experience').value.trim();
-    const discord = document.getElementById('discord').value.trim();
-    const why = document.getElementById('why').value.trim();
+  // Formulardaten auslesen
+  const name = document.getElementById('name').value.trim();
+  const age = document.getElementById('age').value.trim();
+  const experience = document.getElementById('experience').value.trim();
+  const discord = document.getElementById('discord').value.trim();
+  const why = document.getElementById('why').value.trim();
 
-    if (!name || !age || !experience || !discord || !why) {
-      alert('Bitte alle Felder ausfüllen!');
-      return;
-    }
-
-    // Discord Webhook Payload (einfacher Text-Message)
-    const payload = {
-      content: `**Neue Bewerbung für Bereich: ${bereich}**\n` +
-               `**Name:** ${name}\n` +
-               `**Alter:** ${age}\n` +
-               `**Erfahrung:** ${experience}\n` +
-               `**Discord:** ${discord}\n` +
-               `**Warum:** ${why}`
-    };
-
-    try {
-      const response = await fetch(webhookUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-
-      if (response.ok) {
-        document.getElementById('bewerbungsForm').reset();
-        document.getElementById('bewerbungsForm').style.display = 'none';
-        document.getElementById('successMessage').style.display = 'block';
-      } else {
-        alert('Fehler beim Absenden der Bewerbung. Bitte versuche es später nochmal.');
+  // Embed-Payload für Discord Webhook bauen
+  const data = {
+    embeds: [
+      {
+        title: `Neue Bewerbung für ${bereich}`,
+        color: 0x5865F2, // Discord-Blau
+        fields: [
+          { name: "Name", value: name, inline: true },
+          { name: "Alter", value: age, inline: true },
+          { name: "Erfahrung", value: experience },
+          { name: "Discord-Name", value: discord, inline: true },
+          { name: "Motivation", value: why }
+        ],
+        timestamp: new Date().toISOString(),
+        footer: {
+          text: "Flex City Bewerbungen"
+        }
       }
-    } catch (error) {
-      alert('Netzwerkfehler. Bitte überprüfe deine Internetverbindung.');
-      console.error(error);
-    }
-  }
+    ]
+  };
 
-  document.getElementById("bewerbungsForm").addEventListener("submit", submitForm);
+  try {
+    const response = await fetch(webhookUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+
+    if (response.ok) {
+      // Formular ausblenden & Erfolgsmeldung anzeigen
+      event.target.style.display = 'none';
+      document.getElementById('successMessage').style.display = 'block';
+    } else {
+      alert('Fehler beim Absenden der Bewerbung. Bitte später erneut versuchen.');
+    }
+  } catch (error) {
+    alert('Netzwerkfehler beim Absenden der Bewerbung.');
+    console.error(error);
+  }
+}
 </script>
 
 </body>
