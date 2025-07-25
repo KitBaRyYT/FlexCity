@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -243,56 +244,30 @@
 
   <script>
     function showForm(bereich) {
-      const form = document.getElementById('bewerbungsForm');
-      const title = document.getElementById('formTitle');
-      const success = document.getElementById('successMessage');
-      success.style.display = 'none';
-
-      form.style.display = 'flex';
-      title.textContent = `Bewerbung: ${bereich}`;
-      // Clear previous inputs
-      form.reset();
-      
-      // Hier scrollen wir zum Formular
-      form.scrollIntoView({ behavior: 'smooth' });
+      document.getElementById("bewerbungsForm").style.display = "flex";
     }
 
-    function submitForm(event) {
-     event.preventDefault();
+    document.getElementById("bewerbungsForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      
+      const webhookUrl = "DEIN_DISCORD_WEBHOOK_URL"; // HIER DEIN WEBHOOK LINK
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const message = document.getElementById("message").value;
 
-     const serviceID = 'service_kq26xjf';   // Dein EmailJS Service ID
-     const templateID = 'template_j023kum';  // Deine Template ID
+      const payload = {
+        content: `**Neue Bewerbung:**\n**Name:** ${name}\n**E-Mail:** ${email}\n**Nachricht:** ${message}`
+      };
 
-     const form = document.getElementById('bewerbungsForm');
-
-     // Hole die Werte aus dem Formular
-     const bereich = document.getElementById('formTitle').textContent.replace('Bewerbung: ', '');
-     const name = document.getElementById('name').value;
-     const age = document.getElementById('age').value;
-     const experience = document.getElementById('experience').value;
-     const discord = document.getElementById('discord').value;
-     const why = document.getElementById('why').value;
-
-     const templateParams = {
-       bereich: bereich,
-       name: name,
-       age: age,
-       experience: experience,
-       discord: discord,
-       why: why
-     };
-
-     emailjs.send(serviceID, templateID, templateParams)
-       .then(() => {
-         // Erfolgreich gesendet
-         form.style.display = 'none';
-         document.getElementById('successMessage').style.display = 'block';
-       }, (err) => {
-         alert('Beim Senden der Bewerbung ist ein Fehler aufgetreten. Bitte versuche es später noch einmal.');
-         console.error('EmailJS Fehler:', err);
-       });
-   }
-
+      fetch(webhookUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      }).then(() => {
+        document.getElementById("bewerbungsForm").style.display = "none";
+        document.querySelector(".submitted").style.display = "block";
+      }).catch(err => alert("Fehler beim Senden: " + err));
+    });
   </script>
 </body>
 </html>
