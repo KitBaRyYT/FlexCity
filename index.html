@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -244,7 +245,8 @@
 
    <script>
   function showForm(bereich) {
-    const form = document.getElementById('bewerbungsForm').style.display = "flex";
+    const form = document.getElementById('bewerbungsForm');
+    form.style.display = 'flex';
 
     // Automatisch sanft zum Formular scrollen
     form.scrollIntoView({ behavior: 'smooth', block: 'start' });
