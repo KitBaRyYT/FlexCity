@@ -243,12 +243,15 @@
   </div>
 
    <script>
-    function showForm(bereich) {
-      document.getElementById("bewerbungsForm").style.display = "flex";
-      
-      // Hier scrollen wir zum Formular
-      form.scrollIntoView({ behavior: 'smooth' });
-    }
+  function showForm(bereich) {
+    const form = document.getElementById('bewerbungsForm');
+    form.style.display = 'flex';
+
+    // Automatisch sanft zum Formular scrollen
+    form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+</script>
+
       
     document.getElementById("bewerbungsForm").addEventListener("submit", function(e) {
      e.preventDefault();
