@@ -242,21 +242,27 @@
     Vielen Dank für deine Bewerbung! Wir melden uns schnellstmöglich bei dir.
   </div>
 
-  <script>
+   <script>
     function showForm(bereich) {
       document.getElementById("bewerbungsForm").style.display = "flex";
-    }
-
-    document.getElementById("bewerbungsForm").addEventListener("submit", function(e) {
-      e.preventDefault();
       
-      const webhookUrl = "https://discord.com/api/webhooks/1398245917160640522/Bj6bJVTXdIaS6kl8w8HQWO3Pt2hHF2qva_rTSbi-RM_uWfkc3h0Opoa8PodbAw86Yqn5"; // HIER DEIN WEBHOOK LINK
-      const name = document.getElementById("name").value;
-      const email = document.getElementById("email").value;
-      const message = document.getElementById("message").value;
+      // Hier scrollen wir zum Formular
+      form.scrollIntoView({ behavior: 'smooth' });
+    }
+      
+    document.getElementById("bewerbungsForm").addEventListener("submit", function(e) {
+     e.preventDefault();
+      
+     const webhookUrl = "https://discord.com/api/webhooks/1398245917160640522/Bj6bJVTXdIaS6kl8w8HQWO3Pt2hHF2qva_rTSbi-RM_uWfkc3h0Opoa8PodbAw86Yqn5"; // HIER DEIN WEBHOOK LINK
+     const bereich = document.getElementById('formTitle').textContent.replace('Bewerbung: ', '');
+     const name = document.getElementById('name').value;
+     const age = document.getElementById('age').value;
+     const experience = document.getElementById('experience').value;
+     const discord = document.getElementById('discord').value;
+     const why = document.getElementById('why').value;
 
       const payload = {
-        content: `**Neue Bewerbung:**\n**Name:** ${name}\n**E-Mail:** ${email}\n**Nachricht:** ${message}`
+        content: `**Neue Bewerbung als:** ${formTitle}\n**Name:** ${name}\n**Alter:** ${age}\n**Erfahrung:** ${experience}\n**Discord Name:** ${discord}\n**Warum möchtest du in diesem Bereich mitarbeiten?** ${why}`
       };
 
       fetch(webhookUrl, {
