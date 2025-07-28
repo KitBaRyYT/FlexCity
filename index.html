@@ -229,6 +229,7 @@
     <input type="number" id="age" placeholder="Dein Alter" required min="10" max="100" />
     <input type="text" id="experience" placeholder="Deine Erfahrung" required />
     <input type="text" id="discord" placeholder="Dein Discord-Name" required />
+    <input type="text" id="minecraft" placeholder="Dein Minecraft Name" required />
     <textarea id="why" rows="4" placeholder="Warum möchtest du in diesem Bereich mitarbeiten?" required></textarea>
     <button type="submit">Bewerbung abschicken</button>
   </form>
@@ -259,6 +260,7 @@
   const experience = document.getElementById('experience').value.trim();
   const discord = document.getElementById('discord').value.trim();
   const why = document.getElementById('why').value.trim();
+  const minecraft = document.getElementById('minecraft').value.trim();
 
   // Embed-Payload für Discord Webhook bauen
   const data = {
@@ -271,7 +273,9 @@
           { name: "Alter", value: age, inline: true },
           { name: "Erfahrung", value: experience },
           { name: "Discord-Name", value: discord, inline: true },
-          { name: "Motivation", value: why }
+          { name: "Minecraft Name", value: minecraft, inline: true },
+          { name: "Warum möchtest du in diesem Bereich mitarbeiten?", value: why }
+          
         ],
         timestamp: new Date().toISOString(),
         footer: {
