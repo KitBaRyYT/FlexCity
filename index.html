@@ -6,28 +6,41 @@
   <style>
     /* Dunkelmodus Design */
     html, body {
-     margin: 0;
-     padding: 0;
-     height: 100%;
-   }
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+
+    body {
+      display: block;
+      background-color: #121212;
+      color: #e0e0e0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Neuer Container für Sticky-Footer-Layout */
+     .page-container {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh; /* Seite mindestens so hoch wie der Viewport */
+    }
 
     .content {
-     flex: 1;
+      flex: 1; /* Inhalt nimmt den verbleibenden Platz ein */
       display: flex;
       flex-direction: column;
     }
 
+    /* Fußzeile am unteren Ende, aber NICHT fixiert */
     .footer {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      background-color: rgba(100, 100, 100, 0.3);
+      background-color: rgba(150, 150, 150, 0.2);
       color: #e0e0e0;
       text-align: center;
-      padding: 10px 0;
+      padding: 12px 0;
       font-size: 0.9rem;
-      backdrop-filter: blur(4px);
-      z-index: 999;
+      backdrop-filter: blur(3px);
     }
 
     body {
@@ -219,6 +232,7 @@
   </style>
 </head>
 <body>
+  <div class="page-container">
   <div class="kontakt-box">
     <p>Kontaktmöglichkeit per Mail<br>
     flexcity.server@gmail.com</p>
@@ -292,9 +306,10 @@
 
  </div>
 
-  <div class="footer">
+  <footer class="footer">
      © 2025 Flex City – Alle Rechte vorbehalten.
-  </div>
+  </footer>
+ </div>
 
   <form id="bewerbungsForm" onsubmit="submitForm(event)">
     <h2 id="formTitle">Bewerbung</h2>
