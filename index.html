@@ -175,6 +175,19 @@
      z-index: 9999;
      pointer-events: none; /* verhindert, dass das Element Klicks blockiert */
    }
+    .footer {
+     position: fixed;
+     bottom: 0;
+     left: 0;
+     width: 100%;
+     background-color: rgba(150, 150, 150, 0.2); /* Transparentes Grau */
+     color: #e0e0e0;
+     text-align: center;
+     padding: 12px 0;
+     font-size: 0.9rem;
+     backdrop-filter: blur(3px); /* Optionaler Weichzeichner-Effekt */
+     z-index: 999;
+   }
 
   </style>
 </head>
@@ -197,7 +210,7 @@
     <p>Fairness und Spielspaß steht bei uns an erster Stelle.</p>
     <br>
     <p>Gründer: KitBaRyYT</p>
-    <p></p>Mitgründer: Paul</p>
+    <p>Mitgründer: Paul</p>
   </div>
 
   <!-- Neuer Abschnitt "Discord/Support" -->
@@ -248,6 +261,10 @@
       <button onclick="showForm('Tester')">Tester</button>
       <p>Tester spielen neue Maps und Minigames zuerst und bewerten Design, Fairness und Spielspaß.</p>
     </div>
+  </div>
+
+  <div class="footer">
+     © 2025 Flex City – Alle Rechte vorbehalten.
   </div>
 
   <form id="bewerbungsForm" onsubmit="submitForm(event)">
