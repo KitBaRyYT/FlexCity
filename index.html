@@ -162,9 +162,28 @@
       box-shadow: 0 0 10px rgba(72, 183, 72, 0.7);
       user-select: none;
     }
+    .kontakt-box {
+     position: fixed;
+     top: 15px;
+     left: 15px;
+     background-color: rgba(100, 100, 100, 0.3); /* Transparentes Grau */
+     color: #e0e0e0;
+     padding: 12px 18px;
+     border-radius: 10px;
+     font-size: 0.95rem;
+     backdrop-filter: blur(4px); /* Optional: leicht verschwommener Hintergrund */
+     z-index: 9999;
+     pointer-events: none; /* verhindert, dass das Element Klicks blockiert */
+   }
+
   </style>
 </head>
 <body>
+  <div class="kontakt-box">
+    <p>Kontaktmöglichkeit per Mail<br>
+    flexcity.server@gmail.com</p>
+  </div>
+
   <div class="header-container">
     <img src="FlexCityTrans.png" alt="Flex City Logo" />
   </div>
