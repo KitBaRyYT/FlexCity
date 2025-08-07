@@ -5,14 +5,41 @@
   <title>Flex City Bewerbungen</title>
   <style>
     /* Dunkelmodus Design */
+    html, body {
+     margin: 0;
+     padding: 0;
+     height: 100%;
+   }
+
+    .content {
+     flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: rgba(100, 100, 100, 0.3);
+      color: #e0e0e0;
+      text-align: center;
+      padding: 10px 0;
+      font-size: 0.9rem;
+      backdrop-filter: blur(4px);
+      z-index: 999;
+    }
+
     body {
+      display: flex;
+      flex-direction: column;
       background-color: #121212;
       color: #e0e0e0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 20px;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
+
     .header-container {
       text-align: center;
       margin-bottom: 30px;
@@ -197,6 +224,7 @@
     flexcity.server@gmail.com</p>
   </div>
 
+ <div class="content">
   <div class="header-container">
     <img src="FlexCityTrans.png" alt="Flex City Logo" />
   </div>
@@ -261,7 +289,8 @@
       <button onclick="showForm('Tester')">Tester</button>
       <p>Tester spielen neue Maps und Minigames zuerst und bewerten Design, Fairness und Spielspaß.</p>
     </div>
-  </div>
+
+ </div>
 
   <div class="footer">
      © 2025 Flex City – Alle Rechte vorbehalten.
