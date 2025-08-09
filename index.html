@@ -11,6 +11,15 @@
       height: 100%;
     }
 
+    body {
+      display: block;
+      background-color: #121212;
+      color: #e0e0e0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
     /* Neuer Container für Sticky-Footer-Layout */
      .page-container {
       display: flex;
@@ -20,6 +29,8 @@
 
     .content {
       flex: 1; /* Inhalt nimmt den verbleibenden Platz ein */
+      display: flex;
+      flex-direction: column;
     }
 
     /* Fußzeile am unteren Ende, aber NICHT fixiert */
@@ -212,7 +223,6 @@
      font-size: 0.9rem;
      backdrop-filter: blur(3px);
      z-index: 999;
-     width: 100%;
    }
 
 
@@ -259,12 +269,6 @@
     <h2>Bewerben</h2>
     <p>Wähle deinen Bereich und sende eine Bewerbung ab!</p>
   </div>
-
-  <div class="btn-container">
-    <div class="bereich-block">
-      <button onclick="showForm('Developer')">Developer</button>
-      <p>Ein Developer kümmert sich auf dem Server im Bereich der Technik um beispielsweise Plugins oder Configs. Bei diesem Rang müssen Coding oder sonstige Erfahrungen vorhanden sein!</p>
-    </div>
 
   <div class="btn-container">
     <div class="bereich-block">
