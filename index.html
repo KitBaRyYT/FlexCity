@@ -193,7 +193,7 @@
     }
     .submitted {
       max-width: 600px;
-      margin: 30px auto;
+      margin: 30px auto 20px auto;
       padding: 20px;
       background-color: #2b5329;
       border: 1px solid #4caf50;
@@ -319,14 +319,16 @@
     <button type="submit">Bewerbung abschicken</button>
   </form>
 
+   <div id="successMessage" class="submitted" style="display:none;">
+     Vielen Dank für deine Bewerbung! Wir melden uns schnellstmöglich bei dir.
+   </div>
+   
    <footer class="footer">
      © 2025 Flex City – Mit Abgabe der Bewerbung bzw. dem Eintritt ins Team willigen Bewerber ein, am Projekt „Flex City“ mitzuwirken. Die Urheberrechte und das geistige Eigentum verbleiben uneingeschränkt bei KitBaRyYT.
    </footer>
 
 
-  <div id="successMessage" class="submitted" style="display:none;">
-    Vielen Dank für deine Bewerbung! Wir melden uns schnellstmöglich bei dir.
-  </div>
+  
 
   <script>
   const webhookUrl = "https://discord.com/api/webhooks/1398281766673973258/Jz7Ny0nBuNn0hx7GCvivdI_F_ng29ViG2BZH1qxOpH6EKivkMzW2J6eAGY9F9q1_uDlL";
