@@ -215,6 +215,16 @@
      z-index: 9999;
      pointer-events: none; /* verhindert, dass das Element Klicks blockiert */
      text-align: left;
+      
+     display: flex;            /* Bild + Text nebeneinander */
+     align-items: center;      /* Vertikal zentrieren */
+     gap: 12px;                /* Abstand zwischen Bild und Text */
+   }
+
+   .kontakt-box img {
+     max-height: 40px;         /* Logo klein machen */
+     filter: brightness(90%);
+   
    }
     .footer {
      background-color: rgba(150, 150, 150, 0.2);
