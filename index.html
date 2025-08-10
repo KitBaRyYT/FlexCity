@@ -206,25 +206,21 @@
      position: absolute;
      top: 15px;
      left: 15px;
-     background-color: rgba(100, 100, 100, 0.3); /* Transparentes Grau */
+     background-color: rgba(100, 100, 100, 0.3);
      color: #e0e0e0;
-     padding: 12px 65px;
+     padding: 15px;
      border-radius: 10px;
      font-size: 0.95rem;
-     backdrop-filter: blur(4px); /* Optional: leicht verschwommener Hintergrund */
+     backdrop-filter: blur(4px);
      z-index: 9999;
-     pointer-events: none; /* verhindert, dass das Element Klicks blockiert */
-     text-align: left;
-      
-     display: flex;            /* Bild + Text nebeneinander */
-     align-items: center;      /* Vertikal zentrieren */
-     gap: 12px;                /* Abstand zwischen Bild und Text */
+     pointer-events: none;
+     text-align: center; /* Bild & Text zentrieren */
    }
-
-   .kontakt-box img {
-     max-height: 40px;         /* Logo klein machen */
+    .kontakt-box img {
+     max-width: 180px;       /* alte Größe */
      filter: brightness(90%);
-   
+     display: block;
+     margin: 0 auto 8px auto; /* Abstand zum Text */
    }
     .footer {
      background-color: rgba(150, 150, 150, 0.2);
