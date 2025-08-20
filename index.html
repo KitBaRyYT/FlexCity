@@ -382,7 +382,7 @@
     const msg = document.getElementById("error-msg");
     const form = document.getElementById('bewerbungsForm');
 
-    if (blockedBereiche.includes(bereich)) {
+    if (blockedBereiche.some(b => b.toLowerCase() === bereich.toLowerCase())) {
       // ❌ Formular verstecken, nur Fehlermeldung zeigen
       form.style.display = "none";
       msg.style.display = "block";
