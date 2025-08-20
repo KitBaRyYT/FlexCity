@@ -247,6 +247,14 @@
      backdrop-filter: blur(3px);
      z-index: 999;
    }
+    .error-message {
+  color: red;
+  font-weight: bold;
+  margin-top: 10px;
+  display: none;
+  text-align: center;
+}
+
 
 
   </style>
@@ -336,6 +344,10 @@
       <button onclick="showForm('Tester')">Tester</button>
       <p>Tester spielen neue Maps und Minigames zuerst und bewerten Design, Fairness und Spielspaß.</p>
     </div>
+    
+<p id="error-msg" class="error-message">
+  Bitte bewirb dich zuerst als Supporter, um anschließend aufzusteigen!
+</p>
 
  </div>
 
@@ -363,15 +375,28 @@
 
   <script>
   const webhookUrl = "https://discord.com/api/webhooks/1398281766673973258/Jz7Ny0nBuNn0hx7GCvivdI_F_ng29ViG2BZH1qxOpH6EKivkMzW2J6eAGY9F9q1_uDlL";
+  // Liste von Bereichen, die gesperrt sind
+  const blockedBereiche = ["Head-Admin", "Admin", "Supportleitung"];
 
   function showForm(bereich) {
+    const msg = document.getElementById("error-msg");
     const form = document.getElementById('bewerbungsForm');
+
+    if (blockedBereiche.includes(bereich)) {
+      // ❌ Formular verstecken, nur Fehlermeldung zeigen
+      form.style.display = "none";
+      msg.style.display = "block";
+      msg.textContent = "Bitte bewirb dich zuerst als Supporter, um anschließend aufzusteigen!";
+      return;
+    }
+
+    // ✅ Formular wie gewohnt öffnen
+    msg.style.display = "none"; // Falls vorher sichtbar
     form.style.display = 'flex';
     document.getElementById('formTitle').textContent = `Bewerbung für: ${bereich}`;
     form.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    form.dataset.bereich = bereich; // Bereich speichern, falls gewünscht
+    form.dataset.bereich = bereich;
   }
-
   async function submitForm(event) {
   event.preventDefault();
 
