@@ -378,80 +378,86 @@
   // Liste von Bereichen, die gesperrt sind
   const blockedBereiche = ["Management", "Admin", "Supportleitung"];
 
+  let supporterBewerbt = false;
+
   function showForm(bereich) {
     const msg = document.getElementById("error-msg");
-    const form = document.getElementById('bewerbungsForm');
+    const form = document.getElementById("bewerbungsForm");
+    const formTitle = document.getElementById("formTitle");
 
-    if (blockedBereiche.some(b => b.toLowerCase() === bereich.toLowerCase())) {
-      // ❌ Formular verstecken, nur Fehlermeldung zeigen
-      form.style.display = "none";
+    // Prüfen, ob Bereich blockiert ist
+    if (blockedBereiche.includes(bereich) && !supporterBewerbt) {
       msg.style.display = "block";
-      msg.textContent = "Bitte bewirb dich zuerst als Supporter, um anschließend aufzusteigen!";
+      msg.scrollIntoView({ behavior: "smooth", block: "center" });
+
+      // Supporter-Button hervorheben (blinkt 2x)
+      const supporterBtn = [...document.querySelectorAll(".bereich-block button")]
+        .find(btn => btn.textContent.trim() === "Supporter");
+      if (supporterBtn) {
+        supporterBtn.style.transition = "background-color 0.3s";
+        supporterBtn.style.backgroundColor = "#90ee90";
+        setTimeout(() => supporterBtn.style.backgroundColor = "#1f1f1f", 300);
+        setTimeout(() => supporterBtn.style.backgroundColor = "#90ee90", 600);
+        setTimeout(() => supporterBtn.style.backgroundColor = "#1f1f1f", 900);
+      }
       return;
     }
 
-    // ✅ Formular wie gewohnt öffnen
-    msg.style.display = "none"; // Falls vorher sichtbar
-    form.style.display = 'flex';
-    document.getElementById('formTitle').textContent = `Bewerbung für: ${bereich}`;
-    form.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    form.dataset.bereich = bereich;
-  }
-  async function submitForm(event) {
-  event.preventDefault();
+    // Wenn Bereich erlaubt → Formular anzeigen
+    msg.style.display = "none";
+    form.style.display = "flex";
+    formTitle.textContent = `Bewerbung: ${bereich}`;
 
-  const bereich = event.target.dataset.bereich || "...";
-
-  // Formulardaten auslesen
-  const name = document.getElementById('name').value.trim();
-  const age = document.getElementById('age').value.trim();
-  const experience = document.getElementById('experience').value.trim();
-  const discord = document.getElementById('discord').value.trim();
-  const why = document.getElementById('why').value.trim();
-  const minecraft = document.getElementById('minecraft').value.trim();
-
-  // Embed-Payload für Discord Webhook bauen
-  const data = {
-    embeds: [
-      {
-        title: `Neue Bewerbung für ${bereich}`,
-        color: 0x5865F2, // Discord-Blau
-        fields: [
-          { name: "Name", value: name, inline: true },
-          { name: "Alter", value: age, inline: true },
-          { name: "Erfahrung", value: experience },
-          { name: "Discord-Name", value: discord, inline: true },
-          { name: "Minecraft Name", value: minecraft, inline: true },
-          { name: "Warum möchtest du in diesem Bereich mitarbeiten?", value: why }
-          
-        ],
-        timestamp: new Date().toISOString(),
-        footer: {
-          text: "Flex City Bewerbungen"
-        }
-      }
-    ]
-  };
-
-  try {
-    const response = await fetch(webhookUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    });
-
-    if (response.ok) {
-      // Formular ausblenden & Erfolgsmeldung anzeigen
-      event.target.style.display = 'none';
-      document.getElementById('successMessage').style.display = 'block';
-    } else {
-      alert('Fehler beim Absenden der Bewerbung. Bitte später erneut versuchen.');
+    if (bereich === "Supporter") {
+      supporterBewerbt = true; // Flag setzen
     }
-  } catch (error) {
-    alert('Netzwerkfehler beim Absenden der Bewerbung.');
-    console.error(error);
   }
-}
-</script>
+
+  async function submitForm(event) {
+    event.preventDefault();
+
+    const name = document.getElementById('name').value;
+    const age = document.getElementById('age').value;
+    const experience = document.getElementById('experience').value;
+    const discord = document.getElementById('discord').value;
+    const minecraft = document.getElementById('minecraft').value;
+    const why = document.getElementById('why').value;
+    const formTitle = document.getElementById('formTitle').textContent.replace('Bewerbung: ', '');
+
+    const payload = {
+      content: null,
+      embeds: [
+        {
+          title: `Neue Bewerbung: ${formTitle}`,
+          color: 3447003,
+          fields: [
+            { name: "Name", value: name },
+            { name: "Alter", value: age },
+            { name: "Erfahrung", value: experience },
+            { name: "Discord", value: discord },
+            { name: "Minecraft Name", value: minecraft },
+            { name: "Motivation", value: why }
+          ],
+          timestamp: new Date()
+        }
+      ]
+    };
+
+    try {
+      await fetch(webhookUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      document.getElementById('bewerbungsForm').reset();
+      document.getElementById('bewerbungsForm').style.display = 'none';
+      document.getElementById('successMessage').style.display = 'block';
+    } catch (error) {
+      alert("Fehler beim Absenden der Bewerbung. Bitte versuche es später erneut.");
+      console.error(error);
+    }
+  }
+  </script>
 </body>
 </html>
