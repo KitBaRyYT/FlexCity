@@ -316,7 +316,7 @@
     </div>
     
     <div class="bereich-block">
-      <button onclick="showForm('Management')">Head-Admin</button>
+      <button onclick="showForm('Manager')">Head-Admin</button>
       <p>Ein Head-Admin leitet das Team und kommuniziert zwischen Gründer und dem restlichen Team. Er sorgt dafür, dass jeder seiner Arbeit nachgeht.</p>
     </div>
 
@@ -376,42 +376,45 @@
   <script>
   const webhookUrl = "https://discord.com/api/webhooks/1398281766673973258/Jz7Ny0nBuNn0hx7GCvivdI_F_ng29ViG2BZH1qxOpH6EKivkMzW2J6eAGY9F9q1_uDlL";
   // Liste von Bereichen, die gesperrt sind
-  const blockedBereiche = ["Management", "Admin", "Supportleitung"];
+  const blockedBereiche = ["Manager", "Admin", "Supportleitung"];
 
   let supporterBewerbt = false;
 
   function showForm(bereich) {
-    const msg = document.getElementById("error-msg");
-    const form = document.getElementById("bewerbungsForm");
-    const formTitle = document.getElementById("formTitle");
+  const msg = document.getElementById("error-msg");
+  const form = document.getElementById("bewerbungsForm");
+  const formTitle = document.getElementById("formTitle");
 
-    // Prüfen, ob Bereich blockiert ist
-    if (blockedBereiche.includes(bereich) && !supporterBewerbt) {
-      msg.style.display = "block";
-      msg.scrollIntoView({ behavior: "smooth", block: "center" });
+  // Prüfen, ob Bereich blockiert ist
+  if (blockedBereiche.includes(bereich) && !supporterBewerbt) {
+    msg.style.display = "block";
+    msg.scrollIntoView({ behavior: "smooth", block: "center" });
 
-      // Supporter-Button hervorheben (blinkt 2x)
-      const supporterBtn = [...document.querySelectorAll(".bereich-block button")]
-        .find(btn => btn.textContent.trim() === "Supporter");
-      if (supporterBtn) {
-        supporterBtn.style.transition = "background-color 0.3s";
-        supporterBtn.style.backgroundColor = "#90ee90";
-        setTimeout(() => supporterBtn.style.backgroundColor = "#1f1f1f", 300);
-        setTimeout(() => supporterBtn.style.backgroundColor = "#90ee90", 600);
-        setTimeout(() => supporterBtn.style.backgroundColor = "#1f1f1f", 900);
-      }
-      return;
+    // Formular komplett ausblenden
+    form.style.display = "none";
+    form.reset();
+
+    // Supporter-Button blinken lassen
+    const supporterBtn = [...document.querySelectorAll(".bereich-block button")]
+      .find(btn => btn.textContent.trim() === "Supporter");
+    if (supporterBtn) {
+      supporterBtn.classList.remove("blink"); // alte Animation resetten
+      void supporterBtn.offsetWidth;          // Reflow erzwingen
+      supporterBtn.classList.add("blink");    // Animation starten
     }
-
-    // Wenn Bereich erlaubt → Formular anzeigen
-    msg.style.display = "none";
-    form.style.display = "flex";
-    formTitle.textContent = `Bewerbung: ${bereich}`;
-
-    if (bereich === "Supporter") {
-      supporterBewerbt = true; // Flag setzen
-    }
+    return;
   }
+
+  // Bereich erlaubt → Fehlermeldung ausblenden & Formular neu anzeigen
+  msg.style.display = "none";
+  form.reset(); // Eingaben löschen
+  form.style.display = "flex";
+  formTitle.textContent = `Bewerbung: ${bereich}`;
+
+  if (bereich === "Supporter") {
+    supporterBewerbt = true;
+  }
+}
 
   async function submitForm(event) {
     event.preventDefault();
