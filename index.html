@@ -247,14 +247,6 @@
      backdrop-filter: blur(3px);
      z-index: 999;
    }
-    .error-message {
-  color: red;
-  font-weight: bold;
-  margin-top: 10px;
-  display: none;
-  text-align: center;
-}
-
 
 
   </style>
@@ -271,8 +263,8 @@
     Sa.-So. 10-23 Uhr<br>
     <p>&nbsp;</p> <!-- &nbsp; = geschütztes Leerzeichen -->
     Gründer: KitBaRyYT<br>
-    Manager: Mike<br>
-    Developer Leitung: Alex</p>
+    Community Leitung: Paul<br>
+    Developer Leitung: einsAlex</p>
   </div>
 
  <div class="content">
@@ -316,8 +308,8 @@
     </div>
     
     <div class="bereich-block">
-      <button onclick="showForm('Manager')">Manager</button>
-      <p>Ein Manager leitet das Team und kommuniziert zwischen Gründer und dem restlichen Team. Er sorgt dafür, dass jeder seiner Arbeit nachgeht.</p>
+      <button onclick="showForm('Head-Admin')">Head-Admin</button>
+      <p>Ein Head-Admin leitet das Team und kommuniziert zwischen Gründer und dem restlichen Team. Er sorgt dafür, dass jeder seiner Arbeit nachgeht.</p>
     </div>
 
     <div class="bereich-block">
@@ -344,10 +336,6 @@
       <button onclick="showForm('Tester')">Tester</button>
       <p>Tester spielen neue Maps und Minigames zuerst und bewerten Design, Fairness und Spielspaß.</p>
     </div>
-    
-<p id="error-msg" class="error-message">
-  Bitte bewirb dich zuerst als Supporter, um anschließend aufzusteigen!
-</p>
 
  </div>
 
@@ -375,49 +363,70 @@
 
   <script>
   const webhookUrl = "https://discord.com/api/webhooks/1398281766673973258/Jz7Ny0nBuNn0hx7GCvivdI_F_ng29ViG2BZH1qxOpH6EKivkMzW2J6eAGY9F9q1_uDlL";
-  // Liste von Bereichen, die gesperrt sind
-  const blockedBereiche = ["Manager", "Admin", "Supportleitung"];
-
-  let supporterBewerbt = false;
 
   function showForm(bereich) {
-  const msg = document.getElementById("error-msg");
-  const form = document.getElementById("bewerbungsForm");
-  const formTitle = document.getElementById("formTitle");
-
-  // Blockierter Bereich (z. B. Admin, Developer usw. wenn kein Supporter vorher)
-  if (blockedBereiche.includes(bereich) && !supporterBewerbt) {
-    msg.classList.add("show");   // Fehlermeldung sichtbar
-    form.style.display = "none"; // Formular schließen
-    form.reset();
-
-    // Supporter-Button blinken lassen
-    const supporterBtn = [...document.querySelectorAll(".bereich-block button")]
-      .find(btn => btn.textContent.trim() === "Supporter");
-    if (supporterBtn) {
-      supporterBtn.classList.remove("blink"); // alte Animation zurücksetzen
-      void supporterBtn.offsetWidth;          // Reflow erzwingen
-      supporterBtn.classList.add("blink");    // neu starten
-    }
-
-    // Scroll zur Fehlermeldung
-    msg.scrollIntoView({ behavior: "smooth", block: "start" });
-    return;
+    const form = document.getElementById('bewerbungsForm');
+    form.style.display = 'flex';
+    document.getElementById('formTitle').textContent = `Bewerbung für: ${bereich}`;
+    form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    form.dataset.bereich = bereich; // Bereich speichern, falls gewünscht
   }
 
-  // Erlaubter Bereich
-  msg.classList.remove("show"); // Fehlermeldung ausblenden
-  form.reset();                 // Formular leeren
-  form.style.display = "flex";  // Formular zeigen
-  formTitle.textContent = `Bewerbung: ${bereich}`;
+  async function submitForm(event) {
+  event.preventDefault();
 
-  // Scroll zum Formular
-  form.scrollIntoView({ behavior: "smooth", block: "start" });
+  const bereich = event.target.dataset.bereich || "...";
 
-  if (bereich === "Supporter") {
-    supporterBewerbt = true;
+  // Formulardaten auslesen
+  const name = document.getElementById('name').value.trim();
+  const age = document.getElementById('age').value.trim();
+  const experience = document.getElementById('experience').value.trim();
+  const discord = document.getElementById('discord').value.trim();
+  const why = document.getElementById('why').value.trim();
+  const minecraft = document.getElementById('minecraft').value.trim();
+
+  // Embed-Payload für Discord Webhook bauen
+  const data = {
+    embeds: [
+      {
+        title: `Neue Bewerbung für ${bereich}`,
+        color: 0x5865F2, // Discord-Blau
+        fields: [
+          { name: "Name", value: name, inline: true },
+          { name: "Alter", value: age, inline: true },
+          { name: "Erfahrung", value: experience },
+          { name: "Discord-Name", value: discord, inline: true },
+          { name: "Minecraft Name", value: minecraft, inline: true },
+          { name: "Warum möchtest du in diesem Bereich mitarbeiten?", value: why }
+          
+        ],
+        timestamp: new Date().toISOString(),
+        footer: {
+          text: "Flex City Bewerbungen"
+        }
+      }
+    ]
+  };
+
+  try {
+    const response = await fetch(webhookUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+
+    if (response.ok) {
+      // Formular ausblenden & Erfolgsmeldung anzeigen
+      event.target.style.display = 'none';
+      document.getElementById('successMessage').style.display = 'block';
+    } else {
+      alert('Fehler beim Absenden der Bewerbung. Bitte später erneut versuchen.');
+    }
+  } catch (error) {
+    alert('Netzwerkfehler beim Absenden der Bewerbung.');
+    console.error(error);
   }
 }
-  </script>
+</script>
 </body>
 </html>
