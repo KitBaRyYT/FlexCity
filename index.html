@@ -346,6 +346,15 @@
     <input type="text" id="experience" placeholder="Deine Erfahrung" required />
     <input type="text" id="discord" placeholder="Dein Discord-Name" required />
     <input type="text" id="minecraft" placeholder="Dein Minecraft Name" required />
+
+    <!-- Neues Feld: Minecraft Version -->
+    <select id="minecraftVersion" required>
+      <option value="" disabled selected>Wähle deine Minecraft Version</option>
+      <option value="Java">Java</option>
+      <option value="Bedrock">Bedrock</option>
+      <option value="Beide">Beide</option>
+    </select>
+
     <textarea id="why" rows="4" placeholder="Warum möchtest du in diesem Bereich mitarbeiten?" required></textarea>
     <button type="submit">Bewerbung abschicken</button>
   </form>
@@ -404,9 +413,11 @@
     const age = document.getElementById('age').value.trim();
     const experience = document.getElementById('experience').value.trim();
     const discord = document.getElementById('discord').value.trim();
-    const why = document.getElementById('why').value.trim();
     const minecraft = document.getElementById('minecraft').value.trim();
+    const version = document.getElementById('minecraftVersion').value; // NEU
+    const why = document.getElementById('why').value.trim();
 
+    
     // Embed-Payload für Discord Webhook bauen
     const data = {
       embeds: [
@@ -419,6 +430,7 @@
             { name: "Erfahrung", value: experience },
             { name: "Discord-Name", value: discord, inline: true },
             { name: "Minecraft Name", value: minecraft, inline: true },
+            { name: "Minecraft Version", value: version, inline: true },
             { name: "Warum möchtest du in diesem Bereich mitarbeiten?", value: why }
           ],
           timestamp: new Date().toISOString(),
