@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <title>Flex City Bewerbungen</title>
   <style>
-    /* Dunkelmodus Design */
     html, body {
       margin: 0;
       padding: 0;
@@ -12,28 +11,25 @@
     }
 
     body {
-      display: block;
+      display: flex;
+      flex-direction: column;
       background-color: #121212;
       color: #e0e0e0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
 
-    /* Neuer Container für Sticky-Footer-Layout */
-     .page-container {
+    .page-container {
       display: flex;
       flex-direction: column;
-      min-height: 100vh; /* Seite mindestens so hoch wie der Viewport */
+      min-height: 100vh;
     }
 
     .content {
-      flex: 1; /* Inhalt nimmt den verbleibenden Platz ein */
+      flex: 1;
       display: flex;
       flex-direction: column;
     }
 
-    /* Fußzeile am unteren Ende, aber NICHT fixiert */
     .footer {
       background-color: rgba(150, 150, 150, 0.2);
       color: #e0e0e0;
@@ -43,54 +39,44 @@
       backdrop-filter: blur(3px);
     }
 
-    body {
-      display: flex;
-      flex-direction: column;
-      background-color: #121212;
-      color: #e0e0e0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-
     .header-container {
       text-align: center;
       margin-top: 80px;
       margin-bottom: 30px;
     }
+
     .header-title {
-     font-weight: 900;       /* richtig fett */
-     font-size: 4rem;
-     color: #FFD700;         /* Goldgelb */
-     margin: 0;
-   }
+      font-weight: 900;
+      font-size: 4rem;
+      color: #FFD700;
+      margin: 0;
+    }
+
     .header-subtitle {
-     font-weight: 600;
-     font-size: 1.2rem;
-     color: #40E0D0;         /* Türkis */
-     margin: 4px 0 0 0;
+      font-weight: 600;
+      font-size: 1.2rem;
+      color: #40E0D0;
+      margin: 4px 0 0 0;
     }
-    .header-container img {
-      max-width: 180px;
-      margin-top: 10px;
-      filter: brightness(90%);
-    }
-    /* Neuer Bereich "Über uns" und "Discord/Support" */
+
     .section {
       max-width: 600px;
       margin: 0 auto 25px auto;
       text-align: center;
     }
+
     .section h2 {
       font-weight: 700;
       margin-bottom: 8px;
       color: #e0e0e0;
     }
+
     .section p {
       color: #bbb;
       user-select: none;
       margin-bottom: 20px;
     }
+
     .discord-button {
       display: inline-flex;
       align-items: center;
@@ -106,32 +92,62 @@
       user-select: none;
       transition: background-color 0.3s ease;
     }
+
     .discord-button:hover {
       background-color: #4752c4;
     }
-    .discord-button svg {
-      width: 22px;
-      height: 22px;
-      margin-right: 8px;
-      fill: white;
+
+    .bewerben-toggle {
+      display: block;
+      margin: 20px auto 10px auto;
+      padding: 14px 24px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      background-color: #40E0D0;
+      color: #121212;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
     }
-    p {
-      text-align: center;
-      color: #bbb;
-      user-select: none;
+
+    .bewerben-toggle.active {
+      background-color: #ff4c4c;
+      color: #fff;
     }
+
+    .bewerben-toggle:hover {
+      transform: scale(1.05);
+    }
+
+    /* --- Slide-Down Effekt + Schatten --- */
     .btn-container {
       max-width: 600px;
-      margin: 0 auto 40px auto;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
+      margin: 0 auto;
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.6s ease, opacity 0.4s ease, box-shadow 0.4s ease, background-color 0.4s ease;
+      border-radius: 10px;
+      background-color: #1f1f1f; 
+      box-shadow: none;
     }
+
+    .btn-container.show {
+      max-height: 700px; /* ausreichend Platz */
+      opacity: 1;
+      background-color: #2a2a2a; /* leicht aufgehellt */
+      box-shadow: 0 8px 20px rgba(0,0,0,0.6); /* weicher Schatten */
+      z-index: 5;
+    }
+
     .bereich-block {
       display: flex;
       flex-direction: column;
       gap: 6px;
+      margin-top: 10px;
     }
+
     .bereich-block button {
       width: 100%;
       background-color: #1f1f1f;
@@ -145,17 +161,12 @@
       transition: background-color 0.3s ease, border-color 0.3s ease;
       font-weight: 600;
     }
+
     .bereich-block button:hover {
       background-color: #333333;
       border-color: #666666;
     }
-    .bereich-block p {
-      margin-left: 12px;
-      font-style: italic;
-      color: #999999;
-      user-select: none;
-      max-width: 580px;
-    }
+
     form#bewerbungsForm {
       max-width: 600px;
       margin: 0 auto;
@@ -167,29 +178,19 @@
       border-radius: 10px;
       box-shadow: 0 0 12px rgba(0, 0, 0, 0.7);
     }
+
     form#bewerbungsForm input,
-    form#bewerbungsForm textarea {
+    form#bewerbungsForm textarea,
+    form#bewerbungsForm select {
       padding: 12px;
       font-size: 1rem;
       border: 1px solid #444;
       border-radius: 6px;
       width: 100%;
-      box-sizing: border-box;
-      resize: vertical;
       background-color: #2b2b2b;
       color: #e0e0e0;
-      transition: border-color 0.3s;
     }
-    form#bewerbungsForm input::placeholder,
-    form#bewerbungsForm textarea::placeholder {
-      color: #777;
-    }
-    form#bewerbungsForm input:focus,
-    form#bewerbungsForm textarea:focus {
-      outline: none;
-      border-color: #4caf50;
-      background-color: #333;
-    }
+
     form#bewerbungsForm button[type="submit"] {
       background-color: #4caf50;
       color: #fff;
@@ -201,9 +202,11 @@
       transition: background-color 0.3s ease;
       font-weight: 700;
     }
+
     form#bewerbungsForm button[type="submit"]:hover {
       background-color: #388e3c;
     }
+
     .submitted {
       max-width: 600px;
       margin: 30px auto 20px auto;
@@ -215,254 +218,168 @@
       box-shadow: 0 0 10px rgba(72, 183, 72, 0.7);
       user-select: none;
     }
+
     .kontakt-box {
-     position: absolute;
-     top: 15px;
-     left: 15px;
-     background-color: rgba(100, 100, 100, 0.3);
-     color: #e0e0e0;
-     padding: 15px;
-     border-radius: 10px;
-     font-size: 0.95rem;
-     backdrop-filter: blur(4px);
-     z-index: 9999;
-     pointer-events: none;
-     text-align: left; /* Bild & Text linksbündig */
-   }
-    .kontakt-box p {
-     text-align: left;
-   }
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background-color: rgba(100, 100, 100, 0.3);
+      color: #e0e0e0;
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      backdrop-filter: blur(4px);
+      z-index: 9999;
+      pointer-events: none;
+      text-align: left;
+    }
+
     .kontakt-box img {
-     max-width: 180px;       /* alte Größe */
-     filter: brightness(90%);
-     display: block;
-     margin: 0 auto 8px auto; /* Abstand zum Text */
-   }
-    .footer {
-     background-color: rgba(150, 150, 150, 0.2);
-     color: #e0e0e0;
-     text-align: center;
-     padding: 12px 0;
-     font-size: 0.9rem;
-     backdrop-filter: blur(3px);
-     z-index: 999;
-   }
-
-
+      max-width: 180px;
+      filter: brightness(90%);
+      display: block;
+      margin: 0 auto 8px auto;
+    }
   </style>
 </head>
 <body>
   <div class="page-container">
-  <div class="kontakt-box">
-    <img src="FlexCityTrans.png" alt="Flex City Logo" />
-    <p>Kontaktmöglichkeit per Mail<br>
-    flexcity.server@gmail.com</p>
-    <p>&nbsp;</p> <!-- &nbsp; = geschütztes Leerzeichen -->
-    <p>Discord Support Zeiten<br>
-    Mo.-Fr. 12-20 Uhr<br>
-    Sa.-So. 10-23 Uhr<br>
-    <p>&nbsp;</p> <!-- &nbsp; = geschütztes Leerzeichen -->
-    Gründer: KitBaRyYT<br>
-    Community Leitung: /<br>
-    Manager: Mike
-    Developer Leitung: einsAlex</p>
+    <div class="kontakt-box">
+      <img src="FlexCityTrans.png" alt="Flex City Logo" />
+      <p>Kontakt per Mail<br>flexcity.server@gmail.com</p>
+      <p>Discord Support Zeiten<br>Mo.-Fr. 12–20 Uhr<br>Sa.-So. 10–23 Uhr</p>
+      <p>Gründer: KitBaRyYT<br>Manager: Mike<br>Developer Leitung: einsAlex</p>
+    </div>
+
+    <div class="content">
+      <div class="header-container">
+        <h1 class="header-title">Flex City</h1>
+        <p class="header-subtitle">Adresse</p>
+      </div>
+
+      <div class="section">
+        <h2>Über uns</h2>
+        <p>Wir sind ein Community-orientierter Minecraft Server mit verschiedensten Minigames.</p>
+        <p>Unser Ziel? Möglichst viele einzigartige Spiele und Features!</p>
+        <p>Fairness und Spielspaß stehen bei uns an erster Stelle.</p>
+      </div>
+
+      <div class="section">
+        <h2>Discord / Support</h2>
+        <a href="https://discord.gg/V6gu38RNZD" target="_blank" class="discord-button">Discord beitreten</a>
+      </div>
+
+      <div class="section">
+        <h2>Bewerben</h2>
+        <button class="bewerben-toggle" onclick="toggleBereiche()">Bewerben</button>
+      </div>
+
+      <div class="btn-container" id="bereichContainer">
+        <div class="bereich-block"><button onclick="showForm('Developer')">Developer</button></div>
+        <div class="bereich-block"><button onclick="showForm('Manager')">Manager</button></div>
+        <div class="bereich-block"><button onclick="showForm('Admin')">Admin</button></div>
+        <div class="bereich-block"><button onclick="showForm('Builder')">Builder</button></div>
+        <div class="bereich-block"><button onclick="showForm('Supporter')">Supporter</button></div>
+        <div class="bereich-block"><button onclick="showForm('Tester')">Tester</button></div>
+      </div>
+
+      <form id="bewerbungsForm" onsubmit="submitForm(event)">
+        <h2 id="formTitle">Bewerbung</h2>
+        <input type="text" id="name" placeholder="Dein Name" required />
+        <input type="number" id="age" placeholder="Dein Alter" required min="10" max="100" />
+        <input type="text" id="experience" placeholder="Deine Erfahrung" required />
+        <input type="text" id="discord" placeholder="Dein Discord-Name" required />
+        <input type="text" id="minecraft" placeholder="Dein Minecraft Name" required />
+        <select id="minecraftVersion" required>
+          <option value="" disabled selected>Wähle deine Minecraft Version</option>
+          <option value="Java">Java</option>
+          <option value="Bedrock">Bedrock</option>
+          <option value="Beide">Beide</option>
+        </select>
+        <textarea id="why" rows="4" placeholder="Warum möchtest du in diesem Bereich mitarbeiten?" required></textarea>
+        <button type="submit">Bewerbung abschicken</button>
+      </form>
+
+      <div id="successMessage" class="submitted" style="display:none;">
+        Vielen Dank für deine Bewerbung! Wir melden uns schnellstmöglich bei dir.
+      </div>
+
+      <footer class="footer">
+        © 2025 Flex City – Mit Abgabe der Bewerbung willigst du ein, am Projekt „Flex City“ mitzuwirken.
+      </footer>
+    </div>
   </div>
-
- <div class="content">
-  <div class="header-container">
-  <h1 class="header-title">Flex City</h1>
-  <p class="header-subtitle">Adresse</p>
-</div>
-
-
-  <!-- Neuer Abschnitt "Über uns" -->
-  <div class="section">
-    <h2>Über uns</h2>
-    <p>Wir sind ein Community orientierter Minecraft Server mit den verschiedensten Minigames.</p>
-    <p>Unser Ziel?</p>
-    <p>Möglichst viele verschiedene und einzigartige Minigames und Features!</p>
-    <p>Fairness und Spielspaß steht bei uns an erster Stelle.</p>
-  </div>
-
-  <!-- Neuer Abschnitt "Discord/Support" -->
-  <div class="section">
-    <h2>Discord/Support</h2>
-    <a href="https://discord.gg/V6gu38RNZD" target="_blank" rel="noopener noreferrer" class="discord-button" aria-label="Zum Discord einladen">
-      <svg viewBox="0 0 245 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" focusable="false">
-        <path d="M104.4 104.5c-5.7 0-10.2 5-10.2 11.1 0 6.1 4.6 11.1 10.2 11.1 5.7 0 10.3-5 10.2-11.1 0-6.1-4.6-11.1-10.2-11.1zm36.1 0c-5.7 0-10.2 5-10.2 11.1 0 6.1 4.6 11.1 10.2 11.1 5.7 0 10.3-5 10.2-11.1 0-6.1-4.6-11.1-10.2-11.1z"/>
-        <path d="M189.5 20H55.5C32.5 20 16 36.7 16 59.5v121c0 22.7 16.5 39.5 39.5 39.5h89l-4.2-14.8 10.2 9.4 9.7 8.7 17.2 15.3V59.5c0-22.8-16.5-39.5-39.4-39.5zM98 144.5s-7.6-9-13.9-17.1c27.8-7.8 38.4-24.5 38.4-24.5-8.7 5.8-16.9 9.9-24.3 12.6-10.6 4.6-20.7 7.7-29.9 8.4-13.1 1.2-24.3-4-33.9-12.6-1.5-1.3-2.8-2.7-4-4.1-0.2-0.3-0.4-0.4-0.6-0.7-0.1-0.1-0.1-0.2-0.2-0.3-0.5-0.6-0.8-1-1-1.3-0.4-0.6-0.6-1-0.7-1.3-0.1-0.3-0.2-0.5-0.2-0.5-0.1-0.1-0.1-0.2-0.1-0.2s1.9 0.9 4.4 2.1c8.1 3.9 17.3 6.2 26.8 7 11.8 1.2 23.2-1.8 33.7-7.2 1.5-0.7 2.9-1.5 4.3-2.3 0.1-0.1 0.3-0.2 0.4-0.3 0.9-0.6 1.5-1 1.5-1l0.1 0.1c0 0 0.7 10.8-3.9 20.6-2.2 4.6-5.1 9.1-8.4 13z"/>
-      </svg>
-      Discord beitreten
-    </a>
-  </div>
-
-  <!-- Neuer Abschnitt "Bewerben" -->
-  <div class="section">
-    <h2>Bewerben</h2>
-    <p>Wähle deinen Bereich und sende eine Bewerbung ab!</p>
-  </div>
-
-  <div class="btn-container">
-    <div class="bereich-block">
-      <button onclick="showForm('Developer')">Developer</button>
-      <p>Ein Developer kümmert sich auf dem Server im Bereich der Technik um beispielsweise Plugins oder Configs. Bei diesem Rang müssen Coding oder sonstige Erfahrungen vorhanden sein!</p>
-    </div>
-    
-    <div class="bereich-block">
-      <button onclick="showForm('Manager')">Manager</button>
-      <p>Ein Manager leitet das Team und kommuniziert zwischen Gründer und dem restlichen Team. Er sorgt dafür, dass jeder seiner Arbeit nachgeht.</p>
-    </div>
-
-    <div class="bereich-block">
-      <button onclick="showForm('Admin')">Admin</button>
-      <p>Ein Admin kümmert sich rund um die Serversicherheit und bannt Hacker oder Spieler, die gegen Regeln verstoßen.</p>
-    </div>
-
-    <div class="bereich-block">
-      <button onclick="showForm('Builder')">Builder</button>
-      <p>Ein Builder baut neue Maps und legt viel Wert auf Design und Details.</p>
-    </div>
-
-    <div class="bereich-block">
-      <button onclick="showForm('Supportleitung')">Supportleitung</button>
-      <p>Supportleitung ist Ansprechpartner der Supporter und unterstützt diese bei ihrer Arbeit.</p>
-    </div>
-
-    <div class="bereich-block">
-      <button onclick="showForm('Supporter')">Supporter</button>
-      <p>Ein Supporter ist aktiv auf Discord und kümmert sich um die Community und Fragen.</p>
-    </div>
-
-    <div class="bereich-block">
-      <button onclick="showForm('Tester')">Tester</button>
-      <p>Tester spielen neue Maps und Minigames zuerst und bewerten Design, Fairness und Spielspaß.</p>
-    </div>
-
- </div>
-
-  <form id="bewerbungsForm" onsubmit="submitForm(event)">
-    <h2 id="formTitle">Bewerbung</h2>
-    <input type="text" id="name" placeholder="Dein Name" required />
-    <input type="number" id="age" placeholder="Dein Alter" required min="10" max="100" />
-    <input type="text" id="experience" placeholder="Deine Erfahrung" required />
-    <input type="text" id="discord" placeholder="Dein Discord-Name" required />
-    <input type="text" id="minecraft" placeholder="Dein Minecraft Name" required />
-
-    <!-- Neues Feld: Minecraft Version -->
-    <select id="minecraftVersion" required>
-      <option value="" disabled selected>Wähle deine Minecraft Version</option>
-      <option value="Java">Java</option>
-      <option value="Bedrock">Bedrock</option>
-      <option value="Beide">Beide</option>
-    </select>
-
-    <textarea id="why" rows="4" placeholder="Warum möchtest du in diesem Bereich mitarbeiten?" required></textarea>
-    <button type="submit">Bewerbung abschicken</button>
-  </form>
-
-   <div id="successMessage" class="submitted" style="display:none;">
-     Vielen Dank für deine Bewerbung! Wir melden uns schnellstmöglich bei dir.
-   </div>
-   
-   <footer class="footer">
-     © 2025 Flex City – Mit Abgabe der Bewerbung bzw. dem Eintritt ins Team willigen Bewerber ein, am Projekt „Flex City“ mitzuwirken. Die Urheberrechte und das geistige Eigentum verbleiben uneingeschränkt bei KitBaRyYT.
-   </footer>
-
-
-  
 
   <script>
-  const webhookUrl = "https://discord.com/api/webhooks/1398281766673973258/Jz7Ny0nBuNn0hx7GCvivdI_F_ng29ViG2BZH1qxOpH6EKivkMzW2J6eAGY9F9q1_uDlL";
+    function toggleBereiche() {
+      const container = document.getElementById("bereichContainer");
+      const button = document.querySelector(".bewerben-toggle");
+      container.classList.toggle("show");
+      button.classList.toggle("active");
 
-  function showForm(bereich) {
-    const form = document.getElementById('bewerbungsForm');
-    const successMessage = document.getElementById('successMessage');
-
-    // Zuerst alles ausblenden
-    form.style.display = 'none';
-    successMessage.style.display = 'none';
-
-    // Bereiche, die NICHT direkt beworben werden dürfen
-    const gesperrt = ["Supportleitung", "Admin", "Head-Admin"];
-
-    if (gesperrt.includes(bereich)) {
-      successMessage.style.display = 'block';
-      successMessage.style.backgroundColor = "#532929";
-      successMessage.style.border = "1px solid #ff4444";
-      successMessage.style.color = "#ffaaaa";
-      successMessage.innerHTML = 
-        "❌ Bitte bewirb dich zuerst als <b>Supporter</b>, um anschließend aufzusteigen!<br><br>" +
-        "Ausgenommen davon sind die Bereiche <b>Tester</b>, <b>Builder</b> und <b>Developer</b>, als welche du dich jederzeit bewerben kannst.";
-      successMessage.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      return;
+      // sanft scrollen, wenn geöffnet
+      setTimeout(() => {
+        button.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 200);
     }
 
-    // Normales Bewerbungsformular anzeigen
-    form.style.display = 'flex';
-    document.getElementById('formTitle').textContent = `Bewerbung für: ${bereich}`;
-    form.dataset.bereich = bereich; // Bereich speichern
-    form.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
+    function showForm(bereich) {
+      const form = document.getElementById('bewerbungsForm');
+      const successMessage = document.getElementById('successMessage');
+      form.style.display = 'flex';
+      successMessage.style.display = 'none';
+      document.getElementById('formTitle').textContent = `Bewerbung für: ${bereich}`;
+      form.dataset.bereich = bereich;
+      form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
 
-  async function submitForm(event) {
-    event.preventDefault();
+    async function submitForm(event) {
+      event.preventDefault();
+      const bereich = event.target.dataset.bereich || "...";
+      const name = document.getElementById('name').value.trim();
+      const age = document.getElementById('age').value.trim();
+      const experience = document.getElementById('experience').value.trim();
+      const discord = document.getElementById('discord').value.trim();
+      const minecraft = document.getElementById('minecraft').value.trim();
+      const version = document.getElementById('minecraftVersion').value;
+      const why = document.getElementById('why').value.trim();
 
-    const bereich = event.target.dataset.bereich || "...";
-
-    // Formulardaten auslesen
-    const name = document.getElementById('name').value.trim();
-    const age = document.getElementById('age').value.trim();
-    const experience = document.getElementById('experience').value.trim();
-    const discord = document.getElementById('discord').value.trim();
-    const minecraft = document.getElementById('minecraft').value.trim();
-    const version = document.getElementById('minecraftVersion').value; // NEU
-    const why = document.getElementById('why').value.trim();
-
-    
-    // Embed-Payload für Discord Webhook bauen
-    const data = {
-      embeds: [
-        {
+      const webhookUrl = "https://discord.com/api/webhooks/DEIN_WEBHOOK_HIER";
+      const data = {
+        embeds: [{
           title: `Neue Bewerbung für ${bereich}`,
           color: 0x5865F2,
           fields: [
-            { name: "Name", value: name, inline: true },
-            { name: "Alter", value: age, inline: true },
+            { name: "Name", value: name },
+            { name: "Alter", value: age },
             { name: "Erfahrung", value: experience },
-            { name: "Discord-Name", value: discord, inline: true },
-            { name: "Minecraft Name", value: minecraft, inline: true },
-            { name: "Minecraft Version", value: version, inline: true },
+            { name: "Discord-Name", value: discord },
+            { name: "Minecraft Name", value: minecraft },
+            { name: "Minecraft Version", value: version },
             { name: "Warum möchtest du in diesem Bereich mitarbeiten?", value: why }
-          ],
-          timestamp: new Date().toISOString(),
-          footer: { text: "Flex City Bewerbungen" }
+          ]
+        }]
+      };
+
+      try {
+        const res = await fetch(webhookUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        });
+
+        if (res.ok) {
+          event.target.style.display = "none";
+          const msg = document.getElementById("successMessage");
+          msg.style.display = "block";
+          msg.scrollIntoView({ behavior: "smooth", block: "start" });
+        } else {
+          alert("Fehler beim Absenden der Bewerbung.");
         }
-      ]
-    };
-
-    try {
-      const response = await fetch(webhookUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      });
-
-      if (response.ok) {
-        event.target.style.display = 'none';
-        document.getElementById('successMessage').style.display = 'block';
-        document.getElementById('successMessage').style.backgroundColor = "#2b5329";
-        document.getElementById('successMessage').style.border = "1px solid #4caf50";
-        document.getElementById('successMessage').style.color = "#c3e6cb";
-        document.getElementById('successMessage').innerHTML = 
-          "✅ Vielen Dank für deine Bewerbung! Wir melden uns schnellstmöglich bei dir.";
-      } else {
-        alert('Fehler beim Absenden der Bewerbung. Bitte später erneut versuchen.');
+      } catch {
+        alert("Netzwerkfehler beim Absenden.");
       }
-    } catch (error) {
-      alert('Netzwerkfehler beim Absenden der Bewerbung.');
-      console.error(error);
     }
-  }
-</script>
+  </script>
 </body>
 </html>
