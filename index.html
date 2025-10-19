@@ -120,7 +120,7 @@
       transform: scale(1.05);
     }
 
-    /* --- Slide-Down Effekt + Schatten --- */
+    /* Slide-Down Effekt + Schatten */
     .btn-container {
       max-width: 600px;
       margin: 0 auto;
@@ -134,18 +134,18 @@
     }
 
     .btn-container.show {
-      max-height: 700px; /* ausreichend Platz */
+      max-height: 1000px; /* genug Platz für alle Blöcke */
       opacity: 1;
-      background-color: #2a2a2a; /* leicht aufgehellt */
-      box-shadow: 0 8px 20px rgba(0,0,0,0.6); /* weicher Schatten */
+      background-color: #2a2a2a;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.6);
       z-index: 5;
     }
 
     .bereich-block {
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      margin-top: 10px;
+      gap: 4px;
+      margin: 10px;
     }
 
     .bereich-block button {
@@ -165,6 +165,22 @@
     .bereich-block button:hover {
       background-color: #333333;
       border-color: #666666;
+    }
+
+    .bereich-block p {
+      margin-left: 12px;
+      font-style: italic;
+      color: #999999;
+      user-select: none;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .btn-container.show .bereich-block p {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.2s; /* leicht verzögert */
     }
 
     form#bewerbungsForm {
@@ -243,143 +259,160 @@
   </style>
 </head>
 <body>
-  <div class="page-container">
-    <div class="kontakt-box">
-      <img src="FlexCityTrans.png" alt="Flex City Logo" />
-      <p>Kontakt per Mail<br>flexcity.server@gmail.com</p>
-      <p>Discord Support Zeiten<br>Mo.-Fr. 12–20 Uhr<br>Sa.-So. 10–23 Uhr</p>
-      <p>Gründer: KitBaRyYT<br>Manager: Mike<br>Developer Leitung: einsAlex</p>
-    </div>
-
-    <div class="content">
-      <div class="header-container">
-        <h1 class="header-title">Flex City</h1>
-        <p class="header-subtitle">Adresse</p>
-      </div>
-
-      <div class="section">
-        <h2>Über uns</h2>
-        <p>Wir sind ein Community-orientierter Minecraft Server mit verschiedensten Minigames.</p>
-        <p>Unser Ziel? Möglichst viele einzigartige Spiele und Features!</p>
-        <p>Fairness und Spielspaß stehen bei uns an erster Stelle.</p>
-      </div>
-
-      <div class="section">
-        <h2>Discord / Support</h2>
-        <a href="https://discord.gg/V6gu38RNZD" target="_blank" class="discord-button">Discord beitreten</a>
-      </div>
-
-      <div class="section">
-        <h2>Bewerben</h2>
-        <button class="bewerben-toggle" onclick="toggleBereiche()">Bewerben</button>
-      </div>
-
-      <div class="btn-container" id="bereichContainer">
-        <div class="bereich-block"><button onclick="showForm('Developer')">Developer</button></div>
-        <div class="bereich-block"><button onclick="showForm('Manager')">Manager</button></div>
-        <div class="bereich-block"><button onclick="showForm('Admin')">Admin</button></div>
-        <div class="bereich-block"><button onclick="showForm('Builder')">Builder</button></div>
-        <div class="bereich-block"><button onclick="showForm('Supporter')">Supporter</button></div>
-        <div class="bereich-block"><button onclick="showForm('Tester')">Tester</button></div>
-      </div>
-
-      <form id="bewerbungsForm" onsubmit="submitForm(event)">
-        <h2 id="formTitle">Bewerbung</h2>
-        <input type="text" id="name" placeholder="Dein Name" required />
-        <input type="number" id="age" placeholder="Dein Alter" required min="10" max="100" />
-        <input type="text" id="experience" placeholder="Deine Erfahrung" required />
-        <input type="text" id="discord" placeholder="Dein Discord-Name" required />
-        <input type="text" id="minecraft" placeholder="Dein Minecraft Name" required />
-        <select id="minecraftVersion" required>
-          <option value="" disabled selected>Wähle deine Minecraft Version</option>
-          <option value="Java">Java</option>
-          <option value="Bedrock">Bedrock</option>
-          <option value="Beide">Beide</option>
-        </select>
-        <textarea id="why" rows="4" placeholder="Warum möchtest du in diesem Bereich mitarbeiten?" required></textarea>
-        <button type="submit">Bewerbung abschicken</button>
-      </form>
-
-      <div id="successMessage" class="submitted" style="display:none;">
-        Vielen Dank für deine Bewerbung! Wir melden uns schnellstmöglich bei dir.
-      </div>
-
-      <footer class="footer">
-        © 2025 Flex City – Mit Abgabe der Bewerbung willigst du ein, am Projekt „Flex City“ mitzuwirken.
-      </footer>
-    </div>
+<div class="page-container">
+  <div class="kontakt-box">
+    <img src="FlexCityTrans.png" alt="Flex City Logo" />
+    <p>Kontakt per Mail<br>flexcity.server@gmail.com</p>
+    <p>Discord Support Zeiten<br>Mo.-Fr. 12–20 Uhr<br>Sa.-So. 10–23 Uhr</p>
+    <p>Gründer: KitBaRyYT<br>Manager: Mike<br>Developer Leitung: einsAlex</p>
   </div>
 
-  <script>
-    function toggleBereiche() {
-      const container = document.getElementById("bereichContainer");
-      const button = document.querySelector(".bewerben-toggle");
-      container.classList.toggle("show");
-      button.classList.toggle("active");
+  <div class="content">
+    <div class="header-container">
+      <h1 class="header-title">Flex City</h1>
+      <p class="header-subtitle">Adresse</p>
+    </div>
 
-      // sanft scrollen, wenn geöffnet
-      setTimeout(() => {
-        button.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 200);
+    <div class="section">
+      <h2>Über uns</h2>
+      <p>Wir sind ein Community-orientierter Minecraft Server mit verschiedensten Minigames.</p>
+      <p>Unser Ziel? Möglichst viele einzigartige Spiele und Features!</p>
+      <p>Fairness und Spielspaß stehen bei uns an erster Stelle.</p>
+    </div>
+
+    <div class="section">
+      <h2>Discord / Support</h2>
+      <a href="https://discord.gg/V6gu38RNZD" target="_blank" class="discord-button">Discord beitreten</a>
+    </div>
+
+    <div class="section">
+      <h2>Bewerben</h2>
+      <button class="bewerben-toggle" onclick="toggleBereiche()">Bewerben</button>
+    </div>
+
+    <div class="btn-container" id="bereichContainer">
+      <div class="bereich-block">
+        <button onclick="showForm('Developer')">Developer</button>
+        <p>Ein Developer kümmert sich um Technik, Plugins oder Configs. Coding-Erfahrung erforderlich.</p>
+      </div>
+      <div class="bereich-block">
+        <button onclick="showForm('Manager')">Manager</button>
+        <p>Manager leiten das Team und koordinieren Aufgaben und Kommunikation.</p>
+      </div>
+      <div class="bereich-block">
+        <button onclick="showForm('Admin')">Admin</button>
+        <p>Admins sorgen für Serversicherheit und bannen Hacker oder Regelbrecher.</p>
+      </div>
+      <div class="bereich-block">
+        <button onclick="showForm('Builder')">Builder</button>
+        <p>Builder gestalten Maps und achten auf Design und Details.</p>
+      </div>
+      <div class="bereich-block">
+        <button onclick="showForm('Supporter')">Supporter</button>
+        <p>Supporter helfen auf Discord aktiv der Community.</p>
+      </div>
+      <div class="bereich-block">
+        <button onclick="showForm('Tester')">Tester</button>
+        <p>Tester spielen neue Maps/Minigames zuerst und bewerten Design, Fairness und Spielspaß.</p>
+      </div>
+    </div>
+
+    <form id="bewerbungsForm" onsubmit="submitForm(event)">
+      <h2 id="formTitle">Bewerbung</h2>
+      <input type="text" id="name" placeholder="Dein Name" required />
+      <input type="number" id="age" placeholder="Dein Alter" required min="10" max="100" />
+      <input type="text" id="experience" placeholder="Deine Erfahrung" required />
+      <input type="text" id="discord" placeholder="Dein Discord-Name" required />
+      <input type="text" id="minecraft" placeholder="Dein Minecraft Name" required />
+      <select id="minecraftVersion" required>
+        <option value="" disabled selected>Wähle deine Minecraft Version</option>
+        <option value="Java">Java</option>
+        <option value="Bedrock">Bedrock</option>
+        <option value="Beide">Beide</option>
+      </select>
+      <textarea id="why" rows="4" placeholder="Warum möchtest du in diesem Bereich mitarbeiten?" required></textarea>
+      <button type="submit">Bewerbung abschicken</button>
+    </form>
+
+    <div id="successMessage" class="submitted" style="display:none;">
+      Vielen Dank für deine Bewerbung! Wir melden uns schnellstmöglich bei dir.
+    </div>
+
+    <footer class="footer">
+      © 2025 Flex City – Mit Abgabe der Bewerbung willigst du ein, am Projekt „Flex City“ mitzuwirken.
+    </footer>
+
+  </div>
+</div>
+
+<script>
+function toggleBereiche() {
+  const container = document.getElementById("bereichContainer");
+  const button = document.querySelector(".bewerben-toggle");
+  container.classList.toggle("show");
+  button.classList.toggle("active");
+  setTimeout(() => {
+    button.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, 200);
+}
+
+function showForm(bereich) {
+  const form = document.getElementById('bewerbungsForm');
+  const successMessage = document.getElementById('successMessage');
+  form.style.display = 'flex';
+  successMessage.style.display = 'none';
+  document.getElementById('formTitle').textContent = `Bewerbung für: ${bereich}`;
+  form.dataset.bereich = bereich;
+  form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+async function submitForm(event) {
+  event.preventDefault();
+  const bereich = event.target.dataset.bereich || "...";
+  const name = document.getElementById('name').value.trim();
+  const age = document.getElementById('age').value.trim();
+  const experience = document.getElementById('experience').value.trim();
+  const discord = document.getElementById('discord').value.trim();
+  const minecraft = document.getElementById('minecraft').value.trim();
+  const version = document.getElementById('minecraftVersion').value;
+  const why = document.getElementById('why').value.trim();
+
+  const webhookUrl = "https://discord.com/api/webhooks/DEIN_WEBHOOK_HIER";
+  const data = {
+    embeds: [{
+      title: `Neue Bewerbung für ${bereich}`,
+      color: 0x5865F2,
+      fields: [
+        { name: "Name", value: name },
+        { name: "Alter", value: age },
+        { name: "Erfahrung", value: experience },
+        { name: "Discord-Name", value: discord },
+        { name: "Minecraft Name", value: minecraft },
+        { name: "Minecraft Version", value: version },
+        { name: "Warum möchtest du in diesem Bereich mitarbeiten?", value: why }
+      ]
+    }]
+  };
+
+  try {
+    const res = await fetch(webhookUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
+
+    if (res.ok) {
+      event.target.style.display = "none";
+      const msg = document.getElementById("successMessage");
+      msg.style.display = "block";
+      msg.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      alert("Fehler beim Absenden der Bewerbung.");
     }
-
-    function showForm(bereich) {
-      const form = document.getElementById('bewerbungsForm');
-      const successMessage = document.getElementById('successMessage');
-      form.style.display = 'flex';
-      successMessage.style.display = 'none';
-      document.getElementById('formTitle').textContent = `Bewerbung für: ${bereich}`;
-      form.dataset.bereich = bereich;
-      form.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-
-    async function submitForm(event) {
-      event.preventDefault();
-      const bereich = event.target.dataset.bereich || "...";
-      const name = document.getElementById('name').value.trim();
-      const age = document.getElementById('age').value.trim();
-      const experience = document.getElementById('experience').value.trim();
-      const discord = document.getElementById('discord').value.trim();
-      const minecraft = document.getElementById('minecraft').value.trim();
-      const version = document.getElementById('minecraftVersion').value;
-      const why = document.getElementById('why').value.trim();
-
-      const webhookUrl = "https://discord.com/api/webhooks/DEIN_WEBHOOK_HIER";
-      const data = {
-        embeds: [{
-          title: `Neue Bewerbung für ${bereich}`,
-          color: 0x5865F2,
-          fields: [
-            { name: "Name", value: name },
-            { name: "Alter", value: age },
-            { name: "Erfahrung", value: experience },
-            { name: "Discord-Name", value: discord },
-            { name: "Minecraft Name", value: minecraft },
-            { name: "Minecraft Version", value: version },
-            { name: "Warum möchtest du in diesem Bereich mitarbeiten?", value: why }
-          ]
-        }]
-      };
-
-      try {
-        const res = await fetch(webhookUrl, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data)
-        });
-
-        if (res.ok) {
-          event.target.style.display = "none";
-          const msg = document.getElementById("successMessage");
-          msg.style.display = "block";
-          msg.scrollIntoView({ behavior: "smooth", block: "start" });
-        } else {
-          alert("Fehler beim Absenden der Bewerbung.");
-        }
-      } catch {
-        alert("Netzwerkfehler beim Absenden.");
-      }
-    }
-  </script>
+  } catch {
+    alert("Netzwerkfehler beim Absenden.");
+  }
+}
+</script>
 </body>
 </html>
