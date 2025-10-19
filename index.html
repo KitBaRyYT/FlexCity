@@ -28,6 +28,7 @@
       flex: 1;
       display: flex;
       flex-direction: column;
+      padding-bottom: 20px; /* Abstand zum Footer */
     }
 
     .footer {
@@ -37,6 +38,7 @@
       padding: 12px 0;
       font-size: 0.9rem;
       backdrop-filter: blur(3px);
+      margin-top: auto; /* Footer immer unten */
     }
 
     .header-container {
@@ -103,7 +105,7 @@
       padding: 14px 24px;
       font-size: 1.2rem;
       font-weight: 700;
-      background-color: #888; /* Standardgrau */
+      background-color: #888; /* Grau standard */
       color: #121212;
       border: none;
       border-radius: 10px;
@@ -179,19 +181,29 @@
     .btn-container.show .bereich-block p {
       opacity: 1;
       transform: translateY(0);
-      transition-delay: 0.2s; /* leicht verzögert */
+      transition-delay: 0.2s;
     }
 
+    /* Formular Animation */
     form#bewerbungsForm {
       max-width: 600px;
       margin: 0 auto;
-      display: none;
+      display: flex;
       flex-direction: column;
       gap: 12px;
       background-color: #1f1f1f;
       padding: 25px 30px;
       border-radius: 10px;
       box-shadow: 0 0 12px rgba(0, 0, 0, 0.7);
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease, opacity 0.5s ease;
+    }
+
+    form#bewerbungsForm.show {
+      max-height: 800px; /* genug für das ganze Formular */
+      opacity: 1;
     }
 
     form#bewerbungsForm input,
@@ -316,7 +328,7 @@
       </div>
     </div>
 
-    <form id="bewerbungsForm" onsubmit="submitForm(event)">
+    <form id="bewerbungsForm">
       <h2 id="formTitle">Bewerbung</h2>
       <input type="text" id="name" placeholder="Dein Name" required />
       <input type="number" id="age" placeholder="Dein Alter" required min="10" max="100" />
@@ -330,7 +342,7 @@
         <option value="Beide">Beide</option>
       </select>
       <textarea id="why" rows="4" placeholder="Warum möchtest du in diesem Bereich mitarbeiten?" required></textarea>
-      <button type="submit">Bewerbung abschicken</button>
+      <button type="submit" onclick="submitForm(event)">Bewerbung abschicken</button>
     </form>
 
     <div id="successMessage" class="submitted" style="display:none;">
@@ -348,8 +360,18 @@
 function toggleBereiche() {
   const container = document.getElementById("bereichContainer");
   const button = document.querySelector(".bewerben-toggle");
+  const form = document.getElementById('bewerbungsForm');
+
+  const isOpen = container.classList.contains("show");
+
   container.classList.toggle("show");
   button.classList.toggle("active");
+
+  // Formular sanft ausblenden, falls Bereich eingeklappt wird
+  if (isOpen) {
+    form.classList.remove('show');
+  }
+
   setTimeout(() => {
     button.scrollIntoView({ behavior: "smooth", block: "start" });
   }, 200);
@@ -358,10 +380,12 @@ function toggleBereiche() {
 function showForm(bereich) {
   const form = document.getElementById('bewerbungsForm');
   const successMessage = document.getElementById('successMessage');
-  form.style.display = 'flex';
-  successMessage.style.display = 'none';
   document.getElementById('formTitle').textContent = `Bewerbung für: ${bereich}`;
   form.dataset.bereich = bereich;
+  successMessage.style.display = 'none';
+
+  // Formular sanft einblenden
+  form.classList.add('show');
   form.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
@@ -401,7 +425,8 @@ async function submitForm(event) {
     });
 
     if (res.ok) {
-      event.target.style.display = "none";
+      const form = document.getElementById('bewerbungsForm');
+      form.classList.remove('show');
       const msg = document.getElementById("successMessage");
       msg.style.display = "block";
       msg.scrollIntoView({ behavior: "smooth", block: "start" });
