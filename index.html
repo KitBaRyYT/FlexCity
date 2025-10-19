@@ -1,273 +1,74 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <title>Flex City Bewerbungen</title>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-    }
+<meta charset="UTF-8">
+<title>Flex City Bewerbungen</title>
+<style>
+html, body { margin:0; padding:0; height:100%; }
+body { display:flex; flex-direction:column; background-color:#121212; color:#e0e0e0; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+.page-container { display:flex; flex-direction:column; min-height:100vh; }
+.content { flex:1; display:flex; flex-direction:column; padding-bottom:20px; }
+.footer { background-color: rgba(150,150,150,0.2); color:#e0e0e0; text-align:center; padding:12px 0; font-size:0.9rem; backdrop-filter: blur(3px); margin-top:auto; }
 
-    body {
-      display: flex;
-      flex-direction: column;
-      background-color: #121212;
-      color: #e0e0e0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
+.header-container { text-align:center; margin-top:80px; margin-bottom:30px; }
+.header-title { font-weight:900; font-size:4rem; color:#FFD700; margin:0; }
+.header-subtitle { font-weight:600; font-size:1.2rem; color:#40E0D0; margin:4px 0 0 0; }
 
-    .page-container {
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
+.section { max-width:600px; margin:0 auto 25px auto; text-align:center; }
+.section h2 { font-weight:700; margin-bottom:8px; color:#e0e0e0; }
+.section p { color:#bbb; user-select:none; margin-bottom:20px; }
+.discord-button { display:inline-flex; align-items:center; background-color:#5865F2; color:white; border:none; padding:12px 20px; border-radius:8px; cursor:pointer; font-size:1.1rem; font-weight:600; text-decoration:none; user-select:none; transition:background-color 0.3s ease; }
+.discord-button:hover { background-color:#4752c4; }
 
-    .content {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      padding-bottom: 20px; /* Abstand zum Footer */
-    }
+.bewerben-toggle { display:block; margin:20px auto 10px auto; padding:14px 24px; font-size:1.2rem; font-weight:700; background-color:#888; color:#121212; border:none; border-radius:10px; cursor:pointer; transition:background-color 0.3s ease, transform 0.3s ease; }
+.bewerben-toggle.active { background-color:#555; }
+.bewerben-toggle:hover { transform:scale(1.05); }
 
-    .footer {
-      background-color: rgba(150, 150, 150, 0.2);
-      color: #e0e0e0;
-      text-align: center;
-      padding: 12px 0;
-      font-size: 0.9rem;
-      backdrop-filter: blur(3px);
-      margin-top: auto; /* Footer immer unten */
-    }
+.btn-container { max-width:600px; margin:0 auto; overflow:hidden; max-height:0; opacity:0; transition:max-height 0.6s ease, opacity 0.4s ease, box-shadow 0.4s ease, background-color 0.4s ease; border-radius:10px; background-color:#1f1f1f; box-shadow:none; }
+.btn-container.show { max-height:1000px; opacity:1; background-color:#2a2a2a; box-shadow:0 8px 20px rgba(0,0,0,0.6); z-index:5; }
 
-    .header-container {
-      text-align: center;
-      margin-top: 80px;
-      margin-bottom: 30px;
-    }
+.bereich-block { display:flex; flex-direction:column; gap:4px; margin:10px; }
+.bereich-block button { width:100%; background-color:#1f1f1f; color:#e0e0e0; border:2px solid #333; padding:14px 20px; font-size:1.1rem; cursor:pointer; border-radius:8px; text-align:left; transition: background-color 0.3s ease, border-color 0.3s ease; font-weight:600; }
+.bereich-block button:hover { background-color:#333; border-color:#666; }
+.bereich-block p { margin-left:12px; font-style:italic; color:#999; user-select:none; opacity:0; transform:translateY(-10px); transition:opacity 0.5s ease, transform 0.5s ease; }
+.btn-container.show .bereich-block p { opacity:1; transform:translateY(0); transition-delay:0.2s; }
 
-    .header-title {
-      font-weight: 900;
-      font-size: 4rem;
-      color: #FFD700;
-      margin: 0;
-    }
+form#bewerbungsForm { max-width:600px; margin:0 auto; display:flex; flex-direction:column; gap:12px; background-color:#1f1f1f; padding:25px 30px; border-radius:10px; box-shadow:0 0 12px rgba(0,0,0,0.7); max-height:0; opacity:0; overflow:hidden; transition:max-height 0.5s ease, opacity 0.5s ease; }
+form#bewerbungsForm.show { max-height:800px; opacity:1; }
+form#bewerbungsForm input, form#bewerbungsForm textarea, form#bewerbungsForm select { padding:12px; font-size:1rem; border:1px solid #444; border-radius:6px; width:100%; background-color:#2b2b2b; color:#e0e0e0; }
+form#bewerbungsForm button[type="submit"] { background-color:#4caf50; color:#fff; border:none; font-size:1.2rem; padding:14px; border-radius:8px; cursor:pointer; transition:background-color 0.3s ease; font-weight:700; }
+form#bewerbungsForm button[type="submit"]:hover { background-color:#388e3c; }
 
-    .header-subtitle {
-      font-weight: 600;
-      font-size: 1.2rem;
-      color: #40E0D0;
-      margin: 4px 0 0 0;
-    }
+.submitted { max-width:600px; margin:30px auto 20px auto; padding:20px; background-color:#2b5329; border:1px solid #4caf50; border-radius:10px; color:#c3e6cb; box-shadow:0 0 10px rgba(72,183,72,0.7); user-select:none; }
+.kontakt-box { position:absolute; top:15px; left:15px; background-color:rgba(100,100,100,0.3); color:#e0e0e0; padding:15px; border-radius:10px; font-size:0.95rem; backdrop-filter:blur(4px); z-index:9999; pointer-events:none; text-align:left; }
+.kontakt-box img { max-width:180px; filter:brightness(90%); display:block; margin:0 auto 8px auto; }
 
-    .section {
-      max-width: 600px;
-      margin: 0 auto 25px auto;
-      text-align: center;
-    }
-
-    .section h2 {
-      font-weight: 700;
-      margin-bottom: 8px;
-      color: #e0e0e0;
-    }
-
-    .section p {
-      color: #bbb;
-      user-select: none;
-      margin-bottom: 20px;
-    }
-
-    .discord-button {
-      display: inline-flex;
-      align-items: center;
-      background-color: #5865F2;
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 1.1rem;
-      font-weight: 600;
-      text-decoration: none;
-      user-select: none;
-      transition: background-color 0.3s ease;
-    }
-
-    .discord-button:hover {
-      background-color: #4752c4;
-    }
-
-    .bewerben-toggle {
-      display: block;
-      margin: 20px auto 10px auto;
-      padding: 14px 24px;
-      font-size: 1.2rem;
-      font-weight: 700;
-      background-color: #888; /* Grau standard */
-      color: #121212;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.3s ease;
-    }
-
-    .bewerben-toggle.active {
-      background-color: #555; /* Dunkelgrau beim Ausklappen */
-    }
-
-    .bewerben-toggle:hover {
-      transform: scale(1.05);
-    }
-
-    /* Slide-Down Effekt + Schatten */
-    .btn-container {
-      max-width: 600px;
-      margin: 0 auto;
-      overflow: hidden;
-      max-height: 0;
-      opacity: 0;
-      transition: max-height 0.6s ease, opacity 0.4s ease, box-shadow 0.4s ease, background-color 0.4s ease;
-      border-radius: 10px;
-      background-color: #1f1f1f; 
-      box-shadow: none;
-    }
-
-    .btn-container.show {
-      max-height: 1000px; /* genug Platz für alle Blöcke */
-      opacity: 1;
-      background-color: #2a2a2a;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.6);
-      z-index: 5;
-    }
-
-    .bereich-block {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      margin: 10px;
-    }
-
-    .bereich-block button {
-      width: 100%;
-      background-color: #1f1f1f;
-      color: #e0e0e0;
-      border: 2px solid #333;
-      padding: 14px 20px;
-      font-size: 1.1rem;
-      cursor: pointer;
-      border-radius: 8px;
-      text-align: left;
-      transition: background-color 0.3s ease, border-color 0.3s ease;
-      font-weight: 600;
-    }
-
-    .bereich-block button:hover {
-      background-color: #333333;
-      border-color: #666666;
-    }
-
-    .bereich-block p {
-      margin-left: 12px;
-      font-style: italic;
-      color: #999999;
-      user-select: none;
-      opacity: 0;
-      transform: translateY(-10px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
-    }
-
-    .btn-container.show .bereich-block p {
-      opacity: 1;
-      transform: translateY(0);
-      transition-delay: 0.2s;
-    }
-
-    /* Formular Animation */
-    form#bewerbungsForm {
-      max-width: 600px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      background-color: #1f1f1f;
-      padding: 25px 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 12px rgba(0, 0, 0, 0.7);
-      max-height: 0;
-      opacity: 0;
-      overflow: hidden;
-      transition: max-height 0.5s ease, opacity 0.5s ease;
-    }
-
-    form#bewerbungsForm.show {
-      max-height: 800px; /* genug für das ganze Formular */
-      opacity: 1;
-    }
-
-    form#bewerbungsForm input,
-    form#bewerbungsForm textarea,
-    form#bewerbungsForm select {
-      padding: 12px;
-      font-size: 1rem;
-      border: 1px solid #444;
-      border-radius: 6px;
-      width: 100%;
-      background-color: #2b2b2b;
-      color: #e0e0e0;
-    }
-
-    form#bewerbungsForm button[type="submit"] {
-      background-color: #4caf50;
-      color: #fff;
-      border: none;
-      font-size: 1.2rem;
-      padding: 14px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      font-weight: 700;
-    }
-
-    form#bewerbungsForm button[type="submit"]:hover {
-      background-color: #388e3c;
-    }
-
-    .submitted {
-      max-width: 600px;
-      margin: 30px auto 20px auto;
-      padding: 20px;
-      background-color: #2b5329;
-      border: 1px solid #4caf50;
-      border-radius: 10px;
-      color: #c3e6cb;
-      box-shadow: 0 0 10px rgba(72, 183, 72, 0.7);
-      user-select: none;
-    }
-
-    .kontakt-box {
-      position: absolute;
-      top: 15px;
-      left: 15px;
-      background-color: rgba(100, 100, 100, 0.3);
-      color: #e0e0e0;
-      padding: 15px;
-      border-radius: 10px;
-      font-size: 0.95rem;
-      backdrop-filter: blur(4px);
-      z-index: 9999;
-      pointer-events: none;
-      text-align: left;
-    }
-
-    .kontakt-box img {
-      max-width: 180px;
-      filter: brightness(90%);
-      display: block;
-      margin: 0 auto 8px auto;
-    }
-  </style>
+/* Captcha / Modal Embed */
+#captchaOverlay {
+  position: fixed; top:0; left:0; right:0; bottom:0;
+  background: rgba(0,0,0,0.7);
+  display: none; justify-content: center; align-items: center;
+  z-index: 9999;
+}
+#captchaBox {
+  background: #2f3136;
+  padding: 25px 30px;
+  border-radius: 12px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.8);
+  color: #e0e0e0;
+  position: relative;
+  text-align: center;
+  border-left: 5px solid #5865F2;
+  animation: fadeIn 0.3s ease;
+}
+#captchaBox p { margin:0; font-size:1rem; line-height:1.5; }
+#captchaBox button { margin-top:20px; background-color:#4caf50; color:#fff; border:none; padding:12px 20px; font-size:1rem; border-radius:6px; cursor:pointer; font-weight:700; }
+#captchaBox button:hover { background-color:#388e3c; }
+#captchaBox .closeCaptcha { position:absolute; top:10px; right:15px; font-size:1.2rem; cursor:pointer; }
+@keyframes fadeIn { from {opacity:0; transform:translateY(-10px);} to {opacity:1; transform:translateY(0);} }
+</style>
 </head>
 <body>
 <div class="page-container">
@@ -285,18 +86,6 @@
     </div>
 
     <div class="section">
-      <h2>Über uns</h2>
-      <p>Wir sind ein Community-orientierter Minecraft Server mit verschiedensten Minigames.</p>
-      <p>Unser Ziel? Möglichst viele einzigartige Spiele und Features!</p>
-      <p>Fairness und Spielspaß stehen bei uns an erster Stelle.</p>
-    </div>
-
-    <div class="section">
-      <h2>Discord / Support</h2>
-      <a href="https://discord.gg/V6gu38RNZD" target="_blank" class="discord-button">Discord beitreten</a>
-    </div>
-
-    <div class="section">
       <h2>Bewerben</h2>
       <button class="bewerben-toggle" onclick="toggleBereiche()">Bewerben</button>
     </div>
@@ -310,22 +99,6 @@
         <button onclick="showForm('Manager')">Manager</button>
         <p>Manager leiten das Team und koordinieren Aufgaben und Kommunikation.</p>
       </div>
-      <div class="bereich-block">
-        <button onclick="showForm('Admin')">Admin</button>
-        <p>Admins sorgen für Serversicherheit und bannen Hacker oder Regelbrecher.</p>
-      </div>
-      <div class="bereich-block">
-        <button onclick="showForm('Builder')">Builder</button>
-        <p>Builder gestalten Maps und achten auf Design und Details.</p>
-      </div>
-      <div class="bereich-block">
-        <button onclick="showForm('Supporter')">Supporter</button>
-        <p>Supporter helfen auf Discord aktiv der Community.</p>
-      </div>
-      <div class="bereich-block">
-        <button onclick="showForm('Tester')">Tester</button>
-        <p>Tester spielen neue Maps/Minigames zuerst und bewerten Design, Fairness und Spielspaß.</p>
-      </div>
     </div>
 
     <form id="bewerbungsForm">
@@ -338,11 +111,9 @@
       <select id="minecraftVersion" required>
         <option value="" disabled selected>Wähle deine Minecraft Version</option>
         <option value="Java">Java</option>
-        <option value="Bedrock">Bedrock</option>
-        <option value="Beide">Beide</option>
       </select>
       <textarea id="why" rows="4" placeholder="Warum möchtest du in diesem Bereich mitarbeiten?" required></textarea>
-      <button type="submit" onclick="submitForm(event)">Bewerbung abschicken</button>
+      <button type="submit" onclick="showCaptcha(event)">Bewerbung abschicken</button>
     </form>
 
     <div id="successMessage" class="submitted" style="display:none;">
@@ -352,29 +123,30 @@
     <footer class="footer">
       © 2025 Flex City – Mit Abgabe der Bewerbung willigst du ein, am Projekt „Flex City“ mitzuwirken.
     </footer>
+  </div>
+</div>
 
+<!-- Captcha Embed -->
+<div id="captchaOverlay">
+  <div id="captchaBox">
+    <span class="closeCaptcha" onclick="closeCaptcha()">×</span>
+    <p>Mit Abgabe der Bewerbung bzw. dem Eintritt ins Team willigen Bewerber ein, am Projekt „Flex City“ mitzuwirken. Die Urheberrechte und das geistige Eigentum verbleiben uneingeschränkt bei KitBaRyYT.</p>
+    <button onclick="submitAfterCaptcha()">Ich akzeptiere</button>
   </div>
 </div>
 
 <script>
+let formDataCache = null;
+
 function toggleBereiche() {
   const container = document.getElementById("bereichContainer");
   const button = document.querySelector(".bewerben-toggle");
   const form = document.getElementById('bewerbungsForm');
-
   const isOpen = container.classList.contains("show");
-
   container.classList.toggle("show");
   button.classList.toggle("active");
-
-  // Formular sanft ausblenden, falls Bereich eingeklappt wird
-  if (isOpen) {
-    form.classList.remove('show');
-  }
-
-  setTimeout(() => {
-    button.scrollIntoView({ behavior: "smooth", block: "start" });
-  }, 200);
+  if (isOpen) form.classList.remove('show');
+  setTimeout(() => { button.scrollIntoView({ behavior: "smooth", block: "start" }); }, 200);
 }
 
 function showForm(bereich) {
@@ -383,15 +155,25 @@ function showForm(bereich) {
   document.getElementById('formTitle').textContent = `Bewerbung für: ${bereich}`;
   form.dataset.bereich = bereich;
   successMessage.style.display = 'none';
-
-  // Formular sanft einblenden
   form.classList.add('show');
   form.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-async function submitForm(event) {
+// Captcha vor Absenden
+function showCaptcha(event){
   event.preventDefault();
-  const bereich = event.target.dataset.bereich || "...";
+  formDataCache = { form: event.target.closest('form') };
+  document.getElementById('captchaOverlay').style.display = 'flex';
+}
+
+function closeCaptcha(){
+  document.getElementById('captchaOverlay').style.display = 'none';
+}
+
+async function submitAfterCaptcha(){
+  document.getElementById('captchaOverlay').style.display = 'none';
+  const form = formDataCache.form;
+  const bereich = form.dataset.bereich || "...";
   const name = document.getElementById('name').value.trim();
   const age = document.getElementById('age').value.trim();
   const experience = document.getElementById('experience').value.trim();
@@ -423,16 +205,11 @@ async function submitForm(event) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
     });
-
     if (res.ok) {
-      const form = document.getElementById('bewerbungsForm');
       form.classList.remove('show');
-      const msg = document.getElementById("successMessage");
-      msg.style.display = "block";
-      msg.scrollIntoView({ behavior: "smooth", block: "start" });
-    } else {
-      alert("Fehler beim Absenden der Bewerbung.");
-    }
+      document.getElementById("successMessage").style.display = "block";
+      document.getElementById("successMessage").scrollIntoView({ behavior:"smooth", block:"start" });
+    } else alert("Fehler beim Absenden der Bewerbung.");
   } catch {
     alert("Netzwerkfehler beim Absenden.");
   }
