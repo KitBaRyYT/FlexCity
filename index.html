@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
 <title>Flex City Bewerbungen</title>
 <style>
 html, body { margin:0; padding:0; height:100%; }
@@ -44,26 +44,9 @@ form#bewerbungsForm button[type="submit"]:hover { background-color:#388e3c; }
 .kontakt-box img { max-width:180px; filter:brightness(90%); display:block; margin:0 auto 8px auto; }
 
 /* Captcha / Modal Embed */
-#captchaOverlay {
-  position: fixed; top:0; left:0; right:0; bottom:0;
-  background: rgba(0,0,0,0.7);
-  display: none; justify-content: center; align-items: center;
-  z-index: 9999;
-}
-#captchaBox {
-  background: #2f3136;
-  padding: 25px 30px;
-  border-radius: 12px;
-  max-width: 500px;
-  width: 90%;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.8);
-  color: #e0e0e0;
-  position: relative;
-  text-align: center;
-  border-left: 5px solid #5865F2;
-  animation: fadeIn 0.3s ease;
-}
-#captchaBox p { margin:0; font-size:1rem; line-height:1.5; }
+#captchaOverlay { position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.7); display:none; justify-content:center; align-items:center; z-index:9999; }
+#captchaBox { background:#2f3136; padding:25px 30px; border-radius:12px; max-width:500px; width:90%; box-shadow:0 8px 20px rgba(0,0,0,0.8); color:#e0e0e0; position: relative; text-align:center; border-left:5px solid #5865F2; animation:fadeIn 0.3s ease; }
+#captchaBox p { margin:10px 0; font-size:1rem; line-height:1.5; }
 #captchaBox button { margin-top:20px; background-color:#4caf50; color:#fff; border:none; padding:12px 20px; font-size:1rem; border-radius:6px; cursor:pointer; font-weight:700; }
 #captchaBox button:hover { background-color:#388e3c; }
 #captchaBox .closeCaptcha { position:absolute; top:10px; right:15px; font-size:1.2rem; cursor:pointer; }
@@ -86,6 +69,18 @@ form#bewerbungsForm button[type="submit"]:hover { background-color:#388e3c; }
     </div>
 
     <div class="section">
+      <h2>Über uns</h2>
+      <p>Wir sind ein Community-orientierter Minecraft Server mit verschiedensten Minigames.</p>
+      <p>Unser Ziel? Möglichst viele einzigartige Spiele und Features!</p>
+      <p>Fairness und Spielspaß stehen bei uns an erster Stelle.</p>
+    </div>
+
+    <div class="section">
+      <h2>Discord / Support</h2>
+      <a href="https://discord.gg/V6gu38RNZD" target="_blank" class="discord-button">Discord beitreten</a>
+    </div>
+
+    <div class="section">
       <h2>Bewerben</h2>
       <button class="bewerben-toggle" onclick="toggleBereiche()">Bewerben</button>
     </div>
@@ -99,6 +94,22 @@ form#bewerbungsForm button[type="submit"]:hover { background-color:#388e3c; }
         <button onclick="showForm('Manager')">Manager</button>
         <p>Manager leiten das Team und koordinieren Aufgaben und Kommunikation.</p>
       </div>
+      <div class="bereich-block">
+        <button onclick="showForm('Admin')">Admin</button>
+        <p>Admins sorgen für Serversicherheit und bannen Hacker oder Regelbrecher.</p>
+      </div>
+      <div class="bereich-block">
+        <button onclick="showForm('Builder')">Builder</button>
+        <p>Builder gestalten Maps und achten auf Design und Details.</p>
+      </div>
+      <div class="bereich-block">
+        <button onclick="showForm('Supporter')">Supporter</button>
+        <p>Supporter helfen auf Discord aktiv der Community.</p>
+      </div>
+      <div class="bereich-block">
+        <button onclick="showForm('Tester')">Tester</button>
+        <p>Tester spielen neue Maps/Minigames zuerst und bewerten Design, Fairness und Spielspaß.</p>
+      </div>
     </div>
 
     <form id="bewerbungsForm">
@@ -111,6 +122,8 @@ form#bewerbungsForm button[type="submit"]:hover { background-color:#388e3c; }
       <select id="minecraftVersion" required>
         <option value="" disabled selected>Wähle deine Minecraft Version</option>
         <option value="Java">Java</option>
+        <option value="Bedrock">Bedrock</option>
+        <option value="Beide">Beide</option>
       </select>
       <textarea id="why" rows="4" placeholder="Warum möchtest du in diesem Bereich mitarbeiten?" required></textarea>
       <button type="submit" onclick="showCaptcha(event)">Bewerbung abschicken</button>
@@ -126,7 +139,7 @@ form#bewerbungsForm button[type="submit"]:hover { background-color:#388e3c; }
   </div>
 </div>
 
-<!-- Captcha Embed -->
+<!-- Captcha / Modal Embed -->
 <div id="captchaOverlay">
   <div id="captchaBox">
     <span class="closeCaptcha" onclick="closeCaptcha()">×</span>
