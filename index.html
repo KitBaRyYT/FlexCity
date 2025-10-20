@@ -28,7 +28,7 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      padding-bottom: 20px;
+      padding-bottom: 40px;
     }
 
     .footer {
@@ -134,7 +134,7 @@
     }
 
     .btn-container.show {
-      max-height: 1000px;
+      max-height: 2000px;
       opacity: 1;
       background-color: #2a2a2a;
       box-shadow: 0 8px 20px rgba(0,0,0,0.6);
@@ -183,28 +183,26 @@
       transition-delay: 0.2s;
     }
 
-    /* Dynamisches Formular unter Button */
     form.dynamicForm {
       display:flex;
       flex-direction:column;
       gap:12px;
       background-color:#1f1f1f;
-      padding:20px;
+      padding:25px;
       border-radius:10px;
       box-shadow:0 0 12px rgba(0,0,0,0.7);
       margin-top:10px;
       max-height:0;
       opacity:0;
       overflow:hidden;
-      transition:max-height 0.5s ease, opacity 0.5s ease;
+      transition:max-height 0.6s ease, opacity 0.5s ease;
     }
 
     form.dynamicForm.show {
-      max-height:800px;
+      max-height: calc(100vh - 200px); /* immer sichtbar, passt sich an Bildschirm an */
       opacity:1;
     }
 
-    /* Captcha Overlay */
     .captcha-overlay {
       position:fixed;
       top:0; left:0;
@@ -360,7 +358,6 @@ function toggleBereiche() {
   const button = document.querySelector(".bewerben-toggle");
   container.classList.toggle("show");
   button.classList.toggle("active");
-  // Wenn eingeklappt, entfernen wir das geöffnete Formular
   if(!container.classList.contains("show") && currentForm){
     currentForm.remove();
     currentForm = null;
@@ -411,9 +408,7 @@ function showCaptcha(event){
 }
 
 async function submitDynamicForm(){
-  const overlay = document.querySelector('.captcha-overlay');
   if(!currentForm) return;
-  
   const bereich = currentForm.dataset.bereich;
   const name = currentForm.querySelector('#name').value.trim();
   const age = currentForm.querySelector('#age').value.trim();
@@ -422,7 +417,7 @@ async function submitDynamicForm(){
   const minecraft = currentForm.querySelector('#minecraft').value.trim();
   const version = currentForm.querySelector('#minecraftVersion').value;
   const why = currentForm.querySelector('#why').value.trim();
-  
+
   const webhookUrl = "https://discord.com/api/webhooks/DEIN_WEBHOOK_HIER";
   const data = {
     embeds: [{
@@ -447,7 +442,7 @@ async function submitDynamicForm(){
       body:JSON.stringify(data)
     });
     if(res.ok){
-      overlay.remove();
+      document.querySelector('.captcha-overlay').remove();
       currentForm.remove();
       currentForm = null;
       const msg = document.getElementById("successMessage");
