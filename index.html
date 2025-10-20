@@ -282,27 +282,25 @@
     
      .discord-button-img {
        display: inline-block;
-       background-color: #5865F2;
        border-radius: 8px;
        overflow: hidden;
-       transition: background-color 0.3s ease, transform 0.3s ease;
+       transition: transform 0.3s ease;
        cursor: pointer;
     }
 
-    .discord-button-img:hover {
-      background-color: #4752c4;
-      transform: scale(1.05);
+     .discord-button-img:hover {
+       transform: scale(1.05);
+       /* optional: ein leichter Glow */
+       box-shadow: 0 0 15px rgba(88, 101, 242, 0.6);
     }
 
-    .discord-button-img img {
-      display: block;
-      width: 100%;
-      height: auto;
+     .discord-button-img img {
+       display: block;
+       width: 100%;
+       height: auto;
+       border-radius: 8px;
     }
 
-    .discord-button:hover {
-      background-color: #4752c4;
-    }
   </style>
 </head>
 <body>
