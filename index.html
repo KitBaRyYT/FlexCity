@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -28,7 +29,7 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      padding-bottom: 80px;
+      padding-bottom: 80px; /* Platz für Fußleiste */
     }
 
     .footer {
@@ -167,46 +168,6 @@
       transition-delay: 0.2s;
     }
 
-    .project-container {
-      max-width: 600px;
-      margin: 40px auto 80px auto;
-      text-align: center;
-    }
-
-    .project-container button {
-      width: 100%;
-      background-color: #1f1f1f;
-      color: #e0e0e0;
-      border: 2px solid #333;
-      padding: 14px 20px;
-      font-size: 1.1rem;
-      cursor: pointer;
-      border-radius: 8px;
-      text-align: left;
-      margin-top: 10px;
-      transition: background-color 0.3s ease, border-color 0.3s ease;
-    }
-
-    .project-container button:hover {
-      background-color: #333;
-      border-color: #666;
-    }
-
-    .project-info {
-      opacity: 0;
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.5s ease, opacity 0.5s ease;
-      color: #aaa;
-      font-style: italic;
-    }
-
-    .project-info.show {
-      opacity: 1;
-      max-height: 200px;
-      margin-top: 5px;
-    }
-
     form.dynamicForm {
       display:flex;
       flex-direction:column;
@@ -303,25 +264,44 @@
       margin: 0 auto 8px auto;
     }
 
-    .discord-button-img {
+    .discord-button {
       display: inline-block;
+      margin-top: 10px;
+      background-color: #5865F2;
+      color: white;
+      border: none;
+      padding: 10px 16px;
       border-radius: 8px;
-      overflow: hidden;
-      transition: transform 0.3s ease;
       cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      user-select: none;
+      transition: background-color 0.3s ease;
+      
+    }
+    
+     .discord-button-img {
+       display: inline-block;
+       border-radius: 8px;
+       overflow: hidden;
+       transition: transform 0.3s ease;
+       cursor: pointer;
     }
 
-    .discord-button-img:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 15px rgba(88, 101, 242, 0.6);
+     .discord-button-img:hover {
+       transform: scale(1.05);
+       /* optional: ein leichter Glow */
+       box-shadow: 0 0 15px rgba(88, 101, 242, 0.6);
     }
 
-    .discord-button-img img {
-      display: block;
-      width: 100%;
-      height: auto;
-      border-radius: 8px;
+     .discord-button-img img {
+       display: block;
+       width: 100%;
+       height: auto;
+       border-radius: 8px;
     }
+
   </style>
 </head>
 <body>
@@ -354,7 +334,7 @@
       <p>Ein Spielmodus in welchem du Erkundest, Baust und Farmst. Mit anderen Spielern hast du die möglichkeit zu handeln, gemeinsam zu zocken oder dich einfach zu unterhalten.</p><br>
       <p>Erinnerst du dich noch an dein erstes Haus? oder deine erste Erkundungstour? All das... braucht nur den richtigen Server.</p><br>
       <p>Regeln:</p>
-      <p>Griefen, Angreifen sowie töten ohne ersichtlichen Grund ist verboten. Hacken oder das nutzen einer Minimap welche Strukturen anzeigt, sowie XRay ist ebenso untersagt.</p><br>
+      <p>Griefen, Angreifen sowie töten ohne ersichtlichen Grund ist verboten. Hacken oder das nutzen einer Minimap welche strukuturen anzeigt, sowie XRay ist ebenso untersagt. Sollte gegen eine oder mehrere Regelb verstoßen werden, führt dies unweigerlich zu einem Ausschluss des, und eventuell folgender Projekte.</p><br>
       <p>Teilnahme:</p>
       <p>Um an dem Projekt "Flex Attack" teilnehmen zu können, muss ein Ticket via Discord erfolgen, in welchem ihr euch Whitelisten lasst.</p>
     </div>
@@ -367,45 +347,28 @@
     <div class="btn-container" id="bereichContainer">
       <div class="bereich-block">
         <button onclick="toggleForm(this,'Developer')">Developer</button>
-        <p>Ein Developer kümmert sich um Plugins und technische Systeme.</p>
+        <p>Ein Developer kümmert sich um Technik, Plugins oder Configs. Coding-Erfahrung erforderlich.</p>
       </div>
       <div class="bereich-block">
         <button onclick="toggleForm(this,'Manager')">Manager</button>
-        <p>Ein Manager koordiniert das Team und sorgt für Struktur.</p>
+        <p>Manager leiten das Team und koordinieren Aufgaben und Kommunikation.</p>
       </div>
       <div class="bereich-block">
         <button onclick="toggleForm(this,'Admin')">Admin</button>
-        <p>Admins sichern den Server und achten auf Regelverstöße.</p>
+        <p>Admins sorgen für Serversicherheit und bannen Hacker oder Regelbrecher.</p>
       </div>
       <div class="bereich-block">
         <button onclick="toggleForm(this,'Builder')">Builder</button>
-        <p>Builder gestalten Maps mit Liebe zum Detail.</p>
-      </div>
-      <div class="bereich-block">
-        <button onclick="toggleForm(this,'Supportleitung')">Supportleitung</button>
-        <p>Leitet und unterstützt die Supporter.</p>
+        <p>Builder gestalten Maps und achten auf Design und Details.</p>
       </div>
       <div class="bereich-block">
         <button onclick="toggleForm(this,'Supporter')">Supporter</button>
-        <p>Supporter helfen der Community bei Fragen.</p>
+        <p>Supporter helfen auf Discord aktiv der Community.</p>
       </div>
       <div class="bereich-block">
         <button onclick="toggleForm(this,'Tester')">Tester</button>
-        <p>Tester probieren neue Inhalte aus und geben Feedback.</p>
+        <p>Tester spielen neue Maps/Minigames zuerst und bewerten Design, Fairness und Spielspaß.</p>
       </div>
-    </div>
-
-    <!-- Neue Sektion "Weitere Projekte" -->
-    <div class="section">
-      <h2>Weitere Projekte</h2>
-    </div>
-
-    <div class="project-container">
-      <button onclick="toggleProject('flexattack')">Flex Attack</button>
-      <div id="flexattack" class="project-info"><p>Bald verfügbar</p></div>
-
-      <button onclick="toggleProject('flexmas')">FlexMas</button>
-      <div id="flexmas" class="project-info"><p>Bald verfügbar</p></div>
     </div>
 
     <div id="successMessage" class="submitted" style="display:none;">
@@ -459,11 +422,6 @@ function toggleForm(button, bereich){
   currentForm = form;
 }
 
-function toggleProject(id){
-  const element = document.getElementById(id);
-  element.classList.toggle("show");
-}
-
 function showCaptcha(event){
   event.preventDefault();
   const overlay = document.createElement('div');
@@ -472,7 +430,7 @@ function showCaptcha(event){
     <div class="captcha-box">
       <span class="captcha-close" onclick="this.parentElement.parentElement.remove()">×</span>
       <h3>Warnung</h3>
-      <p>Mit Abgabe der Bewerbung willigst du ein, am Projekt „Flex City“ mitzuwirken. Urheberrechte verbleiben bei KitBaRyYT.</p>
+      <p>Mit Abgabe der Bewerbung bzw. dem Eintritt ins Team willigen Bewerber ein, am Projekt „Flex City“ mitzuwirken. Die Urheberrechte und das geistige Eigentum verbleiben uneingeschränkt bei KitBaRyYT.</p>
       <button onclick="submitDynamicForm()">Ich Akzeptiere</button>
     </div>
   `;
@@ -501,29 +459,32 @@ async function submitDynamicForm(){
         { name: "Erfahrung", value: experience },
         { name: "Discord-Name", value: discord },
         { name: "Minecraft Name", value: minecraft },
-        { name: "Version", value: version },
-        { name: "Motivation", value: why }
-      ],
-      footer: { text: "Flex City Bewerbungsformular" }
+        { name: "Minecraft Version", value: version },
+        { name: "Warum möchtest du in diesem Bereich mitarbeiten?", value: why }
+      ]
     }]
   };
 
-  try {
-    await fetch(webhookUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
+  try{
+    const res = await fetch(webhookUrl,{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify(data)
     });
-
-    document.querySelector(".captcha-overlay").remove();
-    currentForm.remove();
-    document.getElementById("successMessage").style.display = "block";
-    setTimeout(() => document.getElementById("successMessage").style.display = "none", 5000);
-  } catch (error) {
-    alert("Fehler beim Senden der Bewerbung!");
+    if(res.ok){
+      document.querySelector('.captcha-overlay').remove();
+      currentForm.remove();
+      currentForm = null;
+      const msg = document.getElementById("successMessage");
+      msg.style.display="block";
+      msg.scrollIntoView({behavior:"smooth", block:"start"});
+    } else {
+      alert("Fehler beim Absenden der Bewerbung.");
+    }
+  } catch {
+    alert("Netzwerkfehler beim Absenden.");
   }
 }
 </script>
 </body>
 </html>
-
