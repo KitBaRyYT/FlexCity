@@ -551,6 +551,8 @@ function showCaptcha(event){
 
 async function submitDynamicForm(){
   if(!currentForm) return;
+
+  // Werte auslesen
   const bereich = currentForm.dataset.bereich;
   const name = currentForm.querySelector('#name').value.trim();
   const age = currentForm.querySelector('#age').value.trim();
@@ -559,6 +561,12 @@ async function submitDynamicForm(){
   const minecraft = currentForm.querySelector('#minecraft').value.trim();
   const version = currentForm.querySelector('#minecraftVersion').value;
   const why = currentForm.querySelector('#why').value.trim();
+
+  // Alle Felder prüfen
+  if(!name || !age || !experience || !discord || !minecraft || !version || !why){
+    alert("Bitte fülle alle Felder aus, bevor du die Bewerbung absendest.");
+    return;
+  }
 
   const webhookUrl = "https://discord.com/api/webhooks/1398281766673973258/Jz7Ny0nBuNn0hx7GCvivdI_F_ng29ViG2BZH1qxOpH6EKivkMzW2J6eAGY9F9q1_uDlL";
   const data = {
@@ -597,7 +605,7 @@ async function submitDynamicForm(){
     alert("Netzwerkfehler beim Absenden.");
   }
 }
-  
+
 function toggleProjekt(id) {
   const container = document.getElementById(id + 'Container');
   const button = document.querySelector(`button[onclick="toggleProjekt('${id}')"]`);
@@ -620,19 +628,35 @@ function toggleDynamicForm(bereich){
 async function submitFlexMasForm(){
   if(!currentDynamicForm) return;
 
+  // Alle Werte auslesen
+  const name = document.getElementById('fm_name').value.trim();
+  const age = document.getElementById('fm_age').value.trim();
+  const platform = document.getElementById('fm_platform').value;
+  const account = document.getElementById('fm_account').value.trim();
+  const discord = document.getElementById('fm_discord').value.trim();
+  const mcName = document.getElementById('fm_mc').value.trim();
+  const hours = document.getElementById('fm_hours').value.trim();
+  const viewers = document.getElementById('fm_viewers').value.trim();
+
+  // Prüfung auf leere Felder
+  if(!name || !age || !platform || !account || !discord || !mcName || !hours || !viewers){
+    alert("Bitte fülle alle Felder aus, bevor du die Bewerbung absendest.");
+    return; // Abbrechen, wenn ein Feld leer ist
+  }
+
   const payload = {
     embeds: [{
       title: `Neue FlexMas Whitelist Anfrage`,
       color: 0x5865F2,
       fields: [
-        {name:"Name", value: document.getElementById('fm_name').value},
-        {name:"Alter", value: document.getElementById('fm_age').value},
-        {name:"Plattform", value: document.getElementById('fm_platform').value},
-        {name:"Account Link", value: document.getElementById('fm_account').value},
-        {name:"Discord", value: document.getElementById('fm_discord').value},
-        {name:"Minecraft Name", value: document.getElementById('fm_mc').value},
-        {name:"Ø Stunden/Woche", value: document.getElementById('fm_hours').value},
-        {name:"Ø Zuschauer", value: document.getElementById('fm_viewers').value}
+        {name:"Name", value: name},
+        {name:"Alter", value: age},
+        {name:"Plattform", value: platform},
+        {name:"Account Link", value: account},
+        {name:"Discord", value: discord},
+        {name:"Minecraft Name", value: mcName},
+        {name:"Ø Stunden/Woche", value: hours},
+        {name:"Ø Zuschauer", value: viewers}
       ]
     }]
   };
