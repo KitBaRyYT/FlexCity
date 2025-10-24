@@ -429,7 +429,7 @@
     <div class="section">
         <h2>Bewerben</h2>
         <p>Wähle deinen gewünschten Bereich aus und bewirb dich noch heute!</p>
-        <button class="bewerben-toggle" onclick="toggleBewerben()">Bewerbung starten</button>
+        <button class="bewerben-toggle" onclick="toggleBereiche()">Bewerbung starten</button>
 
     <div class="btn-container" id="bereichContainer">
       <div class="bereich-block">
@@ -571,6 +571,13 @@ async function submitDynamicForm(){
   } catch {
     alert("Netzwerkfehler beim Absenden.");
   }
+}
+  
+function toggleProjekt(id) {
+  const container = document.getElementById(id + 'Container');
+  const button = document.querySelector(`button[onclick="toggleProjekt('${id}')"]`);
+  container.classList.toggle('show');
+  button.classList.toggle('active');
 }
 </script>
 </body>
