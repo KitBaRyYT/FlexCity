@@ -426,6 +426,26 @@
           <li>🎮 Streamer nominieren – Community kämpft</li>
           <li>🌨️ Einmaliges Winter-Setting mit Interaktiven Adventskalender und Belohnungen</li>
         </ul>
+        <!-- FlexMas Whitelist Button -->
+<button class="whitelist-btn" onclick="toggleDynamicForm('FlexMas')">Whitelist beantragen</button>
+
+<!-- FlexMas Bewerbungsformular -->
+<form id="flexmasForm" class="dynamicForm" style="display:none;" data-bereich="FlexMas">
+  <input type="text" id="fm_name" placeholder="Name" required>
+  <input type="number" id="fm_age" placeholder="Alter" required>
+  <select id="fm_platform" required>
+    <option value="" disabled selected>Streaming Plattform</option>
+    <option value="youtube">YouTube</option>
+    <option value="twitch">Twitch</option>
+    <option value="tiktok">TikTok</option>
+  </select>
+  <input type="url" id="fm_account" placeholder="Link zum Account" required>
+  <input type="text" id="fm_discord" placeholder="Discord Name" required>
+  <input type="text" id="fm_mc" placeholder="Minecraft Name" required>
+  <input type="number" id="fm_hours" placeholder="Ø Stunden/Woche" required>
+  <input type="number" id="fm_viewers" placeholder="Ø Zuschauer pro Stream" required>
+  <button type="button" onclick="showDynamicCaptcha('flexmasForm')">Bewerbung absenden</button>
+</form>
       </div>
     </div>
   </div>
@@ -584,6 +604,74 @@ function toggleProjekt(id) {
   container.classList.toggle('show');
   button.classList.toggle('active');
 }
+
+  // === FlexMas Whitelist Bewerbungen ===
+const flexMasWebhook = "DEIN_FLEXMAS_WEBHOOK_HIER";
+
+let currentDynamicForm = null;
+
+function toggleDynamicForm(bereich){
+  const form = document.getElementById('flexmasForm');
+  form.style.display = form.style.display === 'block' ? 'none' : 'block';
+  currentDynamicForm = form;
+  form.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function showDynamicCaptcha(formId){
+  if(!currentDynamicForm) return;
+  const overlay = document.createElement('div');
+  overlay.className = 'captcha-overlay';
+  overlay.innerHTML = `
+    <div class="captcha-box">
+      <span class="captcha-close" onclick="this.parentElement.parentElement.remove()">×</span>
+      <h3>Warnung</h3>
+      <p>Mit Abgabe der Bewerbung willigst du ein, am Projekt „Flex City“ mitzuwirken. Urheberrechte verbleiben bei KitBaRyYT.</p>
+      <button onclick="submitFlexMasForm()">Ich Akzeptiere</button>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+}
+
+async function submitFlexMasForm(){
+  if(!currentDynamicForm) return;
+
+  const payload = {
+    embeds: [{
+      title: `Neue FlexMas Bewerbung`,
+      color: 0x5865F2,
+      fields: [
+        {name:"Name", value: document.getElementById('fm_name').value},
+        {name:"Alter", value: document.getElementById('fm_age').value},
+        {name:"Plattform", value: document.getElementById('fm_platform').value},
+        {name:"Account Link", value: document.getElementById('fm_account').value},
+        {name:"Discord", value: document.getElementById('fm_discord').value},
+        {name:"Minecraft Name", value: document.getElementById('fm_mc').value},
+        {name:"Ø Stunden/Woche", value: document.getElementById('fm_hours').value},
+        {name:"Ø Zuschauer", value: document.getElementById('fm_viewers').value}
+      ]
+    }]
+  };
+
+  try{
+    const res = await fetch(flexMasWebhook,{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify(payload)
+    });
+
+    if(res.ok){
+      document.querySelector('.captcha-overlay').remove();
+      currentDynamicForm.reset();
+      currentDynamicForm.style.display='none';
+      alert("FlexMas Bewerbung erfolgreich abgeschickt!");
+    } else {
+      alert("Fehler beim Absenden der FlexMas Bewerbung.");
+    }
+  } catch {
+    alert("Netzwerkfehler beim Absenden der FlexMas Bewerbung.");
+  }
+}
+
 </script>
 </body>
 </html>
