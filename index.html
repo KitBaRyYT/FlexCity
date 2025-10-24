@@ -28,7 +28,7 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      padding-bottom: 80px; /* Platz für Fußleiste */
+      padding-bottom: 80px;
     }
 
     .footer {
@@ -167,79 +167,53 @@
       transition-delay: 0.2s;
     }
 
-    form.dynamicForm {
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      background-color:#1f1f1f;
-      padding:25px;
-      border-radius:10px;
-      box-shadow:0 0 12px rgba(0,0,0,0.7);
-      margin-top:10px;
-      max-height:0;
-      opacity:0;
-      overflow:hidden;
-      transition:max-height 0.6s ease, opacity 0.5s ease;
+    .projekt-container {
+      max-width: 600px;
+      margin: 0 auto 50px auto;
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.6s ease, opacity 0.4s ease;
+      border-radius: 10px;
+      background-color: #1f1f1f;
     }
 
-    form.dynamicForm.show {
-      max-height: calc(100vh - 200px);
-      opacity:1;
+    .projekt-container.show {
+      max-height: 500px;
+      opacity: 1;
+      background-color: #2a2a2a;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.6);
     }
 
-    .captcha-overlay {
-      position:fixed;
-      top:0; left:0;
-      width:100%; height:100%;
-      background: rgba(0,0,0,0.8);
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      z-index:10000;
+    .projekt-block {
+      margin: 10px;
+      text-align: left;
     }
 
-    .captcha-box {
-      background:#1f1f1f;
-      padding:20px;
-      border-radius:10px;
-      width: 400px;
-      box-shadow:0 0 15px rgba(0,0,0,0.7);
-      position:relative;
-      color:#e0e0e0;
+    .projekt-block p {
+      margin-left: 15px;
+      color: #aaa;
+      font-style: italic;
     }
 
-    .captcha-box h3 {
-      margin-top:0;
+    .discord-button-img {
+      display: inline-block;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+      cursor: pointer;
     }
 
-    .captcha-box p {
-      font-size:0.95rem;
-      margin-bottom:15px;
-      color:#ccc;
+    .discord-button-img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(88, 101, 242, 0.6);
     }
 
-    .captcha-box button {
-      background:#4caf50;
-      color:#fff;
-      border:none;
-      padding:10px 20px;
-      border-radius:6px;
-      cursor:pointer;
-      font-weight:700;
-    }
-
-    .captcha-box button:hover {
-      background:#388e3c;
-    }
-
-    .captcha-close {
-      position:absolute;
-      top:10px;
-      right:10px;
-      cursor:pointer;
-      font-weight:bold;
-      font-size:1.2rem;
-      color:#ccc;
+    .discord-button-img img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
     }
 
     .kontakt-box {
@@ -258,49 +232,9 @@
 
     .kontakt-box img {
       max-width: 180px;
-      filter: brightness(90%);
       display: block;
       margin: 0 auto 8px auto;
     }
-
-    .discord-button {
-      display: inline-block;
-      margin-top: 10px;
-      background-color: #5865F2;
-      color: white;
-      border: none;
-      padding: 10px 16px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 0.95rem;
-      font-weight: 600;
-      text-decoration: none;
-      user-select: none;
-      transition: background-color 0.3s ease;
-      
-    }
-    
-     .discord-button-img {
-       display: inline-block;
-       border-radius: 8px;
-       overflow: hidden;
-       transition: transform 0.3s ease;
-       cursor: pointer;
-    }
-
-     .discord-button-img:hover {
-       transform: scale(1.05);
-       /* optional: ein leichter Glow */
-       box-shadow: 0 0 15px rgba(88, 101, 242, 0.6);
-    }
-
-     .discord-button-img img {
-       display: block;
-       width: 100%;
-       height: auto;
-       border-radius: 8px;
-    }
-
   </style>
 </head>
 <body>
@@ -327,15 +261,21 @@
       <p>Unser Ziel? Möglichst viele einzigartige Spiele und Features!</p>
       <p>Fairness und Spielspaß stehen bei uns an erster Stelle.</p>
     </div>
-    
+
     <div class="section">
-      <h2>Flex Attack</h2>
-      <p>Ein Spielmodus in welchem du Erkundest, Baust und Farmst. Mit anderen Spielern hast du die möglichkeit zu handeln, gemeinsam zu zocken oder dich einfach zu unterhalten.</p><br>
-      <p>Erinnerst du dich noch an dein erstes Haus? oder deine erste Erkundungstour? All das... braucht nur den richtigen Server.</p><br>
-      <p>Regeln:</p>
-      <p>Griefen, Angreifen sowie töten ohne ersichtlichen Grund ist verboten. Hacken oder das nutzen einer Minimap welche strukuturen anzeigt, sowie XRay ist ebenso untersagt. Sollte gegen eine oder mehrere Regelb verstoßen werden, führt dies unweigerlich zu einem Ausschluss des, und eventuell folgender Projekte.</p><br>
-      <p>Teilnahme:</p>
-      <p>Um an dem Projekt "Flex Attack" teilnehmen zu können, muss ein Ticket via Discord erfolgen, in welchem ihr euch Whitelisten lasst.</p>
+      <h2>Weitere Projekte</h2>
+      <button class="bewerben-toggle" onclick="toggleProjekte()">Weitere Projekte anzeigen</button>
+    </div>
+
+    <div class="projekt-container" id="projektContainer">
+      <div class="projekt-block">
+        <button onclick="toggleProjektInfo(this)">Flex Attack</button>
+        <p>Bald verfügbar</p>
+      </div>
+      <div class="projekt-block">
+        <button onclick="toggleProjektInfo(this)">FlexMas</button>
+        <p>Bald verfügbar</p>
+      </div>
     </div>
 
     <div class="section">
@@ -346,31 +286,23 @@
     <div class="btn-container" id="bereichContainer">
       <div class="bereich-block">
         <button onclick="toggleForm(this,'Developer')">Developer</button>
-        <p>Ein Developer kümmert sich auf dem Server im Bereich der Technik um beispielsweise Plugins oder Configs. Bei diesem Rang müssen Coding oder sonstige Erfahrungen vorhanden sein!</p>
+        <p>Ein Developer kümmert sich um Technik und Plugins.</p>
       </div>
       <div class="bereich-block">
         <button onclick="toggleForm(this,'Manager')">Manager</button>
-        <p>Ein Manager leitet das Team und kommuniziert zwischen Gründer und dem restlichen Team. Er sorgt dafür, dass jeder seiner Arbeit nachgeht.</p>
+        <p>Manager leiten das Team und koordinieren Aufgaben.</p>
       </div>
       <div class="bereich-block">
         <button onclick="toggleForm(this,'Admin')">Admin</button>
-        <p>Ein Admin kümmert sich rund um die Serversicherheit und bannt Hacker oder Spieler, die gegen Regeln verstoßen.</p>
+        <p>Admins sorgen für Serversicherheit.</p>
       </div>
       <div class="bereich-block">
         <button onclick="toggleForm(this,'Builder')">Builder</button>
-        <p>Ein Builder baut neue Maps und legt viel Wert auf Design und Details.</p>
-      </div>
-      <div class="bereich-block">
-        <button onclick="toggleForm(this,'Supportleitung')">Supporter</button>
-        <p>Supportleitung ist Ansprechpartner der Supporter und unterstützt diese bei ihrer Arbeit.</p>
+        <p>Builder gestalten Maps und achten auf Design.</p>
       </div>
       <div class="bereich-block">
         <button onclick="toggleForm(this,'Supporter')">Supporter</button>
-        <p>Ein Supporter ist aktiv auf Discord und kümmert sich um die Community und Fragen.</p>
-      </div>
-      <div class="bereich-block">
-        <button onclick="toggleForm(this,'Tester')">Tester</button>
-        <p>Tester spielen neue Maps und Minigames zuerst und bewerten Design, Fairness und Spielspaß.</p>
+        <p>Supporter helfen auf Discord aktiv der Community.</p>
       </div>
     </div>
 
@@ -389,13 +321,23 @@ let currentForm = null;
 
 function toggleBereiche() {
   const container = document.getElementById("bereichContainer");
-  const button = document.querySelector(".bewerben-toggle");
+  const button = document.querySelector(".bewerben-toggle:nth-of-type(2)");
   container.classList.toggle("show");
   button.classList.toggle("active");
   if(!container.classList.contains("show") && currentForm){
     currentForm.remove();
     currentForm = null;
   }
+}
+
+function toggleProjekte() {
+  const container = document.getElementById("projektContainer");
+  container.classList.toggle("show");
+}
+
+function toggleProjektInfo(button) {
+  const info = button.nextElementSibling;
+  info.style.display = (info.style.display === "block") ? "none" : "block";
 }
 
 function toggleForm(button, bereich){
@@ -433,7 +375,7 @@ function showCaptcha(event){
     <div class="captcha-box">
       <span class="captcha-close" onclick="this.parentElement.parentElement.remove()">×</span>
       <h3>Warnung</h3>
-      <p>Mit Abgabe der Bewerbung bzw. dem Eintritt ins Team willigen Bewerber ein, am Projekt „Flex City“ mitzuwirken. Die Urheberrechte und das geistige Eigentum verbleiben uneingeschränkt bei KitBaRyYT.</p>
+      <p>Mit Abgabe der Bewerbung willigst du ein, am Projekt „Flex City“ mitzuwirken.</p>
       <button onclick="submitDynamicForm()">Ich Akzeptiere</button>
     </div>
   `;
@@ -442,51 +384,13 @@ function showCaptcha(event){
 
 async function submitDynamicForm(){
   if(!currentForm) return;
-  const bereich = currentForm.dataset.bereich;
-  const name = currentForm.querySelector('#name').value.trim();
-  const age = currentForm.querySelector('#age').value.trim();
-  const experience = currentForm.querySelector('#experience').value.trim();
-  const discord = currentForm.querySelector('#discord').value.trim();
-  const minecraft = currentForm.querySelector('#minecraft').value.trim();
-  const version = currentForm.querySelector('#minecraftVersion').value;
-  const why = currentForm.querySelector('#why').value.trim();
-
-  const webhookUrl = "https://discord.com/api/webhooks/1398281766673973258/Jz7Ny0nBuNn0hx7GCvivdI_F_ng29ViG2BZH1qxOpH6EKivkMzW2J6eAGY9F9q1_uDlL";
-  const data = {
-    embeds: [{
-      title: `Neue Bewerbung für ${bereich}`,
-      color: 0x5865F2,
-      fields: [
-        { name: "Name", value: name },
-        { name: "Alter", value: age },
-        { name: "Erfahrung", value: experience },
-        { name: "Discord-Name", value: discord },
-        { name: "Minecraft Name", value: minecraft },
-        { name: "Minecraft Version", value: version },
-        { name: "Warum möchtest du in diesem Bereich mitarbeiten?", value: why }
-      ]
-    }]
-  };
-
-  try{
-    const res = await fetch(webhookUrl,{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify(data)
-    });
-    if(res.ok){
-      document.querySelector('.captcha-overlay').remove();
-      currentForm.remove();
-      currentForm = null;
-      const msg = document.getElementById("successMessage");
-      msg.style.display="block";
-      msg.scrollIntoView({behavior:"smooth", block:"start"});
-    } else {
-      alert("Fehler beim Absenden der Bewerbung.");
-    }
-  } catch {
-    alert("Netzwerkfehler beim Absenden.");
-  }
+  alert("Bewerbung erfolgreich abgeschickt (Testmodus).");
+  document.querySelector('.captcha-overlay').remove();
+  currentForm.remove();
+  currentForm = null;
+  const msg = document.getElementById("successMessage");
+  msg.style.display="block";
+  msg.scrollIntoView({behavior:"smooth", block:"start"});
 }
 </script>
 </body>
