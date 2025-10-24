@@ -431,19 +431,19 @@
 
 <!-- FlexMas Bewerbungsformular -->
 <form id="flexmasForm" class="dynamicForm" data-bereich="FlexMas">
-  <input type="text" id="fm_name" placeholder="Name" required>
-  <input type="number" id="fm_age" placeholder="Alter" required>
-  <select id="fm_platform" required>
+  <input type="text" class="fm_name" placeholder="Name" required>
+  <input type="number" class="fm_age" placeholder="Alter" required>
+  <select class="fm_platform" required>
     <option value="" disabled selected>Streaming Plattform</option>
     <option value="youtube">YouTube</option>
     <option value="twitch">Twitch</option>
     <option value="tiktok">TikTok</option>
   </select>
-  <input type="url" id="fm_account" placeholder="Link zum Account" required>
-  <input type="text" id="fm_discord" placeholder="Discord Name" required>
-  <input type="text" id="fm_mc" placeholder="Minecraft Name" required>
-  <input type="number" id="fm_hours" placeholder="Ø Stunden/Woche" required>
-  <input type="number" id="fm_viewers" placeholder="Ø Zuschauer pro Stream" required>
+  <input type="url" class="fm_account" placeholder="Link zum Account" required>
+  <input type="text" class="fm_discord" placeholder="Discord Name" required>
+  <input type="text" class="fm_mc" placeholder="Minecraft Name" required>
+  <input type="number" class="fm_hours" placeholder="Ø Stunden/Woche" required>
+  <input type="number" class="fm_viewers" placeholder="Ø Zuschauer pro Stream" required>
   <button type="button" onclick="submitFlexMasForm()">Bewerbung absenden</button>
 </form>
       </div>
@@ -613,14 +613,14 @@ function toggleProjekt(id) {
   button.classList.toggle('active');
 }
 
- // === FlexMas Whitelist Bewerbungen ===
+ <!-- === FlexMas Whitelist Bewerbungen === -->
+<script>
 const flexMasWebhook = "https://discord.com/api/webhooks/1431376196649877635/ZAryT96UBBjYjuSDVjzTdjnVPTgcfqsXwdXt9t-y-Cj6Gnk7XZOp2o_sfiZRSUrAQWA0";
-
 let currentDynamicForm = null;
 
 function toggleDynamicForm(bereich){
   const form = document.getElementById('flexmasForm');
-  form.classList.toggle('show'); // Klasse toggeln statt display
+  form.classList.toggle('show'); // Formular ein-/ausblenden
   currentDynamicForm = form;
   form.scrollIntoView({behavior:'smooth', block:'start'});
 }
@@ -628,20 +628,20 @@ function toggleDynamicForm(bereich){
 async function submitFlexMasForm(){
   if(!currentDynamicForm) return;
 
-  // Alle Werte auslesen
-  const name = document.getElementById('fm_name').value.trim();
-  const age = document.getElementById('fm_age').value.trim();
-  const platform = document.getElementById('fm_platform').value;
-  const account = document.getElementById('fm_account').value.trim();
-  const discord = document.getElementById('fm_discord').value.trim();
-  const mcName = document.getElementById('fm_mc').value.trim();
-  const hours = document.getElementById('fm_hours').value.trim();
-  const viewers = document.getElementById('fm_viewers').value.trim();
+  // Werte aus dem aktuell geöffneten Formular auslesen
+  const name = currentDynamicForm.querySelector('.fm_name').value.trim();
+  const age = currentDynamicForm.querySelector('.fm_age').value.trim();
+  const platform = currentDynamicForm.querySelector('.fm_platform').value;
+  const account = currentDynamicForm.querySelector('.fm_account').value.trim();
+  const discord = currentDynamicForm.querySelector('.fm_discord').value.trim();
+  const mcName = currentDynamicForm.querySelector('.fm_mc').value.trim();
+  const hours = currentDynamicForm.querySelector('.fm_hours').value.trim();
+  const viewers = currentDynamicForm.querySelector('.fm_viewers').value.trim();
 
   // Prüfung auf leere Felder
   if(!name || !age || !platform || !account || !discord || !mcName || !hours || !viewers){
     alert("Bitte fülle alle Felder aus, bevor du die Bewerbung absendest.");
-    return; // Abbrechen, wenn ein Feld leer ist
+    return;
   }
 
   const payload = {
@@ -661,8 +661,8 @@ async function submitFlexMasForm(){
     }]
   };
 
-  try{
-    const res = await fetch(flexMasWebhook,{
+  try {
+    const res = await fetch(flexMasWebhook, {
       method:"POST",
       headers:{"Content-Type":"application/json"},
       body:JSON.stringify(payload)
@@ -670,7 +670,7 @@ async function submitFlexMasForm(){
 
     if(res.ok){
       currentDynamicForm.reset();
-      currentDynamicForm.classList.remove('show'); // Formular ausblenden
+      currentDynamicForm.classList.remove('show');
       const msg = document.createElement('div'); 
       msg.className = "submitted";
       msg.textContent = "Deine Whitelist Anfrage wurde erfolgreich abgesendet!";
@@ -684,7 +684,6 @@ async function submitFlexMasForm(){
     alert("Netzwerkfehler beim Absenden der FlexMas Whitelist Anfrage.");
   }
 }
-
 </script>
 </body>
 </html>
