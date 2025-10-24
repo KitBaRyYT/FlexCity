@@ -605,7 +605,7 @@ function toggleProjekt(id) {
   button.classList.toggle('active');
 }
 
-  // === FlexMas Whitelist Bewerbungen ===
+ // === FlexMas Whitelist Bewerbungen ===
 const flexMasWebhook = "https://discord.com/api/webhooks/1431370156310921216/6XlhtTxDjzjxZd4zSuwQ0S_-lT-cf567ocP85P_HGAscYIrYnxBGMvubDnDA94ArGMEO";
 
 let currentDynamicForm = null;
@@ -615,21 +615,6 @@ function toggleDynamicForm(bereich){
   form.classList.toggle('show'); // Klasse toggeln statt display
   currentDynamicForm = form;
   form.scrollIntoView({behavior:'smooth', block:'start'});
-}
-
-function showDynamicCaptcha(formId){
-  if(!currentDynamicForm) return;
-  const overlay = document.createElement('div');
-  overlay.className = 'captcha-overlay';
-  overlay.innerHTML = `
-    <div class="captcha-box">
-      <span class="captcha-close" onclick="this.parentElement.parentElement.remove()">×</span>
-      <h3>Warnung</h3>
-      <p>Mit Abgabe der Bewerbung willigst du ein, am Projekt „Flex City“ mitzuwirken. Urheberrechte verbleiben bei KitBaRyYT.</p>
-      <button onclick="submitFlexMasForm()">Ich Akzeptiere</button>
-    </div>
-  `;
-  document.body.appendChild(overlay);
 }
 
 async function submitFlexMasForm(){
@@ -660,10 +645,14 @@ async function submitFlexMasForm(){
     });
 
     if(res.ok){
-      document.querySelector('.captcha-overlay').remove();
       currentDynamicForm.reset();
-      currentDynamicForm.style.display='none';
-      alert("FlexMas Whitelist Anfrage erfolgreich abgeschickt!");
+      currentDynamicForm.classList.remove('show'); // Formular ausblenden
+      const msg = document.createElement('div'); 
+      msg.className = "submitted";
+      msg.textContent = "Deine Whitelist Anfrage wurde erfolgreich abgesendet!";
+      currentDynamicForm.parentNode.appendChild(msg);
+      msg.scrollIntoView({behavior:"smooth", block:"start"});
+      currentDynamicForm = null;
     } else {
       alert("Fehler beim Absenden der FlexMas Whitelist Anfrage.");
     }
