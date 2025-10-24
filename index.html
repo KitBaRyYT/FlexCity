@@ -606,13 +606,13 @@ function toggleProjekt(id) {
 }
 
   // === FlexMas Whitelist Bewerbungen ===
-const flexMasWebhook = "DEIN_FLEXMAS_WEBHOOK_HIER";
+const flexMasWebhook = "https://discord.com/api/webhooks/1431370156310921216/6XlhtTxDjzjxZd4zSuwQ0S_-lT-cf567ocP85P_HGAscYIrYnxBGMvubDnDA94ArGMEO";
 
 let currentDynamicForm = null;
 
 function toggleDynamicForm(bereich){
   const form = document.getElementById('flexmasForm');
-  form.style.display = form.style.display === 'block' ? 'none' : 'block';
+  form.classList.toggle('show'); // Klasse toggeln statt display
   currentDynamicForm = form;
   form.scrollIntoView({behavior:'smooth', block:'start'});
 }
@@ -637,7 +637,7 @@ async function submitFlexMasForm(){
 
   const payload = {
     embeds: [{
-      title: `Neue FlexMas Bewerbung`,
+      title: `Neue FlexMas Whitelist Anfrage`,
       color: 0x5865F2,
       fields: [
         {name:"Name", value: document.getElementById('fm_name').value},
@@ -663,12 +663,12 @@ async function submitFlexMasForm(){
       document.querySelector('.captcha-overlay').remove();
       currentDynamicForm.reset();
       currentDynamicForm.style.display='none';
-      alert("FlexMas Bewerbung erfolgreich abgeschickt!");
+      alert("FlexMas Whitelist Anfrage erfolgreich abgeschickt!");
     } else {
-      alert("Fehler beim Absenden der FlexMas Bewerbung.");
+      alert("Fehler beim Absenden der FlexMas Whitelist Anfrage.");
     }
   } catch {
-    alert("Netzwerkfehler beim Absenden der FlexMas Bewerbung.");
+    alert("Netzwerkfehler beim Absenden der FlexMas Whitelist Anfrage.");
   }
 }
 
