@@ -1,9 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <title>Flex City Bewerbungen</title>
+  <title>Flex City</title>
   <style>
     html, body {
       margin: 0;
@@ -29,7 +28,7 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      padding-bottom: 80px; /* Platz für Fußleiste */
+      padding-bottom: 80px;
     }
 
     .footer {
@@ -72,237 +71,6 @@
       text-align: center;
     }
 
-    .section h2 {
-      font-weight: 700;
-      margin-bottom: 8px;
-      color: #e0e0e0;
-    }
-
-    .section p {
-      color: #bbb;
-      user-select: none;
-      margin-bottom: 20px;
-    }
-
-    .bewerben-toggle {
-      display: block;
-      margin: 20px auto 10px auto;
-      padding: 14px 24px;
-      font-size: 1.2rem;
-      font-weight: 700;
-      background-color: #888;
-      color: #121212;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.3s ease;
-    }
-
-    .bewerben-toggle.active {
-      background-color: #555;
-    }
-
-    .bewerben-toggle:hover {
-      transform: scale(1.05);
-    }
-
-    .btn-container {
-      max-width: 600px;
-      margin: 0 auto 80px auto;
-      overflow: hidden;
-      max-height: 0;
-      opacity: 0;
-      transition: max-height 0.6s ease, opacity 0.4s ease, box-shadow 0.4s ease, background-color 0.4s ease;
-      border-radius: 10px;
-      background-color: #1f1f1f; 
-      box-shadow: none;
-    }
-
-    .btn-container.show {
-      max-height: 2000px;
-      opacity: 1;
-      background-color: #2a2a2a;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.6);
-      z-index: 5;
-    }
-
-    .bereich-block {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      margin: 10px;
-    }
-
-    .bereich-block button {
-      width: 100%;
-      background-color: #1f1f1f;
-      color: #e0e0e0;
-      border: 2px solid #333;
-      padding: 14px 20px;
-      font-size: 1.1rem;
-      cursor: pointer;
-      border-radius: 8px;
-      text-align: left;
-      transition: background-color 0.3s ease, border-color 0.3s ease;
-      font-weight: 600;
-    }
-
-    .bereich-block button:hover {
-      background-color: #333333;
-      border-color: #666666;
-    }
-
-    .bereich-block p {
-      margin-left: 12px;
-      font-style: italic;
-      color: #999999;
-      user-select: none;
-      opacity: 0;
-      transform: translateY(-10px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
-    }
-
-    .btn-container.show .bereich-block p {
-      opacity: 1;
-      transform: translateY(0);
-      transition-delay: 0.2s;
-    }
-
-    form.dynamicForm {
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      background-color:#1f1f1f;
-      padding:25px;
-      border-radius:10px;
-      box-shadow:0 0 12px rgba(0,0,0,0.7);
-      margin-top:10px;
-      max-height:0;
-      opacity:0;
-      overflow:hidden;
-      transition:max-height 0.6s ease, opacity 0.5s ease;
-    }
-
-    form.dynamicForm.show {
-      max-height: calc(100vh - 200px);
-      opacity:1;
-    }
-
-    .captcha-overlay {
-      position:fixed;
-      top:0; left:0;
-      width:100%; height:100%;
-      background: rgba(0,0,0,0.8);
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      z-index:10000;
-    }
-
-    .captcha-box {
-      background:#1f1f1f;
-      padding:20px;
-      border-radius:10px;
-      width: 400px;
-      box-shadow:0 0 15px rgba(0,0,0,0.7);
-      position:relative;
-      color:#e0e0e0;
-    }
-
-    .captcha-box h3 {
-      margin-top:0;
-    }
-
-    .captcha-box p {
-      font-size:0.95rem;
-      margin-bottom:15px;
-      color:#ccc;
-    }
-
-    .captcha-box button {
-      background:#4caf50;
-      color:#fff;
-      border:none;
-      padding:10px 20px;
-      border-radius:6px;
-      cursor:pointer;
-      font-weight:700;
-    }
-
-    .captcha-box button:hover {
-      background:#388e3c;
-    }
-
-    .captcha-close {
-      position:absolute;
-      top:10px;
-      right:10px;
-      cursor:pointer;
-      font-weight:bold;
-      font-size:1.2rem;
-      color:#ccc;
-    }
-
-    .kontakt-box {
-      position: absolute;
-      top: 15px;
-      left: 15px;
-      background-color: rgba(100, 100, 100, 0.3);
-      color: #e0e0e0;
-      padding: 15px;
-      border-radius: 10px;
-      font-size: 0.95rem;
-      backdrop-filter: blur(4px);
-      z-index: 9999;
-      text-align: left;
-    }
-
-    .kontakt-box img {
-      max-width: 180px;
-      filter: brightness(90%);
-      display: block;
-      margin: 0 auto 8px auto;
-    }
-
-    .discord-button {
-      display: inline-block;
-      margin-top: 10px;
-      background-color: #5865F2;
-      color: white;
-      border: none;
-      padding: 10px 16px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 0.95rem;
-      font-weight: 600;
-      text-decoration: none;
-      user-select: none;
-      transition: background-color 0.3s ease;
-      
-    }
-    
-     .discord-button-img {
-       display: inline-block;
-       border-radius: 8px;
-       overflow: hidden;
-       transition: transform 0.3s ease;
-       cursor: pointer;
-    }
-
-     .discord-button-img:hover {
-       transform: scale(1.05);
-       /* optional: ein leichter Glow */
-       box-shadow: 0 0 15px rgba(88, 101, 242, 0.6);
-    }
-
-     .discord-button-img img {
-       display: block;
-       width: 100%;
-       height: auto;
-       border-radius: 8px;
-    }
-
-    /* Weitere Projekte Sektion */
     .weitere-projekte {
       max-width: 600px;
       margin: 40px auto 25px auto;
@@ -348,27 +116,49 @@
       max-width: 600px;
       margin: 10px auto 20px auto;
       overflow: hidden;
-      max-height: 0;
-      opacity: 0;
-      transition: max-height 0.6s ease, opacity 0.4s ease, box-shadow 0.4s ease, background-color 0.4s ease;
-      border-radius: 10px;
-      background-color: #1f1f1f; 
-      box-shadow: none;
-    }
-
-    .projekt-container.show {
       max-height: none;
       opacity: 1;
+      border-radius: 10px;
       background-color: #2a2a2a;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.6);
-    }
-
-    .projekt-content {
       padding: 20px;
       color: #e0e0e0;
       font-size: 1.1rem;
     }
-    
+
+    .kontakt-box {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background-color: rgba(100, 100, 100, 0.3);
+      color: #e0e0e0;
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      backdrop-filter: blur(4px);
+      z-index: 9999;
+      text-align: left;
+    }
+
+    .kontakt-box img {
+      max-width: 180px;
+      filter: brightness(90%);
+      display: block;
+      margin: 0 auto 8px auto;
+    }
+
+    .discord-button-img {
+      display: inline-block;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .discord-button-img img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
   </style>
 </head>
 <body>
@@ -397,292 +187,21 @@
     </div>
 
     <div class="weitere-projekte">
-  <h2>Weitere Projekte</h2>
-  <div class="projekt-buttons">
-    <!-- Flex Attack -->
-    <button class="projekt-toggle" onclick="toggleProjekt('flexattack')">Flex Attack</button>
-    <div class="projekt-container" id="flexattackContainer">
-      <div class="projekt-content">
-        <p>Ein Spielmodus in welchem du Erkundest, Baust und Farmst. Mit anderen Spielern hast du die Möglichkeit zu handeln, gemeinsam zu zocken oder dich einfach zu unterhalten.</p><br>
-        <p>Erinnerst du dich noch an dein erstes Haus? oder deine erste Erkundungstour? All das... braucht nur den richtigen Server.</p><br>
-        <p>Regeln:</p>
-        <p>Griefen, Angreifen sowie Töten ohne ersichtlichen Grund ist verboten. Hacken oder das Nutzen einer Minimap, welche Strukturen anzeigt, sowie XRay ist ebenso untersagt. Sollte gegen eine oder mehrere Regeln verstoßen werden, führt dies unweigerlich zu einem Ausschluss des, und eventuell folgender Projekte.</p><br>
-        <p>Teilnahme:</p>
-        <p>Um an dem Projekt "Flex Attack" teilnehmen zu können, muss ein Ticket via Discord erfolgen, in welchem ihr euch whitelisten lasst.</p>
+      <h2>Weitere Projekte</h2>
+      <div class="projekt-buttons">
+        <div class="projekt-container">
+          <p>Flex Attack: Ein Spielmodus in welchem du erkundest, baust und farmst.</p>
+        </div>
+        <div class="projekt-container">
+          <p>FlexMas: Streamer-Event im Frost. Tauche ein in eine verschneite Survival-Welt.</p>
+        </div>
       </div>
-    </div>
-
-    <!-- FlexMas -->
-    <button class="projekt-toggle" onclick="toggleProjekt('flexmas')">FlexMas</button>
-    <div class="projekt-container" id="flexmasContainer">
-      <div class="projekt-content">
-        <p>❄️ <strong>FlexMas – Das Streamer-Event im Frost!</strong></p>
-        <p>Der Dezember wird kalt, chaotisch und legendär! Am 1. Dezember öffnet FlexMas seine Tore – ein einzigartiges Minecraft-Projekt, bei dem Streamer das Tor zur Welt sind.</p>
-        <p>Nur wer von einem Streamer vorgeschlagen und whitelisted wird, darf joinen – kein Zufall, keine Randoms, nur echte Connections und Community-Power.</p>
-        <p>Tauche ein in eine verschneite Survival-Welt voller geheimer Events, Team-Battles und winterlicher Herausforderungen.</p>
-        <p>Sammle Ressourcen, kämpfe gegen die Kälte und zeig, dass du auch im Frost den härtesten Flex hast.</p>
-        <ul>
-          <li>❄️ <strong>Start:</strong> 01.12</li>
-          <li>🎮 Streamer nominieren – Community kämpft</li>
-          <li>🌨️ Einmaliges Winter-Setting mit Interaktiven Adventskalender und Belohnungen</li>
-        </ul>
-        <!-- FlexMas Whitelist Button -->
-<button class="whitelist-btn" onclick="toggleDynamicForm('FlexMas')">Whitelist beantragen</button>
-
-<!-- FlexMas Bewerbungsformular -->
-<form id="flexmasForm" class="dynamicForm" data-bereich="FlexMas">
-  <input type="text" class="fm_name" placeholder="Name" required>
-  <input type="number" class="fm_age" placeholder="Alter" required>
-  <select class="fm_platform" required>
-    <option value="" disabled selected>Streaming Plattform</option>
-    <option value="youtube">YouTube</option>
-    <option value="twitch">Twitch</option>
-    <option value="tiktok">TikTok</option>
-  </select>
-  <input type="url" class="fm_account" placeholder="Link zum Account" required>
-  <input type="text" class="fm_discord" placeholder="Discord Name" required>
-  <input type="text" class="fm_mc" placeholder="Minecraft Name" required>
-  <input type="number" class="fm_hours" placeholder="Ø Stunden/Woche" required>
-  <input type="number" class="fm_viewers" placeholder="Ø Zuschauer pro Stream" required>
-  <button type="button" onclick="submitFlexMasForm()">Bewerbung absenden</button>
-</form>
-      </div>
-    </div>
-  </div>
-</div>
-  
-    <div class="section">
-        <h2>Bewerben</h2>
-        <p>Wähle deinen gewünschten Bereich aus und bewirb dich noch heute!</p>
-        <button class="bewerben-toggle" onclick="toggleBereiche()">Bewerbung starten</button>
-
-    <div class="btn-container" id="bereichContainer">
-      <div class="bereich-block">
-        <button onclick="toggleForm(this,'Developer')">Developer</button>
-        <p>Ein Developer kümmert sich um Technik, Plugins oder Configs. Coding-Erfahrung erforderlich.</p>
-      </div>
-      <div class="bereich-block">
-        <button onclick="toggleForm(this,'Manager')">Manager</button>
-        <p>Ein Manager leitet das Team und koordinieren Aufgaben und Kommunikation.</p>
-      </div>
-      <div class="bereich-block">
-        <button onclick="toggleForm(this,'Admin')">Admin</button>
-        <p>Admins sorgen für Serversicherheit und bannen Hacker oder Regelbrecher.</p>
-      </div>
-      <div class="bereich-block">
-        <button onclick="toggleForm(this,'Builder')">Builder</button>
-        <p>Builder gestalten Maps und achten auf Design und Details.</p>
-      </div>
-      <div class="bereich-block">
-        <button onclick="toggleForm(this,'Supporter')">Supporter</button>
-        <p>Supporter helfen auf Discord aktiv der Community.</p>
-      </div>
-      <div class="bereich-block">
-        <button onclick="toggleForm(this,'Tester')">Tester</button>
-        <p>Tester spielen neue Maps/Minigames zuerst und bewerten Design, Fairness und Spielspaß.</p>
-      </div>
-    </div>
-
-    <div id="successMessage" class="submitted" style="display:none;">
-      Vielen Dank für deine Bewerbung! Wir melden uns schnellstmöglich bei dir.
     </div>
   </div>
 
   <footer class="footer">
-    © 2025 Flex City – Mit Abgabe der Bewerbung willigst du ein, am Projekt „Flex City“ mitzuwirken.
+    © 2025 Flex City
   </footer>
 </div>
-
-<script>
-let currentForm = null;
-
-function toggleBereiche() {
-  const container = document.getElementById("bereichContainer");
-  const button = document.querySelector(".bewerben-toggle");
-  container.classList.toggle("show");
-  button.classList.toggle("active");
-  if(!container.classList.contains("show") && currentForm){
-    currentForm.remove();
-    currentForm = null;
-  }
-}
-
-function toggleForm(button, bereich){
-  if(currentForm) currentForm.remove();
-  const form = document.createElement('form');
-  form.className = 'dynamicForm';
-  form.dataset.bereich = bereich;
-  form.innerHTML = `
-    <h3>Bewerbung für ${bereich}</h3>
-    <input type="text" id="name" placeholder="Dein Name" required />
-    <input type="number" id="age" placeholder="Dein Alter" required min="10" max="100" />
-    <input type="text" id="experience" placeholder="Deine Erfahrung" required />
-    <input type="text" id="discord" placeholder="Dein Discord-Name" required />
-    <input type="text" id="minecraft" placeholder="Dein Minecraft Name" required />
-    <select id="minecraftVersion" required>
-      <option value="" disabled selected>Wähle deine Minecraft Version</option>
-      <option value="Java">Java</option>
-      <option value="Bedrock">Bedrock</option>
-      <option value="Beide">Beide</option>
-    </select>
-    <textarea id="why" rows="4" placeholder="Warum möchtest du in diesem Bereich mitarbeiten?" required></textarea>
-    <button type="submit" onclick="showCaptcha(event)">Bewerbung abschicken</button>
-  `;
-  button.parentNode.appendChild(form);
-  setTimeout(()=>form.classList.add('show'),10);
-  form.scrollIntoView({behavior:'smooth', block:'start'});
-  currentForm = form;
-}
-
-function showCaptcha(event){
-  event.preventDefault();
-  const overlay = document.createElement('div');
-  overlay.className = 'captcha-overlay';
-  overlay.innerHTML = `
-    <div class="captcha-box">
-      <span class="captcha-close" onclick="this.parentElement.parentElement.remove()">×</span>
-      <h3>Warnung</h3>
-      <p>Mit Abgabe der Bewerbung bzw. dem Eintritt ins Team willigen Bewerber ein, am Projekt „Flex City“ mitzuwirken. Die Urheberrechte und das geistige Eigentum verbleiben uneingeschränkt bei KitBaRyYT.</p>
-      <button onclick="submitDynamicForm()">Ich Akzeptiere</button>
-    </div>
-  `;
-  document.body.appendChild(overlay);
-}
-
-async function submitDynamicForm(){
-  if(!currentForm) return;
-
-  // Werte auslesen
-  const bereich = currentForm.dataset.bereich;
-  const name = currentForm.querySelector('#name').value.trim();
-  const age = currentForm.querySelector('#age').value.trim();
-  const experience = currentForm.querySelector('#experience').value.trim();
-  const discord = currentForm.querySelector('#discord').value.trim();
-  const minecraft = currentForm.querySelector('#minecraft').value.trim();
-  const version = currentForm.querySelector('#minecraftVersion').value;
-  const why = currentForm.querySelector('#why').value.trim();
-
-  // Alle Felder prüfen
-  if(!name || !age || !experience || !discord || !minecraft || !version || !why){
-    alert("Bitte fülle alle Felder aus, bevor du die Bewerbung absendest.");
-    return;
-  }
-
-  const webhookUrl = "https://discord.com/api/webhooks/1431596654623981648/kZ8hSwpPaAOuQPJiH_6g7iaRxqegX_VM_cag4YRhezEHobMXzbYq0A-3e-97o96fl9_t";
-  const data = {
-    embeds: [{
-      title: `Neue Bewerbung für ${bereich}`,
-      color: 0x5865F2,
-      fields: [
-        { name: "Name", value: name },
-        { name: "Alter", value: age },
-        { name: "Erfahrung", value: experience },
-        { name: "Discord-Name", value: discord },
-        { name: "Minecraft Name", value: minecraft },
-        { name: "Minecraft Version", value: version },
-        { name: "Warum möchtest du in diesem Bereich mitarbeiten?", value: why }
-      ]
-    }]
-  };
-
-  try{
-    const res = await fetch(webhookUrl,{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify(data)
-    });
-    if(res.ok){
-      document.querySelector('.captcha-overlay').remove();
-      currentForm.remove();
-      currentForm = null;
-      const msg = document.getElementById("successMessage");
-      msg.style.display="block";
-      msg.scrollIntoView({behavior:"smooth", block:"start"});
-    } else {
-      alert("Fehler beim Absenden der Bewerbung.");
-    }
-  } catch {
-    alert("Netzwerkfehler beim Absenden.");
-  }
-}
-
-function toggleProjekt(id) {
-  const container = document.getElementById(id + 'Container');
-  const button = document.querySelector(`button[onclick="toggleProjekt('${id}')"]`);
-  container.classList.toggle('show');
-  button.classList.toggle('active');
-}
-
- // === FlexMas Whitelist Bewerbungen ===
-const flexMasWebhook = "https://discord.com/api/webhooks/1431376196649877635/ZAryT96UBBjYjuSDVjzTdjnVPTgcfqsXwdXt9t-y-Cj6Gnk7XZOp2o_sfiZRSUrAQWA0";
-let currentDynamicForm = null;
-
-function toggleDynamicForm(bereich){
-  const form = document.getElementById('flexmasForm');
-  form.classList.toggle('show'); // Formular ein-/ausblenden
-  currentDynamicForm = form;
-  form.scrollIntoView({behavior:'smooth', block:'start'});
-}
-
-async function submitFlexMasForm(){
-  if(!currentDynamicForm) return;
-
-  // Werte aus dem aktuell geöffneten Formular auslesen
-  const name = currentDynamicForm.querySelector('.fm_name').value.trim();
-  const age = currentDynamicForm.querySelector('.fm_age').value.trim();
-  const platform = currentDynamicForm.querySelector('.fm_platform').value;
-  const account = currentDynamicForm.querySelector('.fm_account').value.trim();
-  const discord = currentDynamicForm.querySelector('.fm_discord').value.trim();
-  const mcName = currentDynamicForm.querySelector('.fm_mc').value.trim();
-  const hours = currentDynamicForm.querySelector('.fm_hours').value.trim();
-  const viewers = currentDynamicForm.querySelector('.fm_viewers').value.trim();
-
-  // Prüfung auf leere Felder
-  if(!name || !age || !platform || !account || !discord || !mcName || !hours || !viewers){
-    alert("Bitte fülle alle Felder aus, bevor du die Bewerbung absendest.");
-    return;
-  }
-
-  const payload = {
-    embeds: [{
-      title: `Neue FlexMas Whitelist Anfrage`,
-      color: 0x5865F2,
-      fields: [
-        {name:"Name", value: name},
-        {name:"Alter", value: age},
-        {name:"Plattform", value: platform},
-        {name:"Account Link", value: account},
-        {name:"Discord", value: discord},
-        {name:"Minecraft Name", value: mcName},
-        {name:"Ø Stunden/Woche", value: hours},
-        {name:"Ø Zuschauer", value: viewers}
-      ]
-    }]
-  };
-
-  try {
-    const res = await fetch(flexMasWebhook, {
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify(payload)
-    });
-
-    if(res.ok){
-      currentDynamicForm.reset();
-      currentDynamicForm.classList.remove('show');
-      const msg = document.createElement('div'); 
-      msg.className = "submitted";
-      msg.textContent = "Deine Whitelist Anfrage wurde erfolgreich abgesendet!";
-      currentDynamicForm.parentNode.appendChild(msg);
-      msg.scrollIntoView({behavior:"smooth", block:"start"});
-      currentDynamicForm = null;
-    } else {
-      alert("Fehler beim Absenden der FlexMas Whitelist Anfrage.");
-    }
-  } catch {
-    alert("Netzwerkfehler beim Absenden der FlexMas Whitelist Anfrage.");
-  }
-}
-</script>
 </body>
 </html>
